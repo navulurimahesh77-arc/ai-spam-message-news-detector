@@ -1,16 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI Spam, Message & News Detector - Privacy-first local detector for messages, promotional spam, news claims, and Windows notifications.">
+  <meta name="description" content="AI Spam, Message & News Detector - Universal detector for Gmail, SMS, WhatsApp, and notifications.">
   <title>AI Spam, Message &amp; News Detector</title>
   <style>
-/*
- * AI Spam, Message & News Detector
- * Modern, Accessible, Responsive Stylesheet
- */
-
+/* Modern, Accessible, Responsive Stylesheet */
 :root {
   --bg-primary: #0f172a;
   --bg-surface: #1e293b;
@@ -24,7 +20,6 @@
   --primary: #2563eb;
   --primary-hover: #1d4ed8;
 
-  /* Classification & Risk Colors */
   --color-safe: #10b981;
   --color-safe-bg: rgba(16, 185, 129, 0.15);
   --color-safe-border: rgba(16, 185, 129, 0.3);
@@ -44,18 +39,12 @@
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-main);
   line-height: 1.5;
@@ -64,7 +53,6 @@ body {
   flex-direction: column;
 }
 
-/* Header & Navbar */
 .app-header {
   background-color: var(--bg-surface);
   border-bottom: 1px solid var(--border-color);
@@ -74,7 +62,6 @@ body {
   z-index: 100;
   box-shadow: var(--shadow);
 }
-
 .header-inner {
   max-width: 1200px;
   margin: 0 auto;
@@ -84,13 +71,7 @@ body {
   flex-wrap: wrap;
   gap: 1rem;
 }
-
-.brand-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
+.brand-wrapper { display: flex; align-items: center; gap: 0.75rem; }
 .brand-icon {
   width: 40px;
   height: 40px;
@@ -100,20 +81,9 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 1.3rem;
-  box-shadow: 0 0 12px rgba(37, 99, 235, 0.5);
 }
-
-.brand-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-}
-
-.brand-subtitle {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
+.brand-title { font-size: 1.25rem; font-weight: 700; color: #ffffff; }
+.brand-subtitle { font-size: 0.8rem; color: var(--text-muted); }
 
 .companion-pill {
   display: flex;
@@ -122,166 +92,84 @@ body {
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
   font-size: 0.8rem;
-  font-weight: 500;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-color);
-  transition: all 0.2s ease;
+  font-weight: 600;
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
 }
-
 .status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #64748b;
+  background-color: #10b981;
+  box-shadow: 0 0 8px #10b981;
 }
 
-.companion-pill.connected .status-dot {
-  background-color: var(--color-safe);
-  box-shadow: 0 0 8px var(--color-safe);
-}
-
-.companion-pill.standalone .status-dot {
-  background-color: var(--color-spam);
-}
-
-/* Tab Navigation */
 .tabs-nav {
   max-width: 1200px;
-  margin: 1.25rem auto 0;
-  padding: 0 1.5rem;
+  margin: 1rem auto 0;
+  padding: 0 1rem;
   display: flex;
   gap: 0.5rem;
   border-bottom: 1px solid var(--border-color);
   overflow-x: auto;
 }
-
 .tab-btn {
   background: none;
   border: none;
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.75rem 1.25rem;
+  padding: 0.65rem 1rem;
   cursor: pointer;
   border-bottom: 2px solid transparent;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   white-space: nowrap;
-  transition: color 0.2s, border-color 0.2s;
+  transition: all 0.2s;
 }
+.tab-btn:hover { color: var(--text-main); }
+.tab-btn.active { color: #38bdf8; border-bottom-color: #38bdf8; }
 
-.tab-btn:hover {
-  color: var(--text-main);
-}
-
-.tab-btn.active {
-  color: #38bdf8;
-  border-bottom-color: #38bdf8;
-}
-
-/* Main Container */
 .main-content {
   max-width: 1200px;
   width: 100%;
   margin: 1.5rem auto;
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
   flex: 1;
 }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-.tab-panel {
-  display: none;
-  animation: fadeIn 0.2s ease;
-}
-
-.tab-panel.active {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Card Containers */
 .card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  box-shadow: var(--shadow);
   margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
 }
+.card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-description { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.25rem; }
 
-.card-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.card-description {
-  color: var(--text-muted);
-  font-size: 0.875rem;
-  margin-bottom: 1.25rem;
-}
-
-/* Textarea & Inputs */
-.input-group {
-  position: relative;
-  margin-bottom: 1rem;
-}
-
-.textarea-field {
+.textarea-field, .input-text {
   width: 100%;
-  min-height: 140px;
   background-color: var(--bg-input);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 1rem;
+  padding: 0.85rem;
   color: var(--text-main);
   font-size: 0.95rem;
   font-family: inherit;
-  resize: vertical;
-  line-height: 1.6;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  margin-bottom: 0.75rem;
 }
-
-.textarea-field:focus {
+.textarea-field:focus, .input-text:focus {
   border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
 }
 
-.input-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 0.35rem;
-}
-
-/* Form Controls & Toolbar */
-.toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-
-.toolbar-left, .toolbar-right {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -293,62 +181,23 @@ body {
   font-weight: 600;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: all 0.2s ease;
-  user-select: none;
+  transition: all 0.2s;
 }
-
-.btn-primary {
-  background-color: var(--primary);
-  color: #ffffff;
-}
-
-.btn-primary:hover {
-  background-color: var(--primary-hover);
-  box-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
-}
-
-.btn-secondary {
-  background-color: var(--bg-surface-elevated);
-  border-color: var(--border-color);
-  color: var(--text-main);
-}
-
-.btn-secondary:hover {
-  background-color: #475569;
-}
-
-.btn-danger {
-  background-color: rgba(239, 68, 68, 0.15);
-  border-color: rgba(239, 68, 68, 0.3);
-  color: #fca5a5;
-}
-
-.btn-danger:hover {
-  background-color: rgba(239, 68, 68, 0.3);
-}
-
-.btn-sm {
-  padding: 0.4rem 0.75rem;
-  font-size: 0.8rem;
-}
-
-/* Select Dropdown */
+.btn-primary { background-color: var(--primary); color: #fff; }
+.btn-primary:hover { background-color: var(--primary-hover); }
+.btn-secondary { background-color: var(--bg-surface-elevated); border-color: var(--border-color); color: var(--text-main); }
+.btn-secondary:hover { background-color: #475569; }
+.btn-sm { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
 .select-input {
   background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   color: var(--text-main);
-  padding: 0.55rem 0.85rem;
-  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
   outline: none;
-  cursor: pointer;
 }
 
-.select-input:focus {
-  border-color: var(--border-focus);
-}
-
-/* Alerts */
 .alert {
   padding: 0.85rem 1.15rem;
   border-radius: var(--radius-md);
@@ -357,117 +206,37 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  animation: fadeIn 0.2s ease;
 }
-
-.alert-warning {
-  background-color: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  color: #fde68a;
-}
-
-.alert-info {
-  background-color: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  color: #bae6fd;
-}
-
-/* Results Grid */
-.results-container {
-  display: grid;
-  gap: 1.5rem;
-  animation: fadeIn 0.25s ease;
-}
+.alert-warning { background-color: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3); color: #fde68a; }
+.alert-info { background-color: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #bae6fd; }
 
 .metrics-overview {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
+  margin-bottom: 1.5rem;
 }
-
 .metric-card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
+.metric-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem; }
+.metric-value { font-size: 1.75rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem; }
 
-.metric-label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
-}
-
-.metric-value {
-  font-size: 1.75rem;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.metric-footer {
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  margin-top: 0.5rem;
-  line-height: 1.3;
-}
-
-/* Badges */
 .badge {
   display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.3rem 0.75rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 9999px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
 }
-
-.badge-safe {
-  background-color: var(--color-safe-bg);
-  border: 1px solid var(--color-safe-border);
-  color: var(--color-safe);
-}
-
-.badge-spam {
-  background-color: var(--color-spam-bg);
-  border: 1px solid var(--color-spam-border);
-  color: var(--color-spam);
-}
-
-.badge-harmful {
-  background-color: var(--color-harmful-bg);
-  border: 1px solid var(--color-harmful-border);
-  color: var(--color-harmful);
-}
-
-.badge-verify {
-  background-color: var(--color-verify-bg);
-  border: 1px solid var(--color-verify-border);
-  color: var(--color-verify);
-}
-
-/* Risk Level Pills */
-.risk-low { color: var(--color-safe); font-weight: 700; }
-.risk-medium { color: var(--color-spam); font-weight: 700; }
-.risk-high { color: var(--color-harmful); font-weight: 700; }
-
-/* Flags and Tags */
-.flags-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-}
+.badge-safe { background-color: var(--color-safe-bg); border: 1px solid var(--color-safe-border); color: var(--color-safe); }
+.badge-spam { background-color: var(--color-spam-bg); border: 1px solid var(--color-spam-border); color: var(--color-spam); }
+.badge-harmful { background-color: var(--color-harmful-bg); border: 1px solid var(--color-harmful-border); color: var(--color-harmful); }
+.badge-verify { background-color: var(--color-verify-bg); border: 1px solid var(--color-verify-border); color: var(--color-verify); }
 
 .flag-chip {
   background-color: var(--bg-surface-elevated);
@@ -477,231 +246,28 @@ body {
   font-size: 0.8rem;
   font-weight: 600;
   color: #e2e8f0;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
 }
+.flags-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
 
-.quote-highlight {
-  background-color: rgba(239, 68, 68, 0.2);
-  color: #fca5a5;
-  padding: 0.15rem 0.4rem;
-  border-radius: 4px;
-  font-family: monospace;
-  font-size: 0.85rem;
-}
-
-/* News Analysis Panel */
-.news-box {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(30, 41, 59, 0.5));
-  border: 1px solid var(--color-verify-border);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem;
-  margin-top: 1rem;
-}
-
-.news-box-title {
-  color: #c4b5fd;
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.checklist {
-  list-style: none;
-  margin-top: 0.75rem;
-}
-
-.checklist li {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 0.4rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-.checklist li::before {
-  content: "✓";
-  color: #a78bfa;
-  font-weight: bold;
-}
-
-/* Notification Controls & Feeds */
-.controls-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-
-.toggle-group {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem;
-  background-color: var(--bg-surface-elevated);
-  border-radius: var(--radius-md);
-  margin-bottom: 0.75rem;
-}
-
-.toggle-label {
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.toggle-hint {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-/* Switches */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 44px;
-  height: 24px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-color: #475569;
-  transition: .3s;
+/* Phone chat bubble preview */
+.phone-mockup {
+  max-width: 380px;
+  margin: 1rem auto;
+  background: #0f172a;
+  border: 2px solid #334155;
   border-radius: 24px;
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: .3s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: var(--primary);
-}
-
-input:checked + .slider:before {
-  transform: translateX(20px);
-}
-
-/* Apps Filter Grid */
-.apps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-}
-
-.app-checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.chat-bubble {
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
   font-size: 0.85rem;
-  background-color: var(--bg-surface-elevated);
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
+  border-left: 4px solid var(--primary);
 }
 
-/* Notification Feed Items */
-.notif-feed {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.notif-item {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-left: 4px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 1.15rem;
-  transition: transform 0.2s, box-shadow 0.2s;
-  animation: fadeIn 0.3s ease;
-}
-
-.notif-item:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow);
-}
-
-.notif-item.safe { border-left-color: var(--color-safe); }
-.notif-item.spam { border-left-color: var(--color-spam); }
-.notif-item.harmful { border-left-color: var(--color-harmful); }
-.notif-item.verify { border-left-color: var(--color-verify); }
-
-.notif-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.notif-source {
-  font-weight: 700;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.notif-time {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.notif-body {
-  font-size: 0.9rem;
-  color: #e2e8f0;
-  margin-bottom: 0.75rem;
-  background-color: var(--bg-input);
-  padding: 0.65rem 0.85rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  line-height: 1.4;
-}
-
-.notif-unavailable {
-  font-style: italic;
-  color: #fbbf24;
-  background-color: rgba(245, 158, 11, 0.1);
-  border-color: rgba(245, 158, 11, 0.3);
-}
-
-.empty-state {
-  text-align: center;
-  padding: 3rem 1.5rem;
-  color: var(--text-muted);
-  border: 1px dashed var(--border-color);
-  border-radius: var(--radius-lg);
-}
-
-.empty-icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.75rem;
-  opacity: 0.6;
-}
-
-/* Footer */
 .app-footer {
   background-color: var(--bg-surface);
   border-top: 1px solid var(--border-color);
@@ -711,1727 +277,575 @@ input:checked + .slider:before {
   color: var(--text-muted);
   margin-top: auto;
 }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .header-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .toolbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .toolbar-left, .toolbar-right {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .tabs-nav {
-    padding: 0 1rem;
-  }
-  .main-content {
-    padding: 0 1rem;
-  }
-}
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header class="app-header">
     <div class="header-inner">
       <div class="brand-wrapper">
         <div class="brand-icon">&#128737;&#65039;</div>
         <div>
           <h1 class="brand-title">AI Spam, Message &amp; News Detector</h1>
-          <p class="brand-subtitle">Transparent Local Pattern &amp; Heuristic Verification</p>
+          <p class="brand-subtitle">Universal Protection for Web, Mobile, Gmail &amp; SMS</p>
         </div>
       </div>
-      <div class="companion-pill standalone" id="companionStatusPill" title="Companion status">
+      <div class="companion-pill" id="companionStatusPill">
         <span class="status-dot"></span>
-        <span id="companionStatusText">Standalone (Local Engine)</span>
+        <span id="companionStatusText">Universal Web &amp; Mobile Active</span>
       </div>
     </div>
   </header>
 
-  <!-- Navigation Tabs -->
   <nav class="tabs-nav" aria-label="Main Navigation">
     <button class="tab-btn active" data-tab="tab-analyze" id="navAnalyze">
-      <span>&#128221;</span> Message &amp; News Analyzer
+      <span>&#128221;</span> Text Analyzer
+    </button>
+    <button class="tab-btn" data-tab="tab-gmail" id="navGmail">
+      <span>&#128231;</span> Gmail &amp; Email Scanner
+    </button>
+    <button class="tab-btn" data-tab="tab-sms" id="navSms">
+      <span>&#128172;</span> SMS &amp; Mobile Messages
     </button>
     <button class="tab-btn" data-tab="tab-notifications" id="navNotifications">
-      <span>&#128276;</span> Windows Notifications
+      <span>&#128276;</span> Live Notifications
     </button>
-    <button class="tab-btn" data-tab="tab-about" id="navAbout">
-      <span>&#8505;&#65039;</span> Transparency &amp; Privacy
+    <button class="tab-btn" data-tab="tab-extension" id="navExtension">
+      <span>&#129513;</span> Chrome Extension
     </button>
   </nav>
 
-  <!-- Main Content Container -->
   <main class="main-content">
     
-    <!-- TAB 1: MESSAGE & NEWS ANALYZER -->
+    <!-- TAB 1: TEXT ANALYZER -->
     <section class="tab-panel active" id="tab-analyze">
       <div class="card">
         <h2 class="card-title"><span>&#128269;</span> Text &amp; Message Analysis</h2>
         <p class="card-description">
-          Paste any message, email, advertisement, social media post, or news claim. 
-          The local engine evaluates linguistic patterns, urgency cues, credential requests, and sensational wording.
+          Paste any message, advertisement, or news claim. Operates 100% locally on your phone or laptop.
         </p>
 
-        <!-- Empty Input Validation Alert -->
-        <div class="alert alert-warning" id="emptyInputAlert" style="display: none;" role="alert">
+        <div class="alert alert-warning" id="emptyInputAlert" style="display: none;">
           <span>&#9888;&#65039;</span>
-          <div>
-            <strong>Input Required:</strong> Please enter or paste text to analyze before clicking Analyze.
-          </div>
+          <div><strong>Input Required:</strong> Please enter or paste text to analyze.</div>
         </div>
 
-        <!-- Input Area -->
-        <div class="input-group">
-          <textarea 
-            id="textInput" 
-            class="textarea-field" 
-            placeholder="Type or paste message, advertisement, or news claim here... (e.g. urgent alerts, prize wins, or breaking news)" 
-            aria-label="Text to analyze"
-            rows="6"
-          ></textarea>
-          <div class="input-footer">
-            <span id="charCountLabel">0 characters</span>
-            <span style="color: var(--text-dim);">Processed strictly in local browser memory</span>
-          </div>
-        </div>
-
-        <!-- Controls Toolbar -->
-        <div class="toolbar">
-          <div class="toolbar-left">
-            <label for="sampleSelect" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">
-              Load Sample:
-            </label>
-            <select id="sampleSelect" class="select-input" aria-label="Select sample message">
-              <option value="">-- Choose a pre-built sample --</option>
-              <option value="phishing">&#127907; Phishing / Credential Scam (Bank/Password)</option>
-              <option value="promo_spam">&#128226; Urgent Promotional Spam (Prize/Clearance)</option>
-              <option value="news_claim">&#128240; Sensational News Claim (Secret Cure/Conspiracy)</option>
-              <option value="extortion">&#9889; Extortion &amp; Legal Threat (Arrest/Webcam)</option>
-              <option value="safe_msg">&#9989; Safe Personal / Work Message</option>
-              <option value="unavailable">&#128274; Masked / Unavailable Text (Notification)</option>
+        <textarea id="textInput" class="textarea-field" rows="5" placeholder="Paste message, advertisement, or news claim here..."></textarea>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <select id="sampleSelect" class="select-input">
+              <option value="">-- Choose sample --</option>
+              <option value="phishing">&#127907; Phishing / Password Theft</option>
+              <option value="promo_spam">&#128226; Urgent Promotional Spam</option>
+              <option value="news_claim">&#128240; Sensational News Claim</option>
+              <option value="extortion">&#9889; Extortion &amp; Threat</option>
+              <option value="safe_msg">&#9989; Safe Personal Message</option>
             </select>
             <button type="button" class="btn btn-secondary btn-sm" id="btnLoadSample">Insert Sample</button>
           </div>
-
-          <div class="toolbar-right">
+          <div style="display: flex; gap: 0.5rem;">
             <button type="button" class="btn btn-secondary" id="btnClear">Clear</button>
-            <button type="button" class="btn btn-primary" id="btnAnalyze">
-              <span id="analyzeSpinner" style="display:none;">&#9203;</span>
-              <span>Analyze Text</span>
-            </button>
+            <button type="button" class="btn btn-primary" id="btnAnalyze">Analyze Text</button>
           </div>
         </div>
       </div>
 
-      <!-- Analysis Results Area -->
-      <div id="resultsContainer" class="results-container" style="display: none;">
+      <div id="resultsContainer" style="display: none;">
         <div class="metrics-overview">
           <div class="metric-card">
             <div class="metric-label">Classification</div>
-            <div class="metric-value">
-              <span id="resClassificationBadge" class="badge">Safe</span>
-            </div>
-            <div class="metric-footer" id="resClassificationDetail">Evaluation based on pattern heuristics.</div>
+            <div class="metric-value"><span id="resClassificationBadge" class="badge">Safe</span></div>
           </div>
-
           <div class="metric-card">
             <div class="metric-label">Trust Score</div>
-            <div class="metric-value">
-              <span id="resTrustScore">95</span><span style="font-size: 1rem; color: var(--text-muted); font-weight: normal;"> / 100</span>
-            </div>
-            <div class="metric-footer">
-              <strong>Notice:</strong> Heuristic score indicator. Not a mathematical probability or guarantee of safety.
-            </div>
+            <div class="metric-value"><span id="resTrustScore">95</span><span style="font-size: 1rem; color: #94a3b8;">/100</span></div>
           </div>
-
           <div class="metric-card">
             <div class="metric-label">Risk Level</div>
-            <div class="metric-value">
-              <span id="resRiskLevel" class="risk-low">Low</span>
-            </div>
-            <div class="metric-footer">Estimated exposure to deceptive or manipulative patterns.</div>
+            <div class="metric-value"><span id="resRiskLevel">Low</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="card-title"><span>&#128203;</span> Findings &amp; Explanation</h3>
+          <p id="resExplanation" style="margin: 0.5rem 0 1rem; color: #e2e8f0;"></p>
+          <div id="resWarningFlags" class="flags-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: GMAIL & EMAIL SCANNER (NEW FEATURE 1) -->
+    <section class="tab-panel" id="tab-gmail">
+      <div class="card">
+        <h2 class="card-title"><span>&#128231;</span> Gmail &amp; Email Phishing Inspector</h2>
+        <p class="card-description">
+          Detects fake invoice scams (Geek Squad/PayPal), password reset lures, CEO wire fraud, and lookalike sender domains.
+        </p>
+
+        <div style="margin-bottom: 0.75rem;">
+          <input type="text" id="emailSubject" class="input-text" placeholder="Email Subject line (e.g. URGENT: Unusual sign-in attempt detected)">
+          <textarea id="emailBody" class="textarea-field" rows="5" placeholder="Paste email content, message body, or sender details here..."></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+          <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+            <span style="font-size: 0.85rem; color: #94a3b8; font-weight: 600;">Load Email Scam Scenario:</span>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnEmailSampleInvoice">&#128181; Fake Invoice ($499)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnEmailSamplePassword">&#128272; Fake Password Reset</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnEmailSampleSafe">&#9989; Safe Work Email</button>
+          </div>
+          <button type="button" class="btn btn-primary" id="btnScanEmail">Scan Email</button>
+        </div>
+      </div>
+
+      <div id="emailResultsContainer" style="display: none;">
+        <div class="metrics-overview">
+          <div class="metric-card">
+            <div class="metric-label">Email Threat Verdict</div>
+            <div class="metric-value"><span id="emailBadge" class="badge">Safe</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Sender Trust</div>
+            <div class="metric-value"><span id="emailTrust">90</span><span style="font-size: 1rem; color: #94a3b8;">/100</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Phishing Risk</div>
+            <div class="metric-value"><span id="emailRisk">Low</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="card-title"><span>&#128737;&#65039;</span> Email Security Breakdown</h3>
+          <p id="emailExplanation" style="margin: 0.5rem 0 1rem; color: #e2e8f0;"></p>
+          <div id="emailFlags" class="flags-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: SMS & MOBILE MESSAGES (NEW FEATURE 2) -->
+    <section class="tab-panel" id="tab-sms">
+      <div class="card">
+        <h2 class="card-title"><span>&#128172;</span> SMS, WhatsApp &amp; Mobile Chat Inspector</h2>
+        <p class="card-description">
+          Detects bank OTP theft, fake courier parcel messages, lottery lures, and UPI cash reward scams.
+        </p>
+
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleUpi">&#128176; "Click link have 5000 rs"</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleBank">&#127974; Bank Account Blocked</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSamplePackage">&#128230; Package Delivery Missed</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleSafe">&#9989; Safe Family Text</button>
+        </div>
+
+        <div class="phone-mockup">
+          <div style="font-size: 0.75rem; text-align: center; color: #94a3b8; margin-bottom: 0.5rem;">&#128241; Incoming SMS / WhatsApp Preview</div>
+          <div id="phoneSender" style="font-size: 0.8rem; font-weight: bold; color: #38bdf8;">From: Unknown Sender</div>
+          <div class="chat-bubble" id="phoneBubble">Click the link have 5000 rupees</div>
+        </div>
+
+        <div style="text-align: center; margin-top: 1rem;">
+          <button type="button" class="btn btn-primary" id="btnScanSms">Scan Mobile Message</button>
+        </div>
+      </div>
+
+      <div id="smsResultsContainer" style="display: none;">
+        <div class="metrics-overview">
+          <div class="metric-card">
+            <div class="metric-label">SMS Status</div>
+            <div class="metric-value"><span id="smsBadge" class="badge">Safe</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Safety Rating</div>
+            <div class="metric-value"><span id="smsTrust">90</span><span style="font-size: 1rem; color: #94a3b8;">/100</span></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Risk Level</div>
+            <div class="metric-value"><span id="smsRisk">Low</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="card-title"><span>&#128737;&#65039;</span> Message Assessment</h3>
+          <p id="smsExplanation" style="margin: 0.5rem 0 1rem; color: #e2e8f0;"></p>
+          <div id="smsFlags" class="flags-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: NOTIFICATIONS -->
+    <section class="tab-panel" id="tab-notifications">
+      <div class="card">
+        <h2 class="card-title"><span>&#128276;</span> Live Notifications &amp; Alert Interceptor</h2>
+        <p class="card-description">
+          Test and monitor notification alerts across Mobile, Web, and Desktop.
+        </p>
+
+        <div class="alert alert-info">
+          <span>&#9989;</span>
+          <div>
+            <strong>Universal Mode Active:</strong> Running directly on your device with zero cloud tracking. 
+            On phones, tablets, and laptops, you can test notifications instantly below. On Windows PCs, you can also run <code>run.bat</code> for OS-level toasts.
           </div>
         </div>
 
-        <div class="card">
-          <h3 class="card-title"><span>&#128203;</span> Analysis Findings &amp; Explanation</h3>
-          
-          <div style="margin-bottom: 1.25rem;">
-            <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
-              Summary Explanation:
-            </strong>
-            <p id="resExplanation" style="margin-top: 0.35rem; color: #e2e8f0; line-height: 1.6;"></p>
-          </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPhishing">&#127907; Test Phishing Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPromo">&#128226; Test Promo Spam Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimNews">&#128240; Test Sensational News Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimSafe">&#9989; Test Safe Toast</button>
+        </div>
 
-          <div style="margin-bottom: 1.25rem;">
-            <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
-              Triggered Warning Flags:
-            </strong>
-            <div id="resWarningFlags" class="flags-list"></div>
-          </div>
-
-          <div id="snippetsContainer" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
-            <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
-              Phrases Detected in Input:
-            </strong>
-            <ul id="resSnippetList" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;"></ul>
-          </div>
-
-          <div id="newsAnalysisBox" class="news-box" style="display: none;">
-            <div class="news-box-title">
-              <span>&#128240;</span> News &amp; Claim Evaluation Notice
-            </div>
-            <p style="font-size: 0.875rem; color: #e2e8f0; line-height: 1.5;" id="newsExplanationText">
-              This text contains sensational clickbait patterns or assertions lacking named sources.
-            </p>
-            <div style="margin-top: 0.75rem; font-size: 0.85rem; color: #c4b5fd;">
-              <strong>Important Transparency Notice:</strong> 
-              This application only evaluates text structures and language patterns. It does <em>not</em> consult external fact-checking services or live databases, and cannot determine whether a claim is true or false.
-            </div>
-            <ul class="checklist" id="newsChecklist">
-              <li>Check whether recognized wire services (e.g. Associated Press, Reuters) report this claim.</li>
-              <li>Seek primary documentation: published peer-reviewed journals, official court filings, or government gazettes.</li>
-              <li>Search established independent fact-checking databases such as Snopes, PolitiFact, or FactCheck.org.</li>
-            </ul>
-          </div>
-
-          <div class="alert alert-info" style="margin-top: 1.5rem; margin-bottom: 0;">
-            <span>&#8505;&#65039;</span>
-            <div style="font-size: 0.8rem;">
-              <strong>Local Privacy &amp; Limitations:</strong> Text analysis is performed entirely in your browser using deterministic heuristic rules. Your text is never transmitted to any cloud server or third-party AI provider.
-            </div>
+        <div class="card" style="margin-bottom: 0;">
+          <h3 class="card-title"><span>&#128233;</span> Notification Live Feed</h3>
+          <div id="notifFeedContainer">
+            <p style="color: #94a3b8; font-size: 0.85rem;">Click any test button above to simulate live incoming notifications.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 2: WINDOWS NOTIFICATIONS MONITOR -->
-    <section class="tab-panel" id="tab-notifications">
+    <!-- TAB 5: CHROME EXTENSION GUIDE -->
+    <section class="tab-panel" id="tab-extension">
       <div class="card">
-        <h2 class="card-title"><span>&#128276;</span> Windows Notification Monitoring</h2>
+        <h2 class="card-title"><span>&#129513;</span> Automatic Gmail &amp; WhatsApp Chrome Extension</h2>
         <p class="card-description">
-          Automatically analyze incoming notifications for spam, phishing links, and sensational claims.
-          Analysis is performed locally on your device.
+          Want automatic real-time warnings right inside your Gmail inbox and WhatsApp Web without copying and pasting?
         </p>
 
         <div class="alert alert-info">
           <span>&#128737;&#65039;</span>
           <div>
-            <strong>Why notification permission is required:</strong>
-            Standard web browsers cannot access OS-level Windows notifications directly due to security sandboxing.
-            The optional local Windows Companion connects to the Windows 10/11 <code>UserNotificationListener</code> WinRT API 
-            to pass permitted notification text to this local dashboard via loopback (<code>127.0.0.1</code>).
-            <strong>No notification text is ever sent externally.</strong>
+            The complete <strong>AI Spam &amp; Phishing Shield Extension</strong> is ready in your project's <code>extension/</code> folder!
           </div>
         </div>
 
-        <div class="controls-grid">
-          <div style="background-color: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
-              Companion Server Status
-            </div>
-            <div style="font-size: 1.1rem; font-weight: 700; margin: 0.4rem 0;" id="companionDetailStatus">
-              Checking...
-            </div>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;" id="companionDetailHint">
-              To start the companion, run <code>run.bat</code> or <code>powershell companion/WindowsNotificationCompanion.ps1</code>.
-            </p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <button type="button" class="btn btn-secondary btn-sm" id="btnRefreshCompanion">Check Connection</button>
-              <button type="button" class="btn btn-secondary btn-sm" id="btnRequestPermission">Open Windows Settings</button>
-            </div>
-          </div>
-
-          <div style="background-color: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
-              Monitoring Controls
-            </div>
-            <div style="display: flex; gap: 0.5rem; margin: 0.75rem 0; flex-wrap: wrap;">
-              <button type="button" class="btn btn-primary btn-sm" id="btnToggleMonitoring">Start Monitoring</button>
-              <button type="button" class="btn btn-secondary btn-sm" id="btnPauseMonitoring" disabled>Pause</button>
-            </div>
-            <div style="font-size: 0.8rem; color: var(--text-muted);">
-              Current state: <strong id="monitoringStatusLabel" style="color: #94a3b8;">Stopped</strong>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top: 1rem;">
-          <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem;">
-            <span>&#127919;</span> Monitored Applications Filter
-          </h3>
-          <p style="font-size: 0.8rem; color: var(--text-muted);">
-            Choose which source applications to inspect. Windows provides the source app identity with each notification.
-          </p>
-          <div class="apps-grid" id="appsFilterContainer"></div>
-        </div>
-
-        <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
-          <div class="toggle-group">
-            <div>
-              <div class="toggle-label">Save Notification Analysis History</div>
-              <div class="toggle-hint">
-                Disabled by default. When enabled, analysis records are stored solely in your local browser storage.
-              </div>
-            </div>
-            <label class="switch">
-              <input type="checkbox" id="toggleSaveHistory">
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div style="display: flex; justify-content: flex-end;">
-            <button type="button" class="btn btn-danger btn-sm" id="btnClearNotifHistory">Clear Notification History</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3 class="card-title"><span>&#129514;</span> Notification Simulator &amp; Test Suite</h3>
-        <p class="card-description">
-          Test notification handling instantly even if real Windows permissions have not yet been granted.
-          Includes tests for phishing, promotional spam, news claims, and privacy-masked content.
-        </p>
-
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPhishing">&#127907; Test Phishing Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPromo">&#128226; Test Promo Spam Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimNews">&#128240; Test Sensational News Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimSafe">&#9989; Test Safe Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimUnavailable">&#128274; Test Unavailable Content Toast</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-          <h3 class="card-title" style="margin-bottom: 0;">
-            <span>&#128233;</span> Monitored Notification Feed
-          </h3>
-          <span style="font-size: 0.8rem; color: var(--text-muted);" id="feedCountLabel">0 notifications</span>
-        </div>
-
-        <div id="notifFeedContainer" class="notif-feed">
-          <div class="empty-state" id="emptyNotifFeed">
-            <div class="empty-icon">&#128276;</div>
-            <p style="font-weight: 600; margin-bottom: 0.25rem;">No Notifications Received Yet</p>
-            <p style="font-size: 0.85rem;">
-              Click "Start Monitoring" above, or use the Notification Simulator buttons to test different notification scenarios.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 3: TRANSPARENCY, PRIVACY & LIMITATIONS -->
-    <section class="tab-panel" id="tab-about">
-      <div class="card">
-        <h2 class="card-title"><span>&#128737;&#65039;</span> Privacy Architecture &amp; Technical Disclosure</h2>
-        <p class="card-description">
-          Full technical transparency into how detection operates, data boundaries, and known limitations.
-        </p>
-
-        <div style="display: flex; flex-direction: column; gap: 1.5rem; line-height: 1.6; font-size: 0.95rem;">
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.35rem;">
-              1. Detection Engine Methodology
-            </h3>
-            <p style="color: var(--text-muted);">
-              This application uses a deterministic heuristic and pattern-matching engine (defined in <code>js/analyzer.js</code>). 
-              It evaluates structural indicators such as credential harvesting keywords, aggressive capitalization, high-pressure artificial deadlines, known deceptive domain patterns, and sensational news framing.
-            </p>
-            <p style="color: var(--text-muted); margin-top: 0.5rem;">
-              <strong>Important:</strong> This is <em>not</em> a generative cloud AI model or a production security firewall. It does not replace enterprise antivirus, browser antiphishing protections, or professional editorial fact-checking.
-            </p>
-          </div>
-
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.35rem;">
-              2. News &amp; Claim Analysis Boundaries
-            </h3>
-            <p style="color: var(--text-muted);">
-              When news or viral claims are reviewed:
-            </p>
-            <ul style="margin-left: 1.5rem; margin-top: 0.35rem; color: var(--text-muted);">
-              <li>The system flags sensationalist wording, extreme emotional triggers, or claims that omit named sources.</li>
-              <li>The system <strong>never labels a claim as "False"</strong> unless authoritative proof is available. Because this local demo operates without an external fact-checking database API, claims are classified as <strong>Needs Verification</strong>.</li>
-              <li>Users are provided with actionable advice to verify claims with independent primary sources.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.35rem;">
-              3. Automatic Windows Notification Privacy
-            </h3>
-            <ul style="margin-left: 1.5rem; margin-top: 0.35rem; color: var(--text-muted);">
-              <li><strong>Local Processing Only:</strong> Notification text is processed strictly on your computer. No data is sent over the Internet.</li>
-              <li><strong>Zero Persistent Storage by Default:</strong> Notification contents are held in volatile memory only for the duration of the session. If "Save Notification History" is checked, records are stored exclusively in your browser's private <code>localStorage</code>, which can be deleted with one click.</li>
-              <li><strong>Content Unavailable Handling:</strong> If Windows privacy settings or lock screen security masks notification text, the detector reports that the text is withheld. It does not fabricate or guess hidden text.</li>
-              <li><strong>App Filtering:</strong> You have full control over which applications are permitted to be inspected.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 style="font-size: 1.05rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.35rem;">
-              4. Companion Architecture
-            </h3>
-            <p style="color: var(--text-muted);">
-              Browsers cannot read Windows toast notifications directly for security reasons. The provided Windows Companion (<code>companion/WindowsNotificationCompanion.ps1</code>) bridges the Windows 10/11 <code>UserNotificationListener</code> WinRT API to the local browser via loopback HTTP (<code>127.0.0.1:8765</code>).
-            </p>
-          </div>
+        <div style="line-height: 1.7; color: #cbd5e1; font-size: 0.95rem;">
+          <h3 style="color: #38bdf8; margin: 1rem 0 0.5rem;">How to install on Chrome or Edge (Takes 1 minute):</h3>
+          <ol style="margin-left: 1.5rem;">
+            <li>Open Google Chrome or Microsoft Edge and go to <code>chrome://extensions/</code></li>
+            <li>Turn <strong>ON</strong> the toggle in the top-right corner: <strong>Developer mode</strong>.</li>
+            <li>Click the button in the top-left corner: <strong>Load unpacked</strong>.</li>
+            <li>Select the <code>extension</code> folder in your project directory.</li>
+            <li><strong>Done!</strong> Now whenever you open Gmail (<code>mail.google.com</code>) or WhatsApp Web (<code>web.whatsapp.com</code>), the extension automatically scans incoming messages and shows a safety badge!</li>
+          </ol>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Footer -->
   <footer class="app-footer">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-      <div>
-        <strong>AI Spam, Message &amp; News Detector</strong> &bull; Version 1.0.0
-      </div>
-      <div>
-        Privacy-First Local Verification &bull; No API Keys Required
-      </div>
-    </div>
+    AI Spam, Message &amp; News Detector &bull; Universal Protection &bull; Privacy-First
   </footer>
 
-  <!-- Scripts -->
+  <!-- CORE SCRIPTS -->
   <script>
-/**
- * AI Spam, Message & News Detector
- * Core Heuristic & Pattern Analysis Engine
- *
- * NOTE: This is a rule-based and heuristic pattern detector. It evaluates text
- * structures, linguistic cues, urgency triggers, credential requests, and claims.
- * It is NOT a cloud-trained generative AI or authoritative fact-checker.
- * Results represent risk indicators and should not be treated as absolute guarantees.
- */
-
-(function (root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define([], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    module.exports = factory();
-  } else {
-    root.TextAnalyzer = factory();
-  }
-}(typeof self !== 'undefined' ? self : this, function () {
-  'use strict';
-
-  // Helper: Escape HTML to treat all analyzed text as strictly untrusted input
-  function escapeHtml(str) {
-    if (!str) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-  }
-
-  // Helper: Find matching phrases and return matched string plus match detail
-  function findMatches(text, regex, category, weight, label, explanationTmpl) {
-    const matches = [];
-    let match;
-    const regexClone = new RegExp(regex.source, regex.flags);
-    while ((match = regexClone.exec(text)) !== null) {
-      const matchedText = match[0].trim();
-      if (matchedText.length > 0) {
-        matches.push({
-          category,
-          weight,
-          label,
-          matchedSnippet: matchedText,
-          explanation: explanationTmpl.replace('{snippet}', `"${matchedText}"`)
-        });
-      }
-      if (!regex.global) break;
-    }
-    return matches;
-  }
-
-  /**
-   * Rule definitions for Spam, Phishing, Ads, Harassment, and News Claims
-   */
-  const RULES = [
-    // --- 1. PHISHING, CREDENTIALS, AND FINANCIAL SCAMS (High Risk) ---
-    {
-      category: 'phishing',
-      weight: 35,
-      label: 'Phishing: Password / Credential Request',
-      regex: /\b(enter\s+your\s+password|confirm\s+your\s+password|reset\s+your\s+password|verify\s+your\s+credentials|login\s+to\s+keep|re-activate\s+your\s+account|identity\s+verification\s+required)\b/gi,
-      explanation: 'Requests user passwords or login credentials ({snippet}), a signature technique in credential phishing.'
-    },
-    {
-      category: 'phishing',
-      weight: 35,
-      label: 'Phishing: Security / OTP Code Request',
-      regex: /\b(verification\s+code|one-time\s+pin|otp\s+code|2fa\s+code|security\s+code|do\s+not\s+share\s+this\s+code|send\s+me\s+the\s+code)\b/gi,
-      explanation: 'Solicits temporary security or multi-factor verification codes ({snippet}), commonly used to take over accounts.'
-    },
-    {
-      category: 'financial_scam',
-      weight: 30,
-      label: 'Financial Urgency / Account Suspension Alert',
-      regex: /\b(account\s+(has\s+been\s+)?(suspended|locked|frozen|compromised)|unauthorized\s+transaction|wire\s+transfer\s+pending|bank\s+account\s+will\s+be\s+closed|update\s+billing\s+details|card\s+temporarily\s+blocked)\b/gi,
-      explanation: 'Fabricates financial crisis or immediate account suspension ({snippet}) to bypass critical thinking.'
-    },
-    {
-      category: 'suspicious_url',
-      weight: 30,
-      label: 'Suspicious URL / Domain Pattern',
-      regex: /(https?:\/\/(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?:\/[^\s]*)?)|(https?:\/\/[^\s\/]+(?:paypa[l1]|arnazon|app1e|micros0ft|netf1ix|we11sfargo|sec-login|verify-acc)[^\s]*)|(https?:\/\/[^\s\/]+\.(?:xyz|top|work|click|tk|gq|ml|cf|country|kim)[^\s]*)/gi,
-      explanation: 'Contains suspicious domain formatting or deceptive lookalike link ({snippet}).'
-    },
-    {
-      category: 'cryptocurrency_scam',
-      weight: 30,
-      label: 'Crypto / Fast Wealth Scheme',
-      regex: /\b(crypto\s+doubler|send\s+btc\s+and\s+get|double\s+your\s+ethereum|guaranteed\s+crypto\s+returns|seed\s+phrase|private\s+keys?|wallet\s+recovery\s+phrase)\b/gi,
-      explanation: 'Promises impossible cryptocurrency doubling or requests secret wallet recovery keys ({snippet}).'
-    },
-
-    // --- 2. URGENCY, COERCION, AND EMOTIONAL MANIPULATION ---
-    {
-      category: 'urgency_coercion',
-      weight: 20,
-      label: 'High Pressure / Artificial Urgency',
-      regex: /\b(act\s+now|within\s+(?:24|12|48|15)\s*(?:hours|minutes|hrs|mins)|immediate\s+action\s+required|final\s+(?:warning|notice)|before\s+it(?:'s|\s+is)\s+too\s+late|time\s+is\s+running\s+out|limited\s+time\s+left)\b/gi,
-      explanation: 'Applies psychological time pressure ({snippet}) to coerce impulsive reactions.'
-    },
-    {
-      category: 'threat_extortion',
-      weight: 40,
-      label: 'Legal / Authority Threat or Extortion',
-      regex: /\b(arrest\s+warrant|fbi\s+investigation|irs\s+lawsuit|police\s+action|recorded\s+your\s+webcam|pay\s+ransom|legal\s+prosecution|you\s+will\s+be\s+arrested)\b/gi,
-      explanation: 'Uses overt legal intimidation or extortion threats ({snippet}) characteristic of blackmail schemes.'
-    },
-    {
-      category: 'emotional_manipulation',
-      weight: 18,
-      label: 'Emotional Manipulation / Fear Tactics',
-      regex: /\b(you\s+will\s+regret|your\s+family\s+is\s+in\s+danger|terrible\s+consequences|if\s+you\s+are\s+a\s+real\s+friend|forward\s+this\s+or\s+bad\s+luck)\b/gi,
-      explanation: 'Relies on guilt, fear, or superstitious threats ({snippet}) to provoke emotional responses.'
-    },
-
-    // --- 3. PROMOTIONAL AND ADVERTISEMENT SPAM ---
-    {
-      category: 'promotional_spam',
-      weight: 20,
-      label: 'Unsolicited Prize / Sweepstakes Claim',
-      regex: /\b(you\s+have\s+won|lottery\s+winner|selected\s+to\s+receive|claim\s+your\s+free\s+(?:gift|iphone|voucher|prize)|claim\s+\$[\d,]+|congratulations\s+winner)\b/gi,
-      explanation: 'Claims unearned lottery prizes or free luxury gifts ({snippet}) typical of sweepstakes lures.'
-    },
-    {
-      category: 'promotional_spam',
-      weight: 25,
-      label: 'Unsolicited Cash / Reward Promise',
-      regex: /\b((?:have|get|win|receive|earn|claim)\s+(?:[\$₹£€]|rs\.?|inr\s*)?\s*\d+[\d,]*\s*(?:rupees|rs|dollars|inr|cash|bucks)?)\b/gi,
-      explanation: 'Promises unearned cash or monetary incentives ({snippet}) commonly used in click-lure scams.'
-    },
-    {
-      category: 'phishing',
-      weight: 22,
-      label: 'Suspicious Action / Click-Link Coercion',
-      regex: /\b(click\s+(?:the|this|here|on)?\s*link|tap\s+(?:the|this)?\s*link|open\s+the\s+link|click\s+here\s+to\s+claim)\b/gi,
-      explanation: 'Coerces user to open untrusted links ({snippet}) to receive promised incentives.'
-    },
-    {
-      category: 'promotional_spam',
-      weight: 15,
-      label: 'Aggressive Commercial Solicitation',
-      regex: /\b(buy\s+now\s+for\s+only|discount\s+code\s+inside|massive\s+savings|huge\s+clearance|limited\s+stock\s+order\s+today|exclusive\s+flash\s+sale)\b/gi,
-      explanation: 'Exhibits aggressive promotional marketing cues ({snippet}).'
-    },
-    {
-      category: 'miracle_claim',
-      weight: 25,
-      label: 'Exaggerated / Miracle Ad Claim',
-      regex: /\b(doctors\s+hate\s+this|secret\s+trick\s+to\s+lose|melt\s+belly\s+fat|100%\s+guaranteed\s+cure|cure\s+any\s+disease|miracle\s+treatment|scientists\s+are\s+shocked)\b/gi,
-      explanation: 'Presents unsubstantiated miracle cures or "doctors hate this" clickbait structures ({snippet}).'
-    },
-    {
-      category: 'work_from_home_scam',
-      weight: 22,
-      label: 'Get-Rich-Quick / Work-From-Home Scheme',
-      regex: /\b(make\s+\$[\d,]+\s+(?:daily|a\s+day|from\s+home)|passive\s+income\s+guaranteed|no\s+experience\s+needed\s+earn|financial\s+freedom\s+system)\b/gi,
-      explanation: 'Promotes improbable automated income or get-rich-quick claims ({snippet}).'
-    },
-
-    // --- 4. ABUSIVE CONTENT AND HARASSMENT ---
-    {
-      category: 'abusive_content',
-      weight: 35,
-      label: 'Abusive / Harassing Language',
-      regex: /\b(kill\s+yourself|die\s+in\s+a\s+fire|i\s+know\s+where\s+you\s+live|you\s+deserve\s+to\s+suffer|worthless\s+scum)\b/gi,
-      explanation: 'Contains hostile, threatening, or abusive harassment ({snippet}).'
-    },
-
-    // --- 5. NEWS, SENSATIONALISM, AND FACTUAL CLAIM PATTERNS ---
-    {
-      category: 'sensational_news',
-      weight: 18,
-      label: 'Sensational / Clickbait Headline Pattern',
-      regex: /\b(shocking\s+truth|bombshell\s+(?:report|revelation)|what\s+they\s+don't\s+want\s+you\s+to\s+know|mainstream\s+media\s+won't\s+show|you\s+won't\s+believe\s+what|the\s+truth\s+exposed)\b/gi,
-      explanation: 'Uses sensationalist, high-arousal clickbait formatting ({snippet}) commonly found in unverified viral posts.'
-    },
-    {
-      category: 'unverified_claim',
-      weight: 20,
-      label: 'Vague Attribution / Unsubstantiated Claim',
-      regex: /\b(sources\s+say|insiders\s+confirm|everyone\s+knows\s+that|anonymous\s+whistleblower\s+reveals|government\s+secretly\s+admitted|it\s+has\s+been\s+proven\s+that)\b/gi,
-      explanation: 'Relies on vague attribution without named primary sources or scientific citation ({snippet}).'
-    },
-    {
-      category: 'unsupported_absolutes',
-      weight: 15,
-      label: 'Absolute / Unverified Factual Certainty',
-      regex: /\b(100%\s+proven|indisputable\s+proof|undeniable\s+fact\s+that|secret\s+cure\s+discovered|completely\s+eradicates|no\s+doubt\s+whatsoever)\b/gi,
-      explanation: 'Employs absolute certainty assertions ({snippet}) that exceed ordinary journalistic or scientific standards.'
-    }
-  ];
-
-  /**
-   * Evaluates text and generates a structured analysis report
-   * @param {string} rawText The user-submitted or notification text
-   * @param {Object} options Optional settings { isNotification: boolean, sourceApp: string }
-   * @returns {Object} Structured analysis outcome
-   */
-  function analyzeText(rawText, options = {}) {
-    const text = typeof rawText === 'string' ? rawText : '';
-    const trimmed = text.trim();
-
-    // 1. Empty input validation
-    if (!trimmed) {
-      return {
-        status: 'error',
-        errorCode: 'EMPTY_INPUT',
-        message: 'No text provided. Please paste or type message, ad, or news text to analyze.'
-      };
-    }
-
-    // 2. Check for unavailable/hidden content (e.g. from lockscreen or masked notifications)
-    const isExplicitlyUnavailable =
-      options.isUnavailable ||
-      /^(?:\[?\s*content\s+unavailable\s*\]?|\[?\s*hidden\s+notification\s*\]?|\[?\s*message\s+hidden\s*\]?|\[?\s*no\s+text\s+exposed\s*\]?)$/i.test(trimmed);
-
-    if (isExplicitlyUnavailable) {
-      return {
-        status: 'success',
-        isUnavailable: true,
-        classification: 'Needs Verification',
-        trustScore: 50,
-        riskLevel: 'Medium',
-        warningFlags: ['Content Withheld / Unavailable'],
-        explanation: 'The notification body was omitted or protected by source app privacy settings. Unable to analyze hidden content.',
-        detailedFindings: [{
-          category: 'privacy_restriction',
-          label: 'Content Withheld',
-          matchedSnippet: trimmed,
-          explanation: 'Windows notification listener or the source application withheld the message payload for privacy.'
-        }],
-        newsAnalysis: null,
-        disclaimer: 'Text content was unavailable. No automated evaluation can be performed on hidden content.'
-      };
-    }
-
-    // 3. Run all heuristic matching rules
-    const findings = [];
-    const triggeredCategories = new Set();
-
-    for (const rule of RULES) {
-      const matches = findMatches(
-        trimmed,
-        rule.regex,
-        rule.category,
-        rule.weight,
-        rule.label,
-        rule.explanation
-      );
-      if (matches.length > 0) {
-        findings.push(...matches);
-        triggeredCategories.add(rule.category);
-      }
-    }
-
-    // 4. Calculate Risk Score & Trust Score
-    // Base risk score starts at 0. Add weights with diminishing returns.
-    let rawRiskScore = 0;
-    findings.forEach(f => {
-      rawRiskScore += f.weight;
-    });
-
-    // Factor in excessive capitalization (shouting)
-    const upperCount = (trimmed.match(/[A-Z]/g) || []).length;
-    const letterCount = (trimmed.match(/[a-zA-Z]/g) || []).length;
-    let isAggressiveCaps = false;
-    if (letterCount > 25 && upperCount / letterCount > 0.45) {
-      isAggressiveCaps = true;
-      rawRiskScore += 12;
-      findings.push({
-        category: 'formatting_urgency',
-        weight: 12,
-        label: 'Aggressive Capitalization (Shouting)',
-        matchedSnippet: trimmed.slice(0, 40) + '...',
-        explanation: 'Contains excessive uppercase lettering ({snippet}), often used to force emotional urgency or clickbait attention.'
-      });
-      triggeredCategories.add('formatting_urgency');
-    }
-
-    // Factor in multiple exclamation or question marks
-    const exclamationMatches = trimmed.match(/[!?]{2,}/g);
-    if (exclamationMatches && exclamationMatches.length >= 2) {
-      rawRiskScore += 10;
-      findings.push({
-        category: 'formatting_urgency',
-        weight: 10,
-        label: 'Sensational Punctuation (!! / ??)',
-        matchedSnippet: exclamationMatches.slice(0, 3).join(' '),
-        explanation: 'Repeated sensational punctuation ({snippet}) intended to exaggerate claims.'
-      });
-      triggeredCategories.add('formatting_urgency');
-    }
-
-    // Clamp risk score to [0, 100]
-    const clampedRiskScore = Math.min(100, Math.max(0, Math.round(rawRiskScore)));
-    // Trust score is the inverse of risk, with baseline 95 for totally clean text
-    const trustScore = Math.max(5, Math.min(95, 95 - clampedRiskScore));
-
-    // Determine Risk Level
-    let riskLevel = 'Low';
-    if (clampedRiskScore >= 60) {
-      riskLevel = 'High';
-    } else if (clampedRiskScore >= 25) {
-      riskLevel = 'Medium';
-    } else {
-      riskLevel = 'Low';
-    }
-
-    // 5. Determine Classification: Safe, Spam, Potentially Harmful, or Needs Verification
-    let classification = 'Safe';
-    const isHarmfulCategory =
-      triggeredCategories.has('phishing') ||
-      triggeredCategories.has('threat_extortion') ||
-      triggeredCategories.has('abusive_content') ||
-      triggeredCategories.has('financial_scam') ||
-      triggeredCategories.has('suspicious_url') ||
-      triggeredCategories.has('cryptocurrency_scam');
-
-    const isSpamCategory =
-      triggeredCategories.has('promotional_spam') ||
-      triggeredCategories.has('work_from_home_scam') ||
-      triggeredCategories.has('miracle_claim');
-
-    const isNewsOrClaimCategory =
-      triggeredCategories.has('sensational_news') ||
-      triggeredCategories.has('unverified_claim') ||
-      triggeredCategories.has('unsupported_absolutes');
-
-    if (isHarmfulCategory && (clampedRiskScore >= 35 || triggeredCategories.has('phishing') || triggeredCategories.has('threat_extortion'))) {
-      classification = 'Potentially Harmful';
-    } else if (isSpamCategory && !isNewsOrClaimCategory) {
-      classification = 'Spam';
-    } else if (isNewsOrClaimCategory) {
-      // News and claim analysis classification
-      classification = 'Needs Verification';
-    } else if (clampedRiskScore >= 30) {
-      classification = 'Needs Verification';
-    } else {
-      classification = 'Safe';
-    }
-
-    // 6. Assemble Warning Flags
-    const warningFlags = [];
-    const uniqueLabels = new Set();
-    findings.forEach(f => {
-      if (!uniqueLabels.has(f.label)) {
-        uniqueLabels.add(f.label);
-        warningFlags.push(f.label);
-      }
-    });
-
-    if (warningFlags.length === 0) {
-      warningFlags.push('No obvious risk indicators detected');
-    }
-
-    // 7. Compose Human-Friendly Explanation referencing text actually found
-    let explanation = '';
-    if (classification === 'Safe') {
-      explanation = 'No aggressive marketing lures, credential requests, or sensational deception patterns were detected. The message structure appears normal and consistent with standard communication.';
-    } else if (classification === 'Potentially Harmful') {
-      const topPhrases = findings
-        .filter(f => ['phishing', 'threat_extortion', 'financial_scam', 'suspicious_url', 'cryptocurrency_scam', 'abusive_content'].includes(f.category))
-        .map(f => `"${f.matchedSnippet}"`)
-        .slice(0, 3)
-        .join(', ');
-      explanation = `Detected high-risk language including ${topPhrases || 'sensitive requests'}. This strongly resembles deceptive phishing, financial fraud, or coercive extortion attempting to induce immediate user action.`;
-    } else if (classification === 'Spam') {
-      const promoPhrases = findings
-        .filter(f => ['promotional_spam', 'work_from_home_scam', 'miracle_claim'].includes(f.category))
-        .map(f => `"${f.matchedSnippet}"`)
-        .slice(0, 3)
-        .join(', ');
-      explanation = `Contains unsolicited promotional spam and aggressive commercial solicitation such as ${promoPhrases || 'exaggerated discount claims'}.`;
-    } else {
-      // Needs Verification
-      const claimPhrases = findings
-        .filter(f => ['sensational_news', 'unverified_claim', 'unsupported_absolutes'].includes(f.category))
-        .map(f => `"${f.matchedSnippet}"`)
-        .slice(0, 3)
-        .join(', ');
-      explanation = `Contains sensational claims or unverified assertions including ${claimPhrases || 'vague attributions'}. Note that this detector analyzes linguistic structures and cannot independently verify real-world facts. Independent fact-checking is recommended.`;
-    }
-
-    // 8. Specialized News & Claim Section
-    let newsAnalysis = null;
-    if (isNewsOrClaimCategory || classification === 'Needs Verification') {
-      const suspiciousSnippets = findings
-        .filter(f => ['sensational_news', 'unverified_claim', 'unsupported_absolutes'].includes(f.category))
-        .map(f => ({
-          phrase: f.matchedSnippet,
-          reason: f.label
-        }));
-
-      newsAnalysis = {
-        hasClaimIndicators: true,
-        suspiciousWordingFound: suspiciousSnippets,
-        factualStatus: 'Unconfirmed (Pattern-based analysis only)',
-        whyNeedsVerification: 'The text exhibits sensational framing, absolute claims, or lacks named primary sources. This application does not connect to external fact-checking databases, so claims are not labeled as false—only as unverified patterns.',
-        verificationGuidance: [
-          'Verify if recognized news agencies (e.g. AP, Reuters, BBC) have reported the event.',
-          'Look for primary documentation: court records, scientific journals, or official press releases.',
-          'Cross-check on independent fact-checking repositories (e.g., Snopes, PolitiFact, FactCheck.org).'
-        ]
-      };
-    }
-
-    // 9. Standard Disclaimer
-    const disclaimer =
-      'This analysis is based on transparent local heuristics and pattern detection. ' +
-      'It does not represent a certified AI security guarantee, mathematical probability, or official fact-checking verdict.';
-
-    return {
-      status: 'success',
-      isUnavailable: false,
-      textPreview: trimmed.length > 100 ? trimmed.slice(0, 100) + '...' : trimmed,
-      charCount: trimmed.length,
-      classification,
-      trustScore,
-      riskLevel,
-      warningFlags,
-      explanation,
-      detailedFindings: findings,
-      newsAnalysis,
-      disclaimer,
-      analyzedAt: new Date().toISOString()
-    };
-  }
-
-  // Public API
-  return {
-    analyzeText,
-    escapeHtml,
-    RULES
-  };
-}));
-
-</script>
-<script>
-/**
- * AI Spam, Message & News Detector
- * Windows Notification Monitor & Companion Integration Manager
- */
-
-(function (root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    define(['./analyzer'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    module.exports = factory(require('./analyzer'));
-  } else {
-    root.NotificationManager = factory(root.TextAnalyzer);
-  }
-}(typeof self !== 'undefined' ? self : this, function (TextAnalyzer) {
-  'use strict';
-
-  const STORAGE_KEY_HISTORY = 'ai_detector_notif_history_v1';
-  const STORAGE_KEY_SETTINGS = 'ai_detector_notif_settings_v1';
-  const COMPANION_BASE_URL = 'http://127.0.0.1:8765';
-
-  // Default Monitored Apps list
-  const DEFAULT_MONITORED_APPS = [
-    { id: 'all', name: 'All Applications (*)', enabled: true },
-    { id: 'mail', name: 'Windows Mail / Outlook', enabled: true },
-    { id: 'whatsapp', name: 'WhatsApp', enabled: true },
-    { id: 'teams', name: 'Microsoft Teams', enabled: true },
-    { id: 'chrome', name: 'Google Chrome', enabled: true },
-    { id: 'msedge', name: 'Microsoft Edge', enabled: true },
-    { id: 'slack', name: 'Slack', enabled: true },
-    { id: 'system', name: 'Windows System / Security', enabled: true }
-  ];
-
-  class NotificationService {
-    constructor() {
-      this.isMonitoring = false;
-      this.isPaused = false;
-      this.historyEnabled = false; // Disabled by default per privacy requirement
-      this.companionConnected = false;
-      this.companionStatus = 'checking'; // 'checking', 'connected', 'offline', 'error'
-      this.winrtPermission = 'Unknown'; // 'Allowed', 'Denied', 'Unspecified', 'Unsupported'
-      this.pollIntervalId = null;
-      this.subscribers = new Set();
-      this.inMemoryHistory = [];
-      this.monitoredApps = JSON.parse(JSON.stringify(DEFAULT_MONITORED_APPS));
-
-      this._loadSettings();
-      if (this.historyEnabled) {
-        this._loadHistoryFromStorage();
-      }
-    }
-
-    /**
-     * Subscribe to notification events
-     * @param {Function} callback (event, data) => void
-     */
-    subscribe(callback) {
-      this.subscribers.add(callback);
-      return () => this.subscribers.delete(callback);
-    }
-
-    _notify(event, data) {
-      for (const cb of this.subscribers) {
-        try {
-          cb(event, data);
-        } catch (err) {
-          console.error('Subscriber callback error:', err);
+    // TextAnalyzer Engine
+    const TextAnalyzer = (function () {
+      const RULES = [
+        {
+          category: 'phishing',
+          weight: 35,
+          label: 'Phishing: Password / Credential Request',
+          regex: /\b(enter\s+your\s+password|confirm\s+your\s+password|reset\s+your\s+password|verify\s+your\s+credentials|login\s+to\s+keep|re-activate\s+your\s+account|identity\s+verification\s+required)\b/gi,
+          explanation: 'Requests user passwords or login credentials ({snippet}), a signature technique in credential phishing.'
+        },
+        {
+          category: 'phishing',
+          weight: 35,
+          label: 'Phishing: Security / OTP Code Request',
+          regex: /\b(verification\s+code|one-time\s+pin|otp\s+code|2fa\s+code|security\s+code|do\s+not\s+share\s+this\s+code|send\s+me\s+the\s+code)\b/gi,
+          explanation: 'Solicits temporary security or verification codes ({snippet}) used to hijack accounts.'
+        },
+        {
+          category: 'financial_scam',
+          weight: 30,
+          label: 'Financial Urgency / Account Suspension Alert',
+          regex: /\b(account\s+(has\s+been\s+)?(suspended|locked|frozen|compromised)|unauthorized\s+transaction|wire\s+transfer\s+pending|bank\s+account\s+will\s+be\s+closed|update\s+billing\s+details|card\s+temporarily\s+blocked|yono\s+account|update\s+pan)\b/gi,
+          explanation: 'Fabricates banking crisis or immediate account suspension ({snippet}).'
+        },
+        {
+          category: 'suspicious_url',
+          weight: 30,
+          label: 'Suspicious URL / Deceptive Link',
+          regex: /(https?:\/\/(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?:\/[^\s]*)?)|(https?:\/\/[^\s\/]+(?:paypa[l1]|arnazon|app1e|micros0ft|netf1ix|sec-login|verify-acc)[^\s]*)|(https?:\/\/[^\s\/]+\.(?:xyz|top|work|click|tk|gq)[^\s]*)/gi,
+          explanation: 'Contains suspicious domain formatting or lookalike link ({snippet}).'
+        },
+        {
+          category: 'promotional_spam',
+          weight: 25,
+          label: 'Unsolicited Cash / Reward Promise',
+          regex: /\b((?:have|get|win|receive|earn|claim)\s+(?:[\$₹£€]|rs\.?|inr\s*)?\s*\d+[\d,]*\s*(?:rupees|rs|dollars|inr|cash|bucks)?)\b/gi,
+          explanation: 'Promises unearned cash or monetary reward ({snippet}) typical of click-lure scams.'
+        },
+        {
+          category: 'phishing',
+          weight: 22,
+          label: 'Suspicious Action / Click-Link Coercion',
+          regex: /\b(click\s+(?:the|this|here|on)?\s*link|tap\s+(?:the|this)?\s*link|open\s+the\s+link|click\s+here\s+to\s+claim)\b/gi,
+          explanation: 'Coerces user to open untrusted links ({snippet}) to claim promised incentives.'
+        },
+        {
+          category: 'promotional_spam',
+          weight: 20,
+          label: 'Unsolicited Prize / Sweepstakes Claim',
+          regex: /\b(you\s+have\s+won|lottery\s+winner|selected\s+to\s+receive|claim\s+your\s+free|congratulations\s+winner)\b/gi,
+          explanation: 'Claims unearned lottery prizes or rewards ({snippet}).'
+        },
+        {
+          category: 'urgency_coercion',
+          weight: 20,
+          label: 'Artificial Urgency / Time Pressure',
+          regex: /\b(act\s+now|within\s+(?:24|12|48|15)\s*(?:hours|minutes|hrs|mins)|immediate\s+action\s+required|final\s+(?:warning|notice)|before\s+it(?:'s|\s+is)\s+too\s+late)\b/gi,
+          explanation: 'Applies psychological time pressure ({snippet}) to force impulsive action.'
+        },
+        {
+          category: 'sensational_news',
+          weight: 20,
+          label: 'Sensational Clickbait / Unverified Claim',
+          regex: /\b(shocking\s+truth|bombshell\s+(?:report|revelation)|what\s+they\s+don't\s+want\s+you\s+to\s+know|insiders\s+confirm|100%\s+proven|secret\s+cure)\b/gi,
+          explanation: 'Employs sensational clickbait or unverified claims ({snippet}) lacking named sources.'
         }
-      }
-    }
+      ];
 
-    _loadSettings() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY_SETTINGS);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          this.historyEnabled = Boolean(parsed.historyEnabled);
-          if (Array.isArray(parsed.monitoredApps)) {
-            this.monitoredApps = parsed.monitoredApps;
+      function analyzeText(rawText) {
+        const text = (rawText || '').trim();
+        if (!text) {
+          return { status: 'error', message: 'Empty input' };
+        }
+
+        const findings = [];
+        let riskScore = 0;
+
+        for (const rule of RULES) {
+          const match = rule.regex.exec(text);
+          if (match) {
+            findings.push({
+              label: rule.label,
+              category: rule.category,
+              weight: rule.weight,
+              matchedSnippet: match[0],
+              explanation: rule.explanation.replace('{snippet}', `"${match[0]}"`)
+            });
+            riskScore += rule.weight;
           }
         }
-      } catch (e) {
-        // Fallback to safe defaults if localStorage is inaccessible
-      }
-    }
 
-    _saveSettings() {
-      try {
-        const payload = {
-          historyEnabled: this.historyEnabled,
-          monitoredApps: this.monitoredApps
-        };
-        localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(payload));
-      } catch (e) {}
-    }
+        const clampedRisk = Math.min(100, Math.max(0, riskScore));
+        const trustScore = Math.max(5, Math.min(95, 95 - clampedRisk));
+        
+        let riskLevel = 'Low';
+        if (clampedRisk >= 50) riskLevel = 'High';
+        else if (clampedRisk >= 20) riskLevel = 'Medium';
 
-    _loadHistoryFromStorage() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY_HISTORY);
-        if (raw) {
-          this.inMemoryHistory = JSON.parse(raw);
+        let classification = 'Safe';
+        const hasHarm = findings.some(f => f.category === 'phishing' || f.category === 'financial_scam' || f.category === 'suspicious_url');
+        const hasSpam = findings.some(f => f.category === 'promotional_spam');
+        const hasNews = findings.some(f => f.category === 'sensational_news');
+
+        if (hasHarm) classification = 'Potentially Harmful';
+        else if (hasNews) classification = 'Needs Verification';
+        else if (hasSpam) classification = 'Spam';
+
+        let explanation = 'No deceptive triggers or credential requests detected.';
+        if (classification === 'Potentially Harmful') {
+          explanation = 'Contains high-risk phishing or scam indicators designed to extract credentials or funds.';
+        } else if (classification === 'Spam') {
+          explanation = 'Contains promotional solicitation or unearned cash reward lures.';
+        } else if (classification === 'Needs Verification') {
+          explanation = 'Contains sensational claims that require independent verification with reliable primary sources.';
         }
-      } catch (e) {
-        this.inMemoryHistory = [];
-      }
-    }
 
-    _saveHistoryToStorage() {
-      if (!this.historyEnabled) return;
-      try {
-        localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(this.inMemoryHistory));
-      } catch (e) {}
-    }
-
-    /**
-     * Toggle saving history to local storage
-     * @param {boolean} enabled
-     */
-    setHistoryEnabled(enabled) {
-      this.historyEnabled = Boolean(enabled);
-      if (!this.historyEnabled) {
-        this.clearHistory();
-      }
-      this._saveSettings();
-      this._notify('settings_changed', { historyEnabled: this.historyEnabled });
-    }
-
-    /**
-     * Clear all recorded notification history
-     */
-    clearHistory() {
-      this.inMemoryHistory = [];
-      try {
-        localStorage.removeItem(STORAGE_KEY_HISTORY);
-      } catch (e) {}
-      this._notify('history_cleared', {});
-    }
-
-    /**
-     * Update monitored apps list
-     */
-    setMonitoredApp(appId, enabled) {
-      const target = this.monitoredApps.find(a => a.id === appId);
-      if (target) {
-        target.enabled = Boolean(enabled);
-        this._saveSettings();
-        this._notify('settings_changed', { monitoredApps: this.monitoredApps });
-      }
-    }
-
-    /**
-     * Check if a given application source should be monitored
-     */
-    isAppMonitored(sourceApp) {
-      if (!sourceApp) return true;
-      const allApp = this.monitoredApps.find(a => a.id === 'all');
-      if (allApp && allApp.enabled) return true;
-
-      const lower = sourceApp.toLowerCase();
-      const matched = this.monitoredApps.find(a => {
-        if (!a.enabled || a.id === 'all') return false;
-        return lower.includes(a.id) || lower.includes(a.name.toLowerCase());
-      });
-      return Boolean(matched);
-    }
-
-    /**
-     * Check Windows Companion status via local HTTP endpoint
-     */
-    async checkCompanionStatus() {
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2000);
-        const res = await fetch(`${COMPANION_BASE_URL}/api/status`, {
-          signal: controller.signal,
-          headers: { 'Accept': 'application/json' }
-        });
-        clearTimeout(timeoutId);
-
-        if (res.ok) {
-          const data = await res.json();
-          this.companionConnected = true;
-          this.companionStatus = 'connected';
-          this.winrtPermission = data.winrtPermission || 'Unknown';
-          this._notify('companion_status', {
-            connected: true,
-            winrtPermission: this.winrtPermission,
-            details: data
-          });
-          return data;
-        }
-      } catch (err) {
-        this.companionConnected = false;
-        this.companionStatus = 'offline';
-        this.winrtPermission = 'Unavailable (Companion Offline)';
-        this._notify('companion_status', {
-          connected: false,
-          winrtPermission: this.winrtPermission,
-          details: null
-        });
-      }
-      return null;
-    }
-
-    /**
-     * Request Windows Notification permissions via the Companion
-     */
-    async requestWindowsPermission() {
-      if (!this.companionConnected) {
         return {
-          success: false,
-          message: 'Windows Companion is not running. Please start the companion via run.bat or PowerShell.'
+          status: 'success',
+          classification,
+          trustScore,
+          riskLevel,
+          explanation,
+          warningFlags: findings.map(f => f.label)
         };
       }
 
-      try {
-        const res = await fetch(`${COMPANION_BASE_URL}/api/notifications/request-access`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' }
+      return { analyzeText };
+    })();
+
+    // UI Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      // Tab Navigation
+      const navTabs = document.querySelectorAll('.tab-btn');
+      const tabPanels = document.querySelectorAll('.tab-panel');
+      navTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.tab;
+          navTabs.forEach(t => t.classList.remove('active'));
+          tabPanels.forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(target).classList.add('active');
         });
-        const data = await res.json();
-        await this.checkCompanionStatus();
-        return data;
-      } catch (err) {
-        return {
-          success: false,
-          message: 'Failed to communicate with companion server: ' + err.message
-        };
-      }
-    }
-
-    /**
-     * Start automatic notification monitoring
-     */
-    startMonitoring() {
-      if (this.isMonitoring) return;
-      this.isMonitoring = true;
-      this.isPaused = false;
-
-      // Start periodic poll loop (every 2.5s)
-      this.pollIntervalId = setInterval(() => this._pollCompanion(), 2500);
-      this._pollCompanion(); // immediate first poll
-
-      this._notify('monitoring_state_changed', {
-        isMonitoring: true,
-        isPaused: false
-      });
-    }
-
-    /**
-     * Stop notification monitoring completely
-     */
-    stopMonitoring() {
-      if (!this.isMonitoring) return;
-      this.isMonitoring = false;
-      this.isPaused = false;
-      if (this.pollIntervalId) {
-        clearInterval(this.pollIntervalId);
-        this.pollIntervalId = null;
-      }
-      this._notify('monitoring_state_changed', {
-        isMonitoring: false,
-        isPaused: false
-      });
-    }
-
-    /**
-     * Pause or resume monitoring
-     */
-    togglePause() {
-      if (!this.isMonitoring) return;
-      this.isPaused = !this.isPaused;
-      this._notify('monitoring_state_changed', {
-        isMonitoring: this.isMonitoring,
-        isPaused: this.isPaused
-      });
-    }
-
-    /**
-     * Poll companion for newly arrived notifications
-     */
-    async _pollCompanion() {
-      if (!this.isMonitoring || this.isPaused) return;
-
-      try {
-        const res = await fetch(`${COMPANION_BASE_URL}/api/notifications/poll`);
-        if (res.ok) {
-          const json = await res.json();
-          if (Array.isArray(json.notifications) && json.notifications.length > 0) {
-            for (const item of json.notifications) {
-              this.processIncomingNotification(item);
-            }
-          }
-        }
-      } catch (err) {
-        // Soft fail if companion offline during polling
-      }
-    }
-
-    /**
-     * Process an incoming notification (from real Windows listener or Simulator)
-     * @param {Object} rawNotification { id, sourceApp, title, body, timestamp, isUnavailable }
-     */
-    processIncomingNotification(rawNotification) {
-      if (!this.isMonitoring || this.isPaused) {
-        return null; // Ignore while stopped or paused
-      }
-
-      const sourceApp = rawNotification.sourceApp || 'Unknown Application';
-      if (!this.isAppMonitored(sourceApp)) {
-        return null; // Skipped by app filter
-      }
-
-      // Check for unavailable content
-      const bodyText = (rawNotification.body || '').trim();
-      const titleText = (rawNotification.title || '').trim();
-      const combinedText = [titleText, bodyText].filter(Boolean).join(' - ');
-
-      const isUnavailable =
-        rawNotification.isUnavailable ||
-        (!bodyText && !titleText) ||
-        /content unavailable|hidden notification|message hidden/i.test(combinedText);
-
-      // Perform local analysis
-      const analysis = TextAnalyzer.analyzeText(isUnavailable ? '[Content Unavailable]' : combinedText, {
-        isNotification: true,
-        sourceApp,
-        isUnavailable
       });
 
-      const entry = {
-        id: rawNotification.id || 'notif_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
-        sourceApp,
-        title: titleText || '(No Title)',
-        body: bodyText,
-        isUnavailable,
-        timestamp: rawNotification.timestamp || new Date().toISOString(),
-        analysis
+      // TAB 1: General Analyzer
+      const textInput = document.getElementById('textInput');
+      const sampleSelect = document.getElementById('sampleSelect');
+      const btnLoadSample = document.getElementById('btnLoadSample');
+      const btnClear = document.getElementById('btnClear');
+      const btnAnalyze = document.getElementById('btnAnalyze');
+      const resultsContainer = document.getElementById('resultsContainer');
+      const emptyAlert = document.getElementById('emptyInputAlert');
+
+      const SAMPLES = {
+        phishing: 'URGENT: Your Bank account has been temporarily suspended. Enter your password and 2FA code immediately at http://192.168.1.55/sec-login within 24 hours to prevent account closure!',
+        promo_spam: 'CONGRATULATIONS WINNER! You have won $1,000 cash! Claim your free prize now. Buy now for only $1 during this exclusive flash sale.',
+        news_claim: 'BOMBSHELL report: Insiders confirm secret cure discovered that mainstream media won\'t show! 100% proven results.',
+        extortion: 'FINAL NOTICE: Immediate action required. Pay ransom before it is too late or your family will be exposed to law enforcement.',
+        safe_msg: 'Hi Sarah, the project presentation has been reviewed. Let\'s meet tomorrow at 10 AM to finalize the slides.'
       };
 
-      // Add to transient in-memory history (limit to last 50 entries)
-      this.inMemoryHistory.unshift(entry);
-      if (this.inMemoryHistory.length > 50) {
-        this.inMemoryHistory.pop();
-      }
-
-      // Persist to localStorage if and only if history saving is explicitly enabled
-      if (this.historyEnabled) {
-        this._saveHistoryToStorage();
-      }
-
-      // If browser Notification API is available and permitted, show native browser notification on mobile/desktop
-      if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-        try {
-          new Notification(`${entry.sourceApp}: ${entry.title}`, {
-            body: entry.isUnavailable ? '[Content Unavailable]' : entry.body
-          });
-        } catch (e) {}
-      }
-
-      this._notify('notification_received', entry);
-      return entry;
-    }
-
-    /**
-     * Inject a simulated test notification for QA testing and demonstrations
-     */
-    simulateNotification(presetKey, customData = null) {
-      const presets = {
-        phishing: {
-          sourceApp: 'Windows Security Alert',
-          title: 'Immediate Action Required: Unauthorized Sign-in',
-          body: 'We detected suspicious activity on your account. Enter your password and 2FA code immediately at http://192.168.1.15/sec-login to avoid permanent suspension.'
-        },
-        promo: {
-          sourceApp: 'Shopping Deals App',
-          title: 'CONGRATULATIONS WINNER!',
-          body: 'You have been selected to claim your free $1,000 gift card! Exclusive flash sale buy now for only $1. Limited stock order today!'
-        },
-        sensational_news: {
-          sourceApp: 'Breaking News Feed',
-          title: 'SHOCKING TRUTH REVEALED!',
-          body: 'Insiders confirm secret cure discovered that mainstream media won\'t show. 100% proven results expose government cover-up!'
-        },
-        safe: {
-          sourceApp: 'Microsoft Teams',
-          title: 'Project Update',
-          body: 'Hi team, the pull request for the notification module has been reviewed and merged. The QA build is ready for verification.'
-        },
-        unavailable: {
-          sourceApp: 'Signal Private Messenger',
-          title: 'New Message',
-          body: '[Content Unavailable - Protected by device lockscreen privacy]',
-          isUnavailable: true
+      btnLoadSample.addEventListener('click', () => {
+        if (sampleSelect.value && SAMPLES[sampleSelect.value]) {
+          textInput.value = SAMPLES[sampleSelect.value];
+          emptyAlert.style.display = 'none';
         }
-      };
-
-      const selected = customData || presets[presetKey] || presets.safe;
-      return this.processIncomingNotification({
-        id: 'test_' + Date.now(),
-        sourceApp: selected.sourceApp,
-        title: selected.title,
-        body: selected.body,
-        isUnavailable: Boolean(selected.isUnavailable),
-        timestamp: new Date().toISOString()
       });
-    }
 
-    getHistory() {
-      return [...this.inMemoryHistory];
-    }
-  }
-
-  return new NotificationService();
-}));
-
-</script>
-<script>
-/**
- * AI Spam, Message & News Detector
- * Main Application Controller & UI Logic
- */
-
-document.addEventListener('DOMContentLoaded', () => {
-  'use strict';
-
-  // --- DOM Elements ---
-  const navTabs = document.querySelectorAll('.tab-btn');
-  const tabPanels = document.querySelectorAll('.tab-panel');
-
-  const textInput = document.getElementById('textInput');
-  const charCountLabel = document.getElementById('charCountLabel');
-  const emptyInputAlert = document.getElementById('emptyInputAlert');
-  const sampleSelect = document.getElementById('sampleSelect');
-  const btnLoadSample = document.getElementById('btnLoadSample');
-  const btnClear = document.getElementById('btnClear');
-  const btnAnalyze = document.getElementById('btnAnalyze');
-  const analyzeSpinner = document.getElementById('analyzeSpinner');
-
-  // Results panel elements
-  const resultsContainer = document.getElementById('resultsContainer');
-  const resClassificationBadge = document.getElementById('resClassificationBadge');
-  const resClassificationDetail = document.getElementById('resClassificationDetail');
-  const resTrustScore = document.getElementById('resTrustScore');
-  const resRiskLevel = document.getElementById('resRiskLevel');
-  const resExplanation = document.getElementById('resExplanation');
-  const resWarningFlags = document.getElementById('resWarningFlags');
-  const snippetsContainer = document.getElementById('snippetsContainer');
-  const resSnippetList = document.getElementById('resSnippetList');
-  const newsAnalysisBox = document.getElementById('newsAnalysisBox');
-  const newsExplanationText = document.getElementById('newsExplanationText');
-
-  // Notification elements
-  const companionStatusPill = document.getElementById('companionStatusPill');
-  const companionStatusText = document.getElementById('companionStatusText');
-  const companionDetailStatus = document.getElementById('companionDetailStatus');
-  const companionDetailHint = document.getElementById('companionDetailHint');
-  const btnRefreshCompanion = document.getElementById('btnRefreshCompanion');
-  const btnRequestPermission = document.getElementById('btnRequestPermission');
-
-  const btnToggleMonitoring = document.getElementById('btnToggleMonitoring');
-  const btnPauseMonitoring = document.getElementById('btnPauseMonitoring');
-  const monitoringStatusLabel = document.getElementById('monitoringStatusLabel');
-  const toggleSaveHistory = document.getElementById('toggleSaveHistory');
-  const btnClearNotifHistory = document.getElementById('btnClearNotifHistory');
-  const appsFilterContainer = document.getElementById('appsFilterContainer');
-  const notifFeedContainer = document.getElementById('notifFeedContainer');
-  const emptyNotifFeed = document.getElementById('emptyNotifFeed');
-  const feedCountLabel = document.getElementById('feedCountLabel');
-
-  // Simulator buttons
-  const btnSimPhishing = document.getElementById('btnSimPhishing');
-  const btnSimPromo = document.getElementById('btnSimPromo');
-  const btnSimNews = document.getElementById('btnSimNews');
-  const btnSimSafe = document.getElementById('btnSimSafe');
-  const btnSimUnavailable = document.getElementById('btnSimUnavailable');
-
-  // --- Sample Text Presets ---
-  const SAMPLE_PRESETS = {
-    phishing:
-      'URGENT: Your Bank of America debit card has been temporarily locked due to an unauthorized transaction. ' +
-      'Enter your password and 2FA security code immediately at http://192.168.1.55/sec-login to verify your credentials ' +
-      'within 24 hours, or your account will be permanently closed!',
-
-    promo_spam:
-      'CONGRATULATIONS WINNER! You have won a $1,000 cash voucher! ' +
-      'Claim your free prize now. Buy now for only $1 during this exclusive flash sale. ' +
-      'Massive savings and discount code inside, limited stock order today!',
-
-    news_claim:
-      'BOMBSHELL report: Insiders confirm secret cure discovered that mainstream media won\'t show! ' +
-      'Sources say it is 100% proven that all chronic illness can be completely eradicated in 48 hours. ' +
-      'The shocking truth exposed at last!',
-
-    extortion:
-      'FINAL NOTICE: We recorded your webcam and an arrest warrant has been issued by law enforcement. ' +
-      'Immediate action required before it is too late. You will regret ignoring this legal prosecution notice. ' +
-      'Pay ransom immediately or your family will be exposed.',
-
-    safe_msg:
-      'Hi Sarah, thanks for sharing the meeting notes from this morning\'s design sync. ' +
-      'I\'ve reviewed the mockups and added a few comments regarding color contrast. ' +
-      'Let\'s review them during our scheduled 2 PM check-in tomorrow.',
-
-    unavailable:
-      '[Content Unavailable: The source app or Windows privacy settings withheld the notification text. No text could be analyzed.]'
-  };
-
-  // ========================================================
-  // 1. Tab Switching
-  // ========================================================
-  navTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const targetId = tab.dataset.tab;
-      navTabs.forEach(t => t.classList.remove('active'));
-      tabPanels.forEach(p => p.classList.remove('active'));
-
-      tab.classList.add('active');
-      const targetPanel = document.getElementById(targetId);
-      if (targetPanel) targetPanel.classList.add('active');
-    });
-  });
-
-  // ========================================================
-  // 2. Text Input & Sample Handling
-  // ========================================================
-  textInput.addEventListener('input', () => {
-    const len = textInput.value.length;
-    charCountLabel.textContent = `${len.toLocaleString()} character${len === 1 ? '' : 's'}`;
-    if (len > 0) {
-      emptyInputAlert.style.display = 'none';
-    }
-  });
-
-  btnLoadSample.addEventListener('click', () => {
-    const val = sampleSelect.value;
-    if (val && SAMPLE_PRESETS[val]) {
-      textInput.value = SAMPLE_PRESETS[val];
-      emptyInputAlert.style.display = 'none';
-      textInput.dispatchEvent(new Event('input'));
-      textInput.focus();
-    }
-  });
-
-  btnClear.addEventListener('click', () => {
-    textInput.value = '';
-    sampleSelect.value = '';
-    emptyInputAlert.style.display = 'none';
-    resultsContainer.style.display = 'none';
-    textInput.dispatchEvent(new Event('input'));
-    textInput.focus();
-  });
-
-  // ========================================================
-  // 3. Manual Text Analysis Flow
-  // ========================================================
-  btnAnalyze.addEventListener('click', () => {
-    const raw = textInput.value;
-
-    // Validation: Empty Input check
-    if (!raw || !raw.trim()) {
-      emptyInputAlert.style.display = 'flex';
-      resultsContainer.style.display = 'none';
-      emptyInputAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      return;
-    }
-
-    emptyInputAlert.style.display = 'none';
-    analyzeSpinner.style.display = 'inline-block';
-    btnAnalyze.disabled = true;
-
-    // Short simulated processing delay for visual responsiveness
-    setTimeout(() => {
-      try {
-        const result = TextAnalyzer.analyzeText(raw);
-        renderAnalysisResults(result);
-      } finally {
-        analyzeSpinner.style.display = 'none';
-        btnAnalyze.disabled = false;
-      }
-    }, 180);
-  });
-
-  function renderAnalysisResults(result) {
-    if (result.status === 'error') {
-      emptyInputAlert.style.display = 'flex';
-      resultsContainer.style.display = 'none';
-      return;
-    }
-
-    resultsContainer.style.display = 'grid';
-
-    // 1. Classification Badge
-    resClassificationBadge.className = 'badge';
-    resClassificationBadge.textContent = result.classification;
-
-    if (result.classification === 'Safe') {
-      resClassificationBadge.classList.add('badge-safe');
-      resClassificationDetail.textContent = 'Normal communication patterns with no high-risk markers.';
-    } else if (result.classification === 'Spam') {
-      resClassificationBadge.classList.add('badge-spam');
-      resClassificationDetail.textContent = 'Promotional spam, sweepstakes, or exaggerated ad tactics.';
-    } else if (result.classification === 'Potentially Harmful') {
-      resClassificationBadge.classList.add('badge-harmful');
-      resClassificationDetail.textContent = 'Contains high-risk phishing, credential, or extortion triggers.';
-    } else {
-      // Needs Verification
-      resClassificationBadge.classList.add('badge-verify');
-      resClassificationDetail.textContent = 'Contains unverified claims or sensational language requiring independent check.';
-    }
-
-    // 2. Trust Score
-    resTrustScore.textContent = result.trustScore;
-
-    // 3. Risk Level
-    resRiskLevel.className = '';
-    resRiskLevel.textContent = result.riskLevel;
-    if (result.riskLevel === 'Low') resRiskLevel.classList.add('risk-low');
-    else if (result.riskLevel === 'Medium') resRiskLevel.classList.add('risk-medium');
-    else resRiskLevel.classList.add('risk-high');
-
-    // 4. Explanation
-    resExplanation.textContent = result.explanation;
-
-    // 5. Warning Flags
-    resWarningFlags.innerHTML = '';
-    if (result.warningFlags && result.warningFlags.length > 0) {
-      result.warningFlags.forEach(flag => {
-        const chip = document.createElement('span');
-        chip.className = 'flag-chip';
-        chip.innerHTML = `<span>⚠️</span> ${TextAnalyzer.escapeHtml(flag)}`;
-        resWarningFlags.appendChild(chip);
+      btnClear.addEventListener('click', () => {
+        textInput.value = '';
+        resultsContainer.style.display = 'none';
+        emptyAlert.style.display = 'none';
       });
-    }
 
-    // 6. Matched Text Snippets
-    if (result.detailedFindings && result.detailedFindings.length > 0) {
-      snippetsContainer.style.display = 'block';
-      resSnippetList.innerHTML = '';
-      result.detailedFindings.slice(0, 6).forEach(f => {
-        const li = document.createElement('li');
-        li.style.fontSize = '0.875rem';
-        li.style.color = 'var(--text-muted)';
-        li.innerHTML = `
-          <strong style="color: #cbd5e1;">${TextAnalyzer.escapeHtml(f.label)}:</strong> 
-          Found phrase <span class="quote-highlight">${TextAnalyzer.escapeHtml(f.matchedSnippet)}</span>
+      btnAnalyze.addEventListener('click', () => {
+        const val = textInput.value.trim();
+        if (!val) {
+          emptyAlert.style.display = 'flex';
+          resultsContainer.style.display = 'none';
+          return;
+        }
+        emptyAlert.style.display = 'none';
+        const res = TextAnalyzer.analyzeText(val);
+        
+        document.getElementById('resClassificationBadge').textContent = res.classification;
+        document.getElementById('resClassificationBadge').className = 'badge badge-' + (res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : res.classification === 'Potentially Harmful' ? 'harmful' : 'verify');
+        document.getElementById('resTrustScore').textContent = res.trustScore;
+        document.getElementById('resRiskLevel').textContent = res.riskLevel;
+        document.getElementById('resExplanation').textContent = res.explanation;
+        
+        const flagsDiv = document.getElementById('resWarningFlags');
+        flagsDiv.innerHTML = '';
+        res.warningFlags.forEach(f => {
+          const chip = document.createElement('span');
+          chip.className = 'flag-chip';
+          chip.textContent = '⚠️ ' + f;
+          flagsDiv.appendChild(chip);
+        });
+
+        resultsContainer.style.display = 'block';
+      });
+
+      // TAB 2: GMAIL SCANNER (FEATURE 1)
+      const emailSubject = document.getElementById('emailSubject');
+      const emailBody = document.getElementById('emailBody');
+      const btnScanEmail = document.getElementById('btnScanEmail');
+      const emailResults = document.getElementById('emailResultsContainer');
+
+      document.getElementById('btnEmailSampleInvoice').addEventListener('click', () => {
+        emailSubject.value = 'Invoice #INV-94829 from Geek Squad / PayPal Support';
+        emailBody.value = 'Dear Customer, Thank you for your auto-renewal order of $499.00. If you did not make this transaction, call our support immediately to dispute this charge or enter your password at http://192.168.1.1/sec-login within 24 hours.';
+      });
+      document.getElementById('btnEmailSamplePassword').addEventListener('click', () => {
+        emailSubject.value = 'Security Alert: Unusual sign-in attempt detected on your Google account';
+        emailBody.value = 'Someone just tried to access your account from Russia. Confirm your password and verify your credentials immediately to avoid permanent account termination.';
+      });
+      document.getElementById('btnEmailSampleSafe').addEventListener('click', () => {
+        emailSubject.value = 'Team Sync Notes & Next Steps';
+        emailBody.value = 'Hi Team, Thanks for attending today\'s meeting. Please review the attached document and submit your feedback before Friday.';
+      });
+
+      btnScanEmail.addEventListener('click', () => {
+        const text = (emailSubject.value + ' ' + emailBody.value).trim();
+        if (!text) return;
+        const res = TextAnalyzer.analyzeText(text);
+
+        document.getElementById('emailBadge').textContent = res.classification;
+        document.getElementById('emailBadge').className = 'badge badge-' + (res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : res.classification === 'Potentially Harmful' ? 'harmful' : 'verify');
+        document.getElementById('emailTrust').textContent = res.trustScore;
+        document.getElementById('emailRisk').textContent = res.riskLevel;
+        document.getElementById('emailExplanation').textContent = res.explanation;
+
+        const flagsDiv = document.getElementById('emailFlags');
+        flagsDiv.innerHTML = '';
+        res.warningFlags.forEach(f => {
+          const chip = document.createElement('span');
+          chip.className = 'flag-chip';
+          chip.textContent = '⚠️ ' + f;
+          flagsDiv.appendChild(chip);
+        });
+        emailResults.style.display = 'block';
+      });
+
+      // TAB 3: SMS SCANNER (FEATURE 2)
+      const phoneSender = document.getElementById('phoneSender');
+      const phoneBubble = document.getElementById('phoneBubble');
+      const btnScanSms = document.getElementById('btnScanSms');
+      const smsResults = document.getElementById('smsResultsContainer');
+
+      document.getElementById('btnSmsSampleUpi').addEventListener('click', () => {
+        phoneSender.textContent = 'From: WhatsApp (Mahesh)';
+        phoneBubble.textContent = 'Click the link have 5000 rupees';
+      });
+      document.getElementById('btnSmsSampleBank').addEventListener('click', () => {
+        phoneSender.textContent = 'From: SBI-ALERT';
+        phoneBubble.textContent = 'Dear SBI user, your YONO account has been suspended today. Please update PAN card and verify your credentials at http://sbi-verify.xyz/login immediately.';
+      });
+      document.getElementById('btnSmsSamplePackage').addEventListener('click', () => {
+        phoneSender.textContent = 'From: IndiaPost-Tracking';
+        phoneBubble.textContent = 'Your parcel cannot be delivered due to missing house number. Click link within 12 hours to update delivery details.';
+      });
+      document.getElementById('btnSmsSampleSafe').addEventListener('click', () => {
+        phoneSender.textContent = 'From: Mom';
+        phoneBubble.textContent = 'Hi dear, don\'t forget to pick up groceries on your way back home. See you soon!';
+      });
+
+      btnScanSms.addEventListener('click', () => {
+        const text = phoneBubble.textContent.trim();
+        if (!text) return;
+        const res = TextAnalyzer.analyzeText(text);
+
+        document.getElementById('smsBadge').textContent = res.classification;
+        document.getElementById('smsBadge').className = 'badge badge-' + (res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : res.classification === 'Potentially Harmful' ? 'harmful' : 'verify');
+        document.getElementById('smsTrust').textContent = res.trustScore;
+        document.getElementById('smsRisk').textContent = res.riskLevel;
+        document.getElementById('smsExplanation').textContent = res.explanation;
+
+        const flagsDiv = document.getElementById('smsFlags');
+        flagsDiv.innerHTML = '';
+        res.warningFlags.forEach(f => {
+          const chip = document.createElement('span');
+          chip.className = 'flag-chip';
+          chip.textContent = '⚠️ ' + f;
+          flagsDiv.appendChild(chip);
+        });
+        smsResults.style.display = 'block';
+      });
+
+      // TAB 4: NOTIFICATIONS TEST TOASTS
+      const notifFeed = document.getElementById('notifFeedContainer');
+      function addToast(title, body, sender) {
+        const res = TextAnalyzer.analyzeText(title + ' ' + body);
+        const el = document.createElement('div');
+        el.className = 'chat-bubble';
+        el.style.borderLeftColor = res.classification === 'Safe' ? '#10b981' : res.classification === 'Spam' ? '#f59e0b' : '#ef4444';
+        el.innerHTML = `
+          <div style="font-size:0.75rem; color:#94a3b8; font-weight:bold;">📱 ${sender} &bull; ${new Date().toLocaleTimeString()}</div>
+          <div style="font-weight:bold; margin:2px 0;">${title}</div>
+          <div style="color:#e2e8f0; font-size:0.8rem;">${body}</div>
+          <div style="margin-top:4px;"><span class="badge badge-${res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : 'harmful'}">${res.classification}</span> <span style="font-size:0.75rem; color:#94a3b8;">Risk: ${res.riskLevel}</span></div>
         `;
-        resSnippetList.appendChild(li);
-      });
-    } else {
-      snippetsContainer.style.display = 'none';
-    }
-
-    // 7. News & Claim Box
-    if (result.newsAnalysis) {
-      newsAnalysisBox.style.display = 'block';
-      newsExplanationText.textContent = result.newsAnalysis.whyNeedsVerification;
-    } else {
-      newsAnalysisBox.style.display = 'none';
-    }
-
-    resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  // ========================================================
-  // 4. Windows Notification UI & Companion Controller
-  // ========================================================
-  
-  // Render App Filters
-  function renderAppFilters() {
-    appsFilterContainer.innerHTML = '';
-    NotificationManager.monitoredApps.forEach(app => {
-      const label = document.createElement('label');
-      label.className = 'app-checkbox-label';
-      label.innerHTML = `
-        <input type="checkbox" data-app-id="${TextAnalyzer.escapeHtml(app.id)}" ${app.enabled ? 'checked' : ''}>
-        <span>${TextAnalyzer.escapeHtml(app.name)}</span>
-      `;
-      const checkbox = label.querySelector('input');
-      checkbox.addEventListener('change', () => {
-        NotificationManager.setMonitoredApp(app.id, checkbox.checked);
-      });
-      appsFilterContainer.appendChild(label);
-    });
-  }
-
-  // Toggle History Privacy Switch
-  toggleSaveHistory.checked = NotificationManager.historyEnabled;
-  toggleSaveHistory.addEventListener('change', () => {
-    NotificationManager.setHistoryEnabled(toggleSaveHistory.checked);
-  });
-
-  btnClearNotifHistory.addEventListener('click', () => {
-    if (confirm('Are you sure you want to delete all recorded notification history?')) {
-      NotificationManager.clearHistory();
-    }
-  });
-
-  // Monitoring Start/Stop
-  btnToggleMonitoring.addEventListener('click', () => {
-    if (!NotificationManager.isMonitoring) {
-      NotificationManager.startMonitoring();
-    } else {
-      NotificationManager.stopMonitoring();
-    }
-  });
-
-  // Pause / Resume
-  btnPauseMonitoring.addEventListener('click', () => {
-    NotificationManager.togglePause();
-  });
-
-  // Refresh Companion Status
-  async function refreshCompanion() {
-    companionDetailStatus.textContent = 'Checking companion...';
-    const status = await NotificationManager.checkCompanionStatus();
-    updateCompanionUI(status);
-  }
-
-  function updateCompanionUI(status) {
-    if (status && NotificationManager.companionConnected) {
-      companionStatusPill.className = 'companion-pill connected';
-      companionStatusText.textContent = 'Windows Companion Connected';
-      companionDetailStatus.innerHTML = '<span style="color: var(--color-safe);">Windows Companion Active (Port 8765)</span>';
-      companionDetailHint.innerHTML = `Windows WinRT Notification Access: <strong>${TextAnalyzer.escapeHtml(NotificationManager.winrtPermission)}</strong>. Intercepting desktop toasts.`;
-      btnRequestPermission.disabled = false;
-    } else {
-      companionStatusPill.className = 'companion-pill connected';
-      companionStatusText.textContent = 'Universal Web & Mobile Active';
-      companionDetailStatus.innerHTML = '<span style="color: var(--color-safe);">Universal Web & Mobile Active</span>';
-      companionDetailHint.innerHTML = 'Detector is fully operational on every device (Mobile, Tablet, Mac, Laptop & PC). Test any message or notification with zero interruptions.';
-      btnRequestPermission.disabled = true;
-    }
-  }
-
-  btnRefreshCompanion.addEventListener('click', refreshCompanion);
-  btnRequestPermission.addEventListener('click', async () => {
-    const res = await NotificationManager.requestWindowsPermission();
-    alert(res.message || 'Notification permission request submitted.');
-  });
-
-  // Update Monitoring State UI
-  function updateMonitoringUI(state) {
-    if (state.isMonitoring) {
-      btnToggleMonitoring.textContent = 'Stop Monitoring';
-      btnToggleMonitoring.className = 'btn btn-danger btn-sm';
-      btnPauseMonitoring.disabled = false;
-
-      if (state.isPaused) {
-        monitoringStatusLabel.textContent = 'Paused';
-        monitoringStatusLabel.style.color = '#f59e0b';
-        btnPauseMonitoring.textContent = 'Resume';
-      } else {
-        monitoringStatusLabel.textContent = 'Active (Listening)';
-        monitoringStatusLabel.style.color = '#10b981';
-        btnPauseMonitoring.textContent = 'Pause';
+        notifFeed.prepend(el);
       }
-    } else {
-      btnToggleMonitoring.textContent = 'Start Monitoring';
-      btnToggleMonitoring.className = 'btn btn-primary btn-sm';
-      btnPauseMonitoring.disabled = true;
-      btnPauseMonitoring.textContent = 'Pause';
-      monitoringStatusLabel.textContent = 'Stopped';
-      monitoringStatusLabel.style.color = '#94a3b8';
-    }
-  }
 
-  // Render Notification Item in Feed
-  function renderNotificationFeed() {
-    const history = NotificationManager.getHistory();
-    feedCountLabel.textContent = `${history.length} notification${history.length === 1 ? '' : 's'}`;
-
-    if (history.length === 0) {
-      emptyNotifFeed.style.display = 'block';
-      return;
-    }
-
-    emptyNotifFeed.style.display = 'none';
-
-    // Retain only elements, re-render top items
-    const existingItems = notifFeedContainer.querySelectorAll('.notif-item');
-    existingItems.forEach(el => el.remove());
-
-    history.forEach(item => {
-      const notifEl = createNotificationElement(item);
-      notifFeedContainer.appendChild(notifEl);
+      document.getElementById('btnSimPhishing').addEventListener('click', () => addToast('Unauthorized Login Alert', 'Verify password and security code at http://192.168.1.1/sec-login immediately.', 'Bank Security'));
+      document.getElementById('btnSimPromo').addEventListener('click', () => addToast('CONGRATULATIONS WINNER!', 'You have won $1,000 cash voucher! Click here to claim.', 'Shopping Deals'));
+      document.getElementById('btnSimNews').addEventListener('click', () => addToast('BOMBSHELL report!', 'Insiders confirm secret cure discovered that mainstream media won\'t show.', 'News App'));
+      document.getElementById('btnSimSafe').addEventListener('click', () => addToast('New Message', 'Hey, let\'s catch up tomorrow afternoon.', 'WhatsApp'));
     });
-  }
-
-  function createNotificationElement(item) {
-    const el = document.createElement('div');
-    const cls = (item.analysis.classification || 'Safe').toLowerCase();
-    let cardClass = 'safe';
-    if (cls === 'spam') cardClass = 'spam';
-    else if (cls === 'potentially harmful') cardClass = 'harmful';
-    else if (cls === 'needs verification') cardClass = 'verify';
-
-    el.className = `notif-item ${cardClass}`;
-
-    const formattedTime = new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-    let bodyDisplay = '';
-    if (item.isUnavailable) {
-      bodyDisplay = `<div class="notif-body notif-unavailable">⚠️ [Content Unavailable: Withheld by source app or Windows privacy settings]</div>`;
-    } else {
-      bodyDisplay = `<div class="notif-body"><strong>${TextAnalyzer.escapeHtml(item.title)}</strong><br>${TextAnalyzer.escapeHtml(item.body)}</div>`;
-    }
-
-    let flagsHtml = '';
-    if (item.analysis.warningFlags) {
-      flagsHtml = item.analysis.warningFlags.map(f => `<span class="flag-chip" style="font-size:0.75rem;">${TextAnalyzer.escapeHtml(f)}</span>`).join(' ');
-    }
-
-    el.innerHTML = `
-      <div class="notif-header">
-        <span class="notif-source">
-          <span>📱</span> ${TextAnalyzer.escapeHtml(item.sourceApp)}
-        </span>
-        <span class="notif-time">${formattedTime}</span>
-      </div>
-      ${bodyDisplay}
-      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-          <span class="badge ${getBadgeClass(item.analysis.classification)}" style="font-size: 0.75rem;">
-            ${TextAnalyzer.escapeHtml(item.analysis.classification)}
-          </span>
-          <span style="font-size: 0.75rem; color: var(--text-muted);">
-            Trust: <strong>${item.analysis.trustScore}/100</strong>
-          </span>
-          <span style="font-size: 0.75rem; color: var(--text-muted);">
-            Risk: <strong class="${getRiskClass(item.analysis.riskLevel)}">${item.analysis.riskLevel}</strong>
-          </span>
-        </div>
-        <div style="font-size: 0.75rem; color: var(--text-muted);">
-          ${item.analysis.isUnavailable ? 'Protected Content' : 'Local Analysis'}
-        </div>
-      </div>
-      <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 0.5rem;">
-        ${TextAnalyzer.escapeHtml(item.analysis.explanation)}
-      </div>
-      ${flagsHtml ? `<div class="flags-list" style="margin-top: 0.5rem;">${flagsHtml}</div>` : ''}
-    `;
-
-    return el;
-  }
-
-  function getBadgeClass(classification) {
-    if (classification === 'Safe') return 'badge-safe';
-    if (classification === 'Spam') return 'badge-spam';
-    if (classification === 'Potentially Harmful') return 'badge-harmful';
-    return 'badge-verify';
-  }
-
-  function getRiskClass(level) {
-    if (level === 'Low') return 'risk-low';
-    if (level === 'Medium') return 'risk-medium';
-    return 'risk-high';
-  }
-
-  // Simulator helper: ensures monitoring is active when triggering test
-  function triggerSimulation(presetKey) {
-    if (!NotificationManager.isMonitoring) {
-      NotificationManager.startMonitoring();
-    }
-    NotificationManager.simulateNotification(presetKey);
-  }
-
-  btnSimPhishing.addEventListener('click', () => triggerSimulation('phishing'));
-  btnSimPromo.addEventListener('click', () => triggerSimulation('promo'));
-  btnSimNews.addEventListener('click', () => triggerSimulation('sensational_news'));
-  btnSimSafe.addEventListener('click', () => triggerSimulation('safe'));
-  btnSimUnavailable.addEventListener('click', () => triggerSimulation('unavailable'));
-
-  // NotificationManager Subscriptions
-  NotificationManager.subscribe((event, data) => {
-    if (event === 'monitoring_state_changed') {
-      updateMonitoringUI(data);
-    } else if (event === 'notification_received' || event === 'history_cleared') {
-      renderNotificationFeed();
-    } else if (event === 'companion_status') {
-      updateCompanionUI(data.details);
-    }
-  });
-
-  // Initialize
-  renderAppFilters();
-  refreshCompanion();
-  renderNotificationFeed();
-});
-
-</script>
+  </script>
 </body>
 </html>

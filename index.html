@@ -525,7 +525,7 @@ body {
 }
 
 .checklist li::before {
-  content: "âœ“";
+  content: "✓";
   color: #a78bfa;
   font-weight: bold;
 }
@@ -733,15 +733,14 @@ input:checked + .slider:before {
     padding: 0 1rem;
   }
 }
-
-</style>
+  </style>
 </head>
 <body>
   <!-- Header -->
   <header class="app-header">
     <div class="header-inner">
       <div class="brand-wrapper">
-        <div class="brand-icon">ðŸ›¡ï¸</div>
+        <div class="brand-icon">&#128737;&#65039;</div>
         <div>
           <h1 class="brand-title">AI Spam, Message &amp; News Detector</h1>
           <p class="brand-subtitle">Transparent Local Pattern &amp; Heuristic Verification</p>
@@ -757,33 +756,31 @@ input:checked + .slider:before {
   <!-- Navigation Tabs -->
   <nav class="tabs-nav" aria-label="Main Navigation">
     <button class="tab-btn active" data-tab="tab-analyze" id="navAnalyze">
-      <span>ðŸ“</span> Message &amp; News Analyzer
+      <span>&#128221;</span> Message &amp; News Analyzer
     </button>
     <button class="tab-btn" data-tab="tab-notifications" id="navNotifications">
-      <span>ðŸ””</span> Windows Notifications
+      <span>&#128276;</span> Windows Notifications
     </button>
     <button class="tab-btn" data-tab="tab-about" id="navAbout">
-      <span>â„¹ï¸</span> Transparency &amp; Privacy
+      <span>&#8505;&#65039;</span> Transparency &amp; Privacy
     </button>
   </nav>
 
   <!-- Main Content Container -->
   <main class="main-content">
     
-    <!-- ========================================== -->
-    <!-- TAB 1: MESSAGE & NEWS ANALYZER             -->
-    <!-- ========================================== -->
+    <!-- TAB 1: MESSAGE & NEWS ANALYZER -->
     <section class="tab-panel active" id="tab-analyze">
       <div class="card">
-        <h2 class="card-title"><span>ðŸ”</span> Text &amp; Message Analysis</h2>
+        <h2 class="card-title"><span>&#128269;</span> Text &amp; Message Analysis</h2>
         <p class="card-description">
           Paste any message, email, advertisement, social media post, or news claim. 
           The local engine evaluates linguistic patterns, urgency cues, credential requests, and sensational wording.
         </p>
 
-        <!-- Empty Input Validation Alert (Hidden by default) -->
+        <!-- Empty Input Validation Alert -->
         <div class="alert alert-warning" id="emptyInputAlert" style="display: none;" role="alert">
-          <span>âš ï¸</span>
+          <span>&#9888;&#65039;</span>
           <div>
             <strong>Input Required:</strong> Please enter or paste text to analyze before clicking Analyze.
           </div>
@@ -812,12 +809,12 @@ input:checked + .slider:before {
             </label>
             <select id="sampleSelect" class="select-input" aria-label="Select sample message">
               <option value="">-- Choose a pre-built sample --</option>
-              <option value="phishing">ðŸŽ£ Phishing / Credential Scam (Bank/Password)</option>
-              <option value="promo_spam">ðŸ“¢ Urgent Promotional Spam (Prize/Clearance)</option>
-              <option value="news_claim">ðŸ“° Sensational News Claim (Secret Cure/Conspiracy)</option>
-              <option value="extortion">âš¡ Extortion &amp; Legal Threat (Arrest/Webcam)</option>
-              <option value="safe_msg">âœ… Safe Personal / Work Message</option>
-              <option value="unavailable">ðŸ”’ Masked / Unavailable Text (Notification)</option>
+              <option value="phishing">&#127907; Phishing / Credential Scam (Bank/Password)</option>
+              <option value="promo_spam">&#128226; Urgent Promotional Spam (Prize/Clearance)</option>
+              <option value="news_claim">&#128240; Sensational News Claim (Secret Cure/Conspiracy)</option>
+              <option value="extortion">&#9889; Extortion &amp; Legal Threat (Arrest/Webcam)</option>
+              <option value="safe_msg">&#9989; Safe Personal / Work Message</option>
+              <option value="unavailable">&#128274; Masked / Unavailable Text (Notification)</option>
             </select>
             <button type="button" class="btn btn-secondary btn-sm" id="btnLoadSample">Insert Sample</button>
           </div>
@@ -825,16 +822,15 @@ input:checked + .slider:before {
           <div class="toolbar-right">
             <button type="button" class="btn btn-secondary" id="btnClear">Clear</button>
             <button type="button" class="btn btn-primary" id="btnAnalyze">
-              <span id="analyzeSpinner" style="display:none;">â³</span>
+              <span id="analyzeSpinner" style="display:none;">&#9203;</span>
               <span>Analyze Text</span>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Analysis Results Area (Populated dynamically) -->
+      <!-- Analysis Results Area -->
       <div id="resultsContainer" class="results-container" style="display: none;">
-        <!-- Top Metrics Card -->
         <div class="metrics-overview">
           <div class="metric-card">
             <div class="metric-label">Classification</div>
@@ -863,9 +859,8 @@ input:checked + .slider:before {
           </div>
         </div>
 
-        <!-- Detailed Findings & Explanation Card -->
         <div class="card">
-          <h3 class="card-title"><span>ðŸ“‹</span> Analysis Findings &amp; Explanation</h3>
+          <h3 class="card-title"><span>&#128203;</span> Analysis Findings &amp; Explanation</h3>
           
           <div style="margin-bottom: 1.25rem;">
             <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
@@ -881,7 +876,6 @@ input:checked + .slider:before {
             <div id="resWarningFlags" class="flags-list"></div>
           </div>
 
-          <!-- Specific Matched Text Snippets -->
           <div id="snippetsContainer" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
             <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
               Phrases Detected in Input:
@@ -889,10 +883,9 @@ input:checked + .slider:before {
             <ul id="resSnippetList" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;"></ul>
           </div>
 
-          <!-- Specialized News & Claim Card -->
           <div id="newsAnalysisBox" class="news-box" style="display: none;">
             <div class="news-box-title">
-              <span>ðŸ“°</span> News &amp; Claim Evaluation Notice
+              <span>&#128240;</span> News &amp; Claim Evaluation Notice
             </div>
             <p style="font-size: 0.875rem; color: #e2e8f0; line-height: 1.5;" id="newsExplanationText">
               This text contains sensational clickbait patterns or assertions lacking named sources.
@@ -908,9 +901,8 @@ input:checked + .slider:before {
             </ul>
           </div>
 
-          <!-- Engine Disclaimer -->
           <div class="alert alert-info" style="margin-top: 1.5rem; margin-bottom: 0;">
-            <span>â„¹ï¸</span>
+            <span>&#8505;&#65039;</span>
             <div style="font-size: 0.8rem;">
               <strong>Local Privacy &amp; Limitations:</strong> Text analysis is performed entirely in your browser using deterministic heuristic rules. Your text is never transmitted to any cloud server or third-party AI provider.
             </div>
@@ -919,20 +911,17 @@ input:checked + .slider:before {
       </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- TAB 2: WINDOWS NOTIFICATIONS MONITOR       -->
-    <!-- ========================================== -->
+    <!-- TAB 2: WINDOWS NOTIFICATIONS MONITOR -->
     <section class="tab-panel" id="tab-notifications">
-      <!-- Architecture & Permission Notice Card -->
       <div class="card">
-        <h2 class="card-title"><span>ðŸ””</span> Windows Notification Monitoring</h2>
+        <h2 class="card-title"><span>&#128276;</span> Windows Notification Monitoring</h2>
         <p class="card-description">
           Automatically analyze incoming notifications for spam, phishing links, and sensational claims.
           Analysis is performed locally on your device.
         </p>
 
         <div class="alert alert-info">
-          <span>ðŸ›¡ï¸</span>
+          <span>&#128737;&#65039;</span>
           <div>
             <strong>Why notification permission is required:</strong>
             Standard web browsers cannot access OS-level Windows notifications directly due to security sandboxing.
@@ -942,7 +931,6 @@ input:checked + .slider:before {
           </div>
         </div>
 
-        <!-- Companion Status & Connection Controls -->
         <div class="controls-grid">
           <div style="background-color: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
             <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
@@ -974,10 +962,9 @@ input:checked + .slider:before {
           </div>
         </div>
 
-        <!-- App Filter Selection -->
         <div style="margin-top: 1rem;">
           <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem;">
-            <span>ðŸŽ¯</span> Monitored Applications Filter
+            <span>&#127919;</span> Monitored Applications Filter
           </h3>
           <p style="font-size: 0.8rem; color: var(--text-muted);">
             Choose which source applications to inspect. Windows provides the source app identity with each notification.
@@ -985,7 +972,6 @@ input:checked + .slider:before {
           <div class="apps-grid" id="appsFilterContainer"></div>
         </div>
 
-        <!-- History Privacy Toggle -->
         <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
           <div class="toggle-group">
             <div>
@@ -1005,35 +991,33 @@ input:checked + .slider:before {
         </div>
       </div>
 
-      <!-- Test Notification Simulator Card -->
       <div class="card">
-        <h3 class="card-title"><span>ðŸ§ª</span> Notification Simulator &amp; Test Suite</h3>
+        <h3 class="card-title"><span>&#129514;</span> Notification Simulator &amp; Test Suite</h3>
         <p class="card-description">
           Test notification handling instantly even if real Windows permissions have not yet been granted.
           Includes tests for phishing, promotional spam, news claims, and privacy-masked content.
         </p>
 
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPhishing">ðŸŽ£ Test Phishing Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPromo">ðŸ“¢ Test Promo Spam Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimNews">ðŸ“° Test Sensational News Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimSafe">âœ… Test Safe Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimUnavailable">ðŸ”’ Test Unavailable Content Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPhishing">&#127907; Test Phishing Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPromo">&#128226; Test Promo Spam Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimNews">&#128240; Test Sensational News Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimSafe">&#9989; Test Safe Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimUnavailable">&#128274; Test Unavailable Content Toast</button>
         </div>
       </div>
 
-      <!-- Live Notification Feed Card -->
       <div class="card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
           <h3 class="card-title" style="margin-bottom: 0;">
-            <span>ðŸ“¨</span> Monitored Notification Feed
+            <span>&#128233;</span> Monitored Notification Feed
           </h3>
           <span style="font-size: 0.8rem; color: var(--text-muted);" id="feedCountLabel">0 notifications</span>
         </div>
 
         <div id="notifFeedContainer" class="notif-feed">
           <div class="empty-state" id="emptyNotifFeed">
-            <div class="empty-icon">ðŸ””</div>
+            <div class="empty-icon">&#128276;</div>
             <p style="font-weight: 600; margin-bottom: 0.25rem;">No Notifications Received Yet</p>
             <p style="font-size: 0.85rem;">
               Click "Start Monitoring" above, or use the Notification Simulator buttons to test different notification scenarios.
@@ -1043,12 +1027,10 @@ input:checked + .slider:before {
       </div>
     </section>
 
-    <!-- ========================================== -->
     <!-- TAB 3: TRANSPARENCY, PRIVACY & LIMITATIONS -->
-    <!-- ========================================== -->
     <section class="tab-panel" id="tab-about">
       <div class="card">
-        <h2 class="card-title"><span>ðŸ›¡ï¸</span> Privacy Architecture &amp; Technical Disclosure</h2>
+        <h2 class="card-title"><span>&#128737;&#65039;</span> Privacy Architecture &amp; Technical Disclosure</h2>
         <p class="card-description">
           Full technical transparency into how detection operates, data boundaries, and known limitations.
         </p>
@@ -1250,7 +1232,7 @@ input:checked + .slider:before {
       category: 'promotional_spam',
       weight: 25,
       label: 'Unsolicited Cash / Reward Promise',
-      regex: /\b((?:have|get|win|receive|earn|claim)\s+(?:[\$â‚¹Â£â‚¬]|rs\.?|inr\s*)?\s*\d+[\d,]*\s*(?:rupees|rs|dollars|inr|cash|bucks)?)\b/gi,
+      regex: /\b((?:have|get|win|receive|earn|claim)\s+(?:[\$₹£€]|rs\.?|inr\s*)?\s*\d+[\d,]*\s*(?:rupees|rs|dollars|inr|cash|bucks)?)\b/gi,
       explanation: 'Promises unearned cash or monetary incentives ({snippet}) commonly used in click-lure scams.'
     },
     {
@@ -1520,7 +1502,7 @@ input:checked + .slider:before {
         hasClaimIndicators: true,
         suspiciousWordingFound: suspiciousSnippets,
         factualStatus: 'Unconfirmed (Pattern-based analysis only)',
-        whyNeedsVerification: 'The text exhibits sensational framing, absolute claims, or lacks named primary sources. This application does not connect to external fact-checking databases, so claims are not labeled as falseâ€”only as unverified patterns.',
+        whyNeedsVerification: 'The text exhibits sensational framing, absolute claims, or lacks named primary sources. This application does not connect to external fact-checking databases, so claims are not labeled as false—only as unverified patterns.',
         verificationGuidance: [
           'Verify if recognized news agencies (e.g. AP, Reuters, BBC) have reported the event.',
           'Look for primary documentation: court records, scientific journals, or official press releases.',
@@ -2181,7 +2163,7 @@ document.addEventListener('DOMContentLoaded', () => {
       result.warningFlags.forEach(flag => {
         const chip = document.createElement('span');
         chip.className = 'flag-chip';
-        chip.innerHTML = `<span>âš ï¸</span> ${TextAnalyzer.escapeHtml(flag)}`;
+        chip.innerHTML = `<span>⚠️</span> ${TextAnalyzer.escapeHtml(flag)}`;
         resWarningFlags.appendChild(chip);
       });
     }
@@ -2354,7 +2336,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let bodyDisplay = '';
     if (item.isUnavailable) {
-      bodyDisplay = `<div class="notif-body notif-unavailable">âš ï¸ [Content Unavailable: Withheld by source app or Windows privacy settings]</div>`;
+      bodyDisplay = `<div class="notif-body notif-unavailable">⚠️ [Content Unavailable: Withheld by source app or Windows privacy settings]</div>`;
     } else {
       bodyDisplay = `<div class="notif-body"><strong>${TextAnalyzer.escapeHtml(item.title)}</strong><br>${TextAnalyzer.escapeHtml(item.body)}</div>`;
     }
@@ -2367,7 +2349,7 @@ document.addEventListener('DOMContentLoaded', () => {
     el.innerHTML = `
       <div class="notif-header">
         <span class="notif-source">
-          <span>ðŸ“±</span> ${TextAnalyzer.escapeHtml(item.sourceApp)}
+          <span>📱</span> ${TextAnalyzer.escapeHtml(item.sourceApp)}
         </span>
         <span class="notif-time">${formattedTime}</span>
       </div>
@@ -2444,4 +2426,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
-

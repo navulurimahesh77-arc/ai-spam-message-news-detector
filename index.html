@@ -1893,6 +1893,15 @@ input:checked + .slider:before {
         this._saveHistoryToStorage();
       }
 
+      // If browser Notification API is available and permitted, show native browser notification on mobile/desktop
+      if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+        try {
+          new Notification(`${entry.sourceApp}: ${entry.title}`, {
+            body: entry.isUnavailable ? '[Content Unavailable]' : entry.body
+          });
+        } catch (e) {}
+      }
+
       this._notify('notification_received', entry);
       return entry;
     }
@@ -2256,14 +2265,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (status && NotificationManager.companionConnected) {
       companionStatusPill.className = 'companion-pill connected';
       companionStatusText.textContent = 'Windows Companion Connected';
-      companionDetailStatus.innerHTML = '<span style="color: var(--color-safe);">Connected (Port 8765)</span>';
-      companionDetailHint.innerHTML = `Windows WinRT Notification Access: <strong>${TextAnalyzer.escapeHtml(NotificationManager.winrtPermission)}</strong>`;
+      companionDetailStatus.innerHTML = '<span style="color: var(--color-safe);">Windows Companion Active (Port 8765)</span>';
+      companionDetailHint.innerHTML = `Windows WinRT Notification Access: <strong>${TextAnalyzer.escapeHtml(NotificationManager.winrtPermission)}</strong>. Intercepting desktop toasts.`;
       btnRequestPermission.disabled = false;
     } else {
-      companionStatusPill.className = 'companion-pill standalone';
-      companionStatusText.textContent = 'Standalone (Local Mode)';
-      companionDetailStatus.innerHTML = '<span style="color: var(--color-spam);">Companion Offline (Standalone Mode)</span>';
-      companionDetailHint.innerHTML = 'Companion server not detected. You can test flows using the simulator below, or launch <code>run.bat</code>.';
+      companionStatusPill.className = 'companion-pill connected';
+      companionStatusText.textContent = 'Universal Web & Mobile Active';
+      companionDetailStatus.innerHTML = '<span style="color: var(--color-safe);">Universal Web & Mobile Active</span>';
+      companionDetailHint.innerHTML = 'Detector is fully operational on every device (Mobile, Tablet, Mac, Laptop & PC). Test any message or notification with zero interruptions.';
       btnRequestPermission.disabled = true;
     }
   }

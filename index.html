@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Spam, Message & News Detector - Privacy-first local detector for messages, promotional spam, news claims, and Windows notifications.">
+  <title>AI Spam, Message &amp; News Detector</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-wrapper">
+        <div class="brand-icon">🛡️</div>
+        <div>
+          <h1 class="brand-title">AI Spam, Message &amp; News Detector</h1>
+          <p class="brand-subtitle">Transparent Local Pattern &amp; Heuristic Verification</p>
+        </div>
+      </div>
+      <div class="companion-pill standalone" id="companionStatusPill" title="Companion status">
+        <span class="status-dot"></span>
+        <span id="companionStatusText">Standalone (Local Engine)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="tabs-nav" aria-label="Main Navigation">
+    <button class="tab-btn active" data-tab="tab-analyze" id="navAnalyze">
+      <span>📝</span> Message &amp; News Analyzer
+    </button>
+    <button class="tab-btn" data-tab="tab-notifications" id="navNotifications">
+      <span>🔔</span> Windows Notifications
+    </button>
+    <button class="tab-btn" data-tab="tab-about" id="navAbout">
+      <span>ℹ️</span> Transparency &amp; Privacy
+    </button>
+  </nav>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+    
+    <!-- ========================================== -->
+    <!-- TAB 1: MESSAGE & NEWS ANALYZER             -->
+    <!-- ========================================== -->
+    <section class="tab-panel active" id="tab-analyze">
+      <div class="card">
+        <h2 class="card-title"><span>🔍</span> Text &amp; Message Analysis</h2>
+        <p class="card-description">
+          Paste any message, email, advertisement, social media post, or news claim. 
+          The local engine evaluates linguistic patterns, urgency cues, credential requests, and sensational wording.
+        </p>
+
+        <!-- Empty Input Validation Alert (Hidden by default) -->
+        <div class="alert alert-warning" id="emptyInputAlert" style="display: none;" role="alert">
+          <span>⚠️</span>
+          <div>
+            <strong>Input Required:</strong> Please enter or paste text to analyze before clicking Analyze.
+          </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-group">
+          <textarea 
+            id="textInput" 
+            class="textarea-field" 
+            placeholder="Type or paste message, advertisement, or news claim here... (e.g. urgent alerts, prize wins, or breaking news)" 
+            aria-label="Text to analyze"
+            rows="6"
+          ></textarea>
+          <div class="input-footer">
+            <span id="charCountLabel">0 characters</span>
+            <span style="color: var(--text-dim);">Processed strictly in local browser memory</span>
+          </div>
+        </div>
+
+        <!-- Controls Toolbar -->
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <label for="sampleSelect" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">
+              Load Sample:
+            </label>
+            <select id="sampleSelect" class="select-input" aria-label="Select sample message">
+              <option value="">-- Choose a pre-built sample --</option>
+              <option value="phishing">🎣 Phishing / Credential Scam (Bank/Password)</option>
+              <option value="promo_spam">📢 Urgent Promotional Spam (Prize/Clearance)</option>
+              <option value="news_claim">📰 Sensational News Claim (Secret Cure/Conspiracy)</option>
+              <option value="extortion">⚡ Extortion &amp; Legal Threat (Arrest/Webcam)</option>
+              <option value="safe_msg">✅ Safe Personal / Work Message</option>
+              <option value="unavailable">🔒 Masked / Unavailable Text (Notification)</option>
+            </select>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnLoadSample">Insert Sample</button>
+          </div>
+
+          <div class="toolbar-right">
+            <button type="button" class="btn btn-secondary" id="btnClear">Clear</button>
+            <button type="button" class="btn btn-primary" id="btnAnalyze">
+              <span id="analyzeSpinner" style="display:none;">⏳</span>
+              <span>Analyze Text</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analysis Results Area (Populated dynamically) -->
+      <div id="resultsContainer" class="results-container" style="display: none;">
+        <!-- Top Metrics Card -->
+        <div class="metrics-overview">
+          <div class="metric-card">
+            <div class="metric-label">Classification</div>
+            <div class="metric-value">
+              <span id="resClassificationBadge" class="badge">Safe</span>
+            </div>
+            <div class="metric-footer" id="resClassificationDetail">Evaluation based on pattern heuristics.</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">Trust Score</div>
+            <div class="metric-value">
+              <span id="resTrustScore">95</span><span style="font-size: 1rem; color: var(--text-muted); font-weight: normal;"> / 100</span>
+            </div>
+            <div class="metric-footer">
+              <strong>Notice:</strong> Heuristic score indicator. Not a mathematical probability or guarantee of safety.
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">Risk Level</div>
+            <div class="metric-value">
+              <span id="resRiskLevel" class="risk-low">Low</span>
+            </div>
+            <div class="metric-footer">Estimated exposure to deceptive or manipulative patterns.</div>
+          </div>
+        </div>
+
+        <!-- Detailed Findings & Explanation Card -->
+        <div class="card">
+          <h3 class="card-title"><span>📋</span> Analysis Findings &amp; Explanation</h3>
+          
+          <div style="margin-bottom: 1.25rem;">
+            <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
+              Summary Explanation:
+            </strong>
+            <p id="resExplanation" style="margin-top: 0.35rem; color: #e2e8f0; line-height: 1.6;"></p>
+          </div>
+
+          <div style="margin-bottom: 1.25rem;">
+            <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
+              Triggered Warning Flags:
+            </strong>
+            <div id="resWarningFlags" class="flags-list"></div>
+          </div>
+
+          <!-- Specific Matched Text Snippets -->
+          <div id="snippetsContainer" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <strong style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">
+              Phrases Detected in Input:
+            </strong>
+            <ul id="resSnippetList" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;"></ul>
+          </div>
+
+          <!-- Specialized News & Claim Card -->
+          <div id="newsAnalysisBox" class="news-box" style="display: none;">
+            <div class="news-box-title">
+              <span>📰</span> News &amp; Claim Evaluation Notice
+            </div>
+            <p style="font-size: 0.875rem; color: #e2e8f0; line-height: 1.5;" id="newsExplanationText">
+              This text contains sensational clickbait patterns or assertions lacking named sources.
+            </p>
+            <div style="margin-top: 0.75rem; font-size: 0.85rem; color: #c4b5fd;">
+              <strong>Important Transparency Notice:</strong> 
+              This application only evaluates text structures and language patterns. It does <em>not</em> consult external fact-checking services or live databases, and cannot determine whether a claim is true or false.
+            </div>
+            <ul class="checklist" id="newsChecklist">
+              <li>Check whether recognized wire services (e.g. Associated Press, Reuters) report this claim.</li>
+              <li>Seek primary documentation: published peer-reviewed journals, official court filings, or government gazettes.</li>
+              <li>Search established independent fact-checking databases such as Snopes, PolitiFact, or FactCheck.org.</li>
+            </ul>
+          </div>
+
+          <!-- Engine Disclaimer -->
+          <div class="alert alert-info" style="margin-top: 1.5rem; margin-bottom: 0;">
+            <span>ℹ️</span>
+            <div style="font-size: 0.8rem;">
+              <strong>Local Privacy &amp; Limitations:</strong> Text analysis is performed entirely in your browser using deterministic heuristic rules. Your text is never transmitted to any cloud server or third-party AI provider.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: WINDOWS NOTIFICATIONS MONITOR       -->
+    <!-- ========================================== -->
+    <section class="tab-panel" id="tab-notifications">
+      <!-- Architecture & Permission Notice Card -->
+      <div class="card">
+        <h2 class="card-title"><span>🔔</span> Windows Notification Monitoring</h2>
+        <p class="card-description">
+          Automatically analyze incoming notifications for spam, phishing links, and sensational claims.
+          Analysis is performed locally on your device.
+        </p>
+
+        <div class="alert alert-info">
+          <span>🛡️</span>
+          <div>
+            <strong>Why notification permission is required:</strong>
+            Standard web browsers cannot access OS-level Windows notifications directly due to security sandboxing.
+            The optional local Windows Companion connects to the Windows 10/11 <code>UserNotificationListener</code> WinRT API 
+            to pass permitted notification text to this local dashboard via loopback (<code>127.0.0.1</code>).
+            <strong>No notification text is ever sent externally.</strong>
+          </div>
+        </div>
+
+        <!-- Companion Status & Connection Controls -->
+        <div class="controls-grid">
+          <div style="background-color: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+              Companion Server Status
+            </div>
+            <div style="font-size: 1.1rem; font-weight: 700; margin: 0.4rem 0;" id="companionDetailStatus">
+              Checking...
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;" id="companionDetailHint">
+              To start the companion, run <code>run.bat</code> or <code>powershell companion/WindowsNotificationCompanion.ps1</code>.
+            </p>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btnRefreshCompanion">Check Connection</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnRequestPermission">Open Windows Settings</button>
+            </div>
+          </div>
+
+          <div style="background-color: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+              Monitoring Controls
+            </div>
+            <div style="display: flex; gap: 0.5rem; margin: 0.75rem 0; flex-wrap: wrap;">
+              <button type="button" class="btn btn-primary btn-sm" id="btnToggleMonitoring">Start Monitoring</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnPauseMonitoring" disabled>Pause</button>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">
+              Current state: <strong id="monitoringStatusLabel" style="color: #94a3b8;">Stopped</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- App Filter Selection -->
+        <div style="margin-top: 1rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem;">
+            <span>🎯</span> Monitored Applications Filter
+          </h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">
+            Choose which source applications to inspect. Windows provides the source app identity with each notification.
+          </p>
+          <div class="apps-grid" id="appsFilterContainer"></div>
+        </div>
+
+        <!-- History Privacy Toggle -->
+        <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+          <div class="toggle-group">
+            <div>
+              <div class="toggle-label">Save Notification Analysis History</div>
+              <div class="toggle-hint">
+                Disabled by default. When enabled, analysis records are stored solely in your local browser storage.
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggleSaveHistory">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <button type="button" class="btn btn-danger btn-sm" id="btnClearNotifHistory">Clear Notification History</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test Notification Simulator Card -->
+      <div class="card">
+        <h3 class="card-title"><span>🧪</span> Notification Simulator &amp; Test Suite</h3>
+        <p class="card-description">
+          Test notification handling instantly even if real Windows permissions have not yet been granted.
+          Includes tests for phishing, promotional spam, news claims, and privacy-masked content.
+        </p>
+
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPhishing">🎣 Test Phishing Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPromo">📢 Test Promo Spam Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimNews">📰 Test Sensational News Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimSafe">✅ Test Safe Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimUnavailable">🔒 Test Unavailable Content Toast</button>
+        </div>
+      </div>
+
+      <!-- Live Notification Feed Card -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 class="card-title" style="margin-bottom: 0;">
+            <span>📨</span> Monitored Notification Feed
+          </h3>
+          <span style="font-size: 0.8rem; color: var(--text-muted);" id="feedCountLabel">0 notifications</span>
+        </div>
+
+        <div id="notifFeedContainer" class="notif-feed">
+          <div class="empty-state" id="emptyNotifFeed">
+            <div class="empty-icon">🔔</div>
+            <p style="font-weight: 600; margin-bottom: 0.25rem;">No Notifications Received Yet</p>
+            <p style="font-size: 0.85rem;">
+              Click "Start Monitoring" above, or use the Notification Simulator buttons to test different notification scenarios.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: TRANSPARENCY, PRIVACY & LIMITATIONS -->
+    <!-- ========================================== -->
+    <section class="tab-panel" id="tab-about">
+      <div class="card">
+        <h2 class="card-title"><span>🛡️</span> Privacy Architecture &amp; Technical Disclosure</h2>
+        <p class="card-description">
+          Full technical transparency into how detection operates, data boundaries, and known limitations.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; line-height: 1.6; font-size: 0.95rem;">
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.35rem;">
+              1. Detection Engine Methodology
+            </h3>
+            <p style="color: var(--text-muted);">
+              This application uses a deterministic heuristic and pattern-matching engine (defined in <code>js/analyzer.js</code>). 
+              It evaluates structural indicators such as credential harvesting keywords, aggressive capitalization, high-pressure artificial deadlines, known deceptive domain patterns, and sensational news framing.
+            </p>
+            <p style="color: var(--text-muted); margin-top: 0.5rem;">
+              <strong>Important:</strong> This is <em>not</em> a generative cloud AI model or a production security firewall. It does not replace enterprise antivirus, browser antiphishing protections, or professional editorial fact-checking.
+            </p>
+          </div>
+
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.35rem;">
+              2. News &amp; Claim Analysis Boundaries
+            </h3>
+            <p style="color: var(--text-muted);">
+              When news or viral claims are reviewed:
+            </p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.35rem; color: var(--text-muted);">
+              <li>The system flags sensationalist wording, extreme emotional triggers, or claims that omit named sources.</li>
+              <li>The system <strong>never labels a claim as "False"</strong> unless authoritative proof is available. Because this local demo operates without an external fact-checking database API, claims are classified as <strong>Needs Verification</strong>.</li>
+              <li>Users are provided with actionable advice to verify claims with independent primary sources.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.35rem;">
+              3. Automatic Windows Notification Privacy
+            </h3>
+            <ul style="margin-left: 1.5rem; margin-top: 0.35rem; color: var(--text-muted);">
+              <li><strong>Local Processing Only:</strong> Notification text is processed strictly on your computer. No data is sent over the Internet.</li>
+              <li><strong>Zero Persistent Storage by Default:</strong> Notification contents are held in volatile memory only for the duration of the session. If "Save Notification History" is checked, records are stored exclusively in your browser's private <code>localStorage</code>, which can be deleted with one click.</li>
+              <li><strong>Content Unavailable Handling:</strong> If Windows privacy settings or lock screen security masks notification text, the detector reports that the text is withheld. It does not fabricate or guess hidden text.</li>
+              <li><strong>App Filtering:</strong> You have full control over which applications are permitted to be inspected.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.35rem;">
+              4. Companion Architecture
+            </h3>
+            <p style="color: var(--text-muted);">
+              Browsers cannot read Windows toast notifications directly for security reasons. The provided Windows Companion (<code>companion/WindowsNotificationCompanion.ps1</code>) bridges the Windows 10/11 <code>UserNotificationListener</code> WinRT API to the local browser via loopback HTTP (<code>127.0.0.1:8765</code>).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <strong>AI Spam, Message &amp; News Detector</strong> &bull; Version 1.0.0
+      </div>
+      <div>
+        Privacy-First Local Verification &bull; No API Keys Required
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/analyzer.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

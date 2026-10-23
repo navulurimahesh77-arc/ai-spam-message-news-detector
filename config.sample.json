@@ -1,0 +1,36 @@
+{
+  "companion": {
+    "host": "127.0.0.1",
+    "port": 8765,
+    "autoLaunchBrowser": true,
+    "allowExternalConnections": false
+  },
+  "detection": {
+    "engine": "heuristic_pattern_matcher",
+    "version": "1.0.0",
+    "disclaimer": "This application uses local pattern heuristics. It does not replace professional fact-checking or certified security solutions.",
+    "riskThresholds": {
+      "lowMax": 25,
+      "mediumMax": 60,
+      "highMin": 61
+    }
+  },
+  "notifications": {
+    "saveHistoryByDefault": false,
+    "maxHistoryEntries": 50,
+    "monitoredApps": [
+      "mail",
+      "whatsapp",
+      "teams",
+      "chrome",
+      "msedge",
+      "slack",
+      "system"
+    ]
+  },
+  "privacy": {
+    "localProcessingOnly": true,
+    "telemetryEnabled": false,
+    "thirdPartyCloudAPIs": false
+  }
+}

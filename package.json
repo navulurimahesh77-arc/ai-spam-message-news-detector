@@ -1,0 +1,21 @@
+{
+  "name": "ai-spam-message-news-detector",
+  "version": "1.0.0",
+  "description": "Privacy-first local detector for spam messages, phishing, advertisements, news claims, and Windows notifications.",
+  "main": "index.html",
+  "scripts": {
+    "start": "node companion/server.js",
+    "companion:ps": "powershell -ExecutionPolicy Bypass -File companion/WindowsNotificationCompanion.ps1",
+    "companion:py": "python companion/server.py",
+    "test": "powershell -ExecutionPolicy Bypass -File tests/test-detector.ps1"
+  },
+  "keywords": [
+    "spam-detector",
+    "phishing-detection",
+    "news-verification",
+    "windows-notifications",
+    "privacy-first"
+  ],
+  "author": "Antigravity Development Team",
+  "license": "MIT"
+}

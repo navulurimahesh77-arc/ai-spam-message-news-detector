@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AI Spam, Message & News Detector - Universal detector for Gmail, SMS, WhatsApp, and notifications.">
+  <meta name="description" content="AI Spam, Message &amp; News Detector - Universal Shield for Mobile Messages, WhatsApp, Gmail, and Windows Notifications.">
   <title>AI Spam, Message &amp; News Detector</title>
   <style>
-/* Modern, Accessible, Responsive Stylesheet */
+/* ==========================================================================
+   AI Spam, Message & News Detector - Universal Stylesheet
+   Responsive design for Desktop, Laptops, Tablets, and Mobile Phones
+   ========================================================================== */
 :root {
   --bg-primary: #0f172a;
   --bg-surface: #1e293b;
@@ -20,6 +23,7 @@
   --primary: #2563eb;
   --primary-hover: #1d4ed8;
 
+  /* Classification & Risk Colors */
   --color-safe: #10b981;
   --color-safe-bg: rgba(16, 185, 129, 0.15);
   --color-safe-border: rgba(16, 185, 129, 0.3);
@@ -32,9 +36,9 @@
   --color-harmful-bg: rgba(239, 68, 68, 0.15);
   --color-harmful-border: rgba(239, 68, 68, 0.3);
 
-  --color-verify: #8b5cf6;
-  --color-verify-bg: rgba(139, 92, 246, 0.15);
-  --color-verify-border: rgba(139, 92, 246, 0.3);
+  --color-verify: #a855f7;
+  --color-verify-bg: rgba(168, 85, 247, 0.15);
+  --color-verify-border: rgba(168, 85, 247, 0.3);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -42,9 +46,14 @@
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-main);
   line-height: 1.5;
@@ -53,38 +62,44 @@ body {
   flex-direction: column;
 }
 
+/* Header & Brand */
 .app-header {
   background-color: var(--bg-surface);
   border-bottom: 1px solid var(--border-color);
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.25rem;
   position: sticky;
   top: 0;
-  z-index: 100;
-  box-shadow: var(--shadow);
+  z-index: 50;
 }
 .header-inner {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 1rem;
 }
-.brand-wrapper { display: flex; align-items: center; gap: 0.75rem; }
-.brand-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #2563eb, #8b5cf6);
-  border-radius: var(--radius-md);
+.brand-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
+  gap: 0.75rem;
 }
-.brand-title { font-size: 1.25rem; font-weight: 700; color: #ffffff; }
-.brand-subtitle { font-size: 0.8rem; color: var(--text-muted); }
+.brand-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #fff;
+}
+.brand-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
 
+/* Companion / Universal Status Pill */
 .companion-pill {
   display: flex;
   align-items: center;
@@ -93,9 +108,10 @@ body {
   border-radius: 9999px;
   font-size: 0.8rem;
   font-weight: 600;
-  background-color: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background-color: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
   color: #10b981;
+  white-space: nowrap;
 }
 .status-dot {
   width: 8px;
@@ -105,14 +121,25 @@ body {
   box-shadow: 0 0 8px #10b981;
 }
 
+/* Navigation Tabs */
 .tabs-nav {
   max-width: 1200px;
+  width: 100%;
   margin: 1rem auto 0;
   padding: 0 1rem;
   display: flex;
-  gap: 0.5rem;
+  gap: 0.35rem;
   border-bottom: 1px solid var(--border-color);
   overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.tabs-nav::-webkit-scrollbar {
+  height: 4px;
+}
+.tabs-nav::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
 }
 .tab-btn {
   background: none;
@@ -120,18 +147,25 @@ body {
   color: var(--text-muted);
   font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.65rem 1rem;
+  padding: 0.75rem 1rem;
   cursor: pointer;
   border-bottom: 2px solid transparent;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   white-space: nowrap;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  user-select: none;
 }
-.tab-btn:hover { color: var(--text-main); }
-.tab-btn.active { color: #38bdf8; border-bottom-color: #38bdf8; }
+.tab-btn:hover {
+  color: var(--text-main);
+}
+.tab-btn.active {
+  color: #38bdf8;
+  border-bottom-color: #38bdf8;
+}
 
+/* Main Content Area */
 .main-content {
   max-width: 1200px;
   width: 100%;
@@ -139,10 +173,19 @@ body {
   padding: 0 1.25rem;
   flex: 1;
 }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; animation: fadeIn 0.2s ease; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.tab-panel {
+  display: none;
+}
+.tab-panel.active {
+  display: block;
+  animation: fadeIn 0.25s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
+/* Cards & Surfaces */
 .card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
@@ -151,9 +194,23 @@ body {
   margin-bottom: 1.5rem;
   box-shadow: var(--shadow);
 }
-.card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
-.card-description { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.25rem; }
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+}
+.card-description {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
 
+/* Inputs & Form Elements */
 .textarea-field, .input-text {
   width: 100%;
   background-color: var(--bg-input);
@@ -164,12 +221,22 @@ body {
   font-size: 0.95rem;
   font-family: inherit;
   outline: none;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+  transition: border-color 0.2s ease;
 }
 .textarea-field:focus, .input-text:focus {
   border-color: var(--border-focus);
 }
+.input-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
 
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -181,13 +248,42 @@ body {
   font-weight: 600;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  user-select: none;
+  white-space: nowrap;
 }
-.btn-primary { background-color: var(--primary); color: #fff; }
-.btn-primary:hover { background-color: var(--primary-hover); }
-.btn-secondary { background-color: var(--bg-surface-elevated); border-color: var(--border-color); color: var(--text-main); }
-.btn-secondary:hover { background-color: #475569; }
-.btn-sm { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+.btn-primary {
+  background-color: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+.btn-secondary {
+  background-color: var(--bg-surface-elevated);
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+.btn-secondary:hover {
+  background-color: #475569;
+}
+.btn-danger {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+}
+.btn-danger:hover {
+  background-color: rgba(239, 68, 68, 0.3);
+}
+.btn-sm {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .select-input {
   background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-color);
@@ -198,6 +294,7 @@ body {
   outline: none;
 }
 
+/* Alerts */
 .alert {
   padding: 0.85rem 1.15rem;
   border-radius: var(--radius-md);
@@ -207,9 +304,18 @@ body {
   align-items: flex-start;
   gap: 0.75rem;
 }
-.alert-warning { background-color: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.3); color: #fde68a; }
-.alert-info { background-color: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #bae6fd; }
+.alert-warning {
+  background-color: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fde68a;
+}
+.alert-info {
+  background-color: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #bae6fd;
+}
 
+/* Metrics Overview Cards */
 .metrics-overview {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -221,23 +327,71 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
+  box-shadow: var(--shadow);
 }
-.metric-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem; }
-.metric-value { font-size: 1.75rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem; }
+.metric-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+.metric-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.metric-footer {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
 
+/* Badges & Risk Colors */
 .badge {
   display: inline-flex;
-  padding: 0.25rem 0.65rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-.badge-safe { background-color: var(--color-safe-bg); border: 1px solid var(--color-safe-border); color: var(--color-safe); }
-.badge-spam { background-color: var(--color-spam-bg); border: 1px solid var(--color-spam-border); color: var(--color-spam); }
-.badge-harmful { background-color: var(--color-harmful-bg); border: 1px solid var(--color-harmful-border); color: var(--color-harmful); }
-.badge-verify { background-color: var(--color-verify-bg); border: 1px solid var(--color-verify-border); color: var(--color-verify); }
+.badge-safe {
+  background-color: var(--color-safe-bg);
+  border: 1px solid var(--color-safe-border);
+  color: var(--color-safe);
+}
+.badge-spam {
+  background-color: var(--color-spam-bg);
+  border: 1px solid var(--color-spam-border);
+  color: var(--color-spam);
+}
+.badge-harmful {
+  background-color: var(--color-harmful-bg);
+  border: 1px solid var(--color-harmful-border);
+  color: var(--color-harmful);
+}
+.badge-verify {
+  background-color: var(--color-verify-bg);
+  border: 1px solid var(--color-verify-border);
+  color: var(--color-verify);
+}
 
+.risk-low { color: var(--color-safe); font-weight: 700; }
+.risk-medium { color: var(--color-spam); font-weight: 700; }
+.risk-high { color: var(--color-harmful); font-weight: 700; }
+
+.flags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
 .flag-chip {
   background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-color);
@@ -246,28 +400,188 @@ body {
   font-size: 0.8rem;
   font-weight: 600;
   color: #e2e8f0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
-.flags-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
 
-/* Phone chat bubble preview */
+.quote-highlight {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* News & Claim Specialized Card */
+.news-box {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(30, 41, 59, 0.5));
+  border: 1px solid var(--color-verify-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+}
+.news-box-title {
+  color: #c4b5fd;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.checklist {
+  list-style: none;
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.checklist li {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  position: relative;
+  padding-left: 1.25rem;
+}
+.checklist li::before {
+  content: "\2022";
+  color: #a855f7;
+  font-size: 1.2rem;
+  position: absolute;
+  left: 0.25rem;
+  top: -0.15rem;
+}
+
+/* Controls Grid (Windows Notifications) */
+.controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.toggle-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background-color: var(--bg-surface-elevated);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.75rem;
+}
+
+/* Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #475569; transition: .3s; border-radius: 24px;
+}
+.slider:before {
+  position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+  background-color: white; transition: .3s; border-radius: 50%;
+}
+input:checked + .slider { background-color: var(--primary); }
+input:checked + .slider:before { transform: translateX(20px); }
+
+/* Apps Filter Grid */
+.apps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.app-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  background-color: var(--bg-surface-elevated);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Notification Feed */
+.notif-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.notif-item {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+}
+.notif-item.safe { border-left-color: var(--color-safe); }
+.notif-item.spam { border-left-color: var(--color-spam); }
+.notif-item.harmful { border-left-color: var(--color-harmful); }
+.notif-item.verify { border-left-color: var(--color-verify); }
+
+.notif-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.notif-body {
+  font-size: 0.9rem;
+  color: #e2e8f0;
+  background: var(--bg-input);
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.75rem;
+  word-break: break-word;
+}
+
+/* Mobile Mockup */
 .phone-mockup {
-  max-width: 380px;
-  margin: 1rem auto;
+  max-width: 420px;
+  margin: 1.5rem auto;
   background: #0f172a;
-  border: 2px solid #334155;
-  border-radius: 24px;
-  padding: 1rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  border: 3px solid #334155;
+  border-radius: 28px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+}
+.phone-notch {
+  width: 90px;
+  height: 6px;
+  background: #334155;
+  border-radius: 4px;
+  margin: 0 auto 0.75rem;
+}
+.phone-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 1rem;
 }
 .chat-bubble {
   background: #1e293b;
-  border-radius: 12px;
-  padding: 0.75rem;
-  margin: 0.5rem 0;
-  font-size: 0.85rem;
+  border-radius: 14px;
+  padding: 0.85rem;
+  margin: 0.75rem 0;
+  font-size: 0.9rem;
   border-left: 4px solid var(--primary);
+  word-break: break-word;
+  line-height: 1.4;
+  color: #f1f5f9;
 }
 
+/* Footer */
 .app-footer {
   background-color: var(--bg-surface);
   border-top: 1px solid var(--border-color);
@@ -277,16 +591,74 @@ body {
   color: var(--text-muted);
   margin-top: auto;
 }
+
+/* ==========================================================================
+   Responsive Mobile & Tablet Styles
+   ========================================================================== */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0.75rem 1rem;
+  }
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .brand-title {
+    font-size: 1.1rem;
+  }
+  .companion-pill {
+    align-self: flex-start;
+    font-size: 0.75rem;
+  }
+  .tabs-nav {
+    margin-top: 0.5rem;
+    padding: 0 0.5rem;
+    gap: 0.2rem;
+  }
+  .tab-btn {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.825rem;
+  }
+  .main-content {
+    margin: 1rem auto;
+    padding: 0 0.75rem;
+  }
+  .card {
+    padding: 1.1rem;
+    margin-bottom: 1rem;
+    border-radius: var(--radius-md);
+  }
+  .metrics-overview {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .controls-grid {
+    grid-template-columns: 1fr;
+  }
+  .apps-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .phone-mockup {
+    max-width: 100%;
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+}
   </style>
 </head>
 <body>
+
+  <!-- ======================================================================
+       HEADER & STATUS BAR
+       ====================================================================== -->
   <header class="app-header">
     <div class="header-inner">
       <div class="brand-wrapper">
         <div class="brand-icon">&#128737;&#65039;</div>
         <div>
           <h1 class="brand-title">AI Spam, Message &amp; News Detector</h1>
-          <p class="brand-subtitle">Universal Protection for Web, Mobile, Gmail &amp; SMS</p>
+          <p class="brand-subtitle">Universal Shield for Mobile Messages, WhatsApp, Gmail &amp; Notifications</p>
         </div>
       </div>
       <div class="companion-pill" id="companionStatusPill">
@@ -296,32 +668,162 @@ body {
     </div>
   </header>
 
+  <!-- ======================================================================
+       NAVIGATION TABS
+       ====================================================================== -->
   <nav class="tabs-nav" aria-label="Main Navigation">
-    <button class="tab-btn active" data-tab="tab-analyze" id="navAnalyze">
-      <span>&#128221;</span> Text Analyzer
+    <button class="tab-btn active" data-tab="tab-notifications" id="navNotifications">
+      <span>&#128276;</span> Windows Notifications (Live)
     </button>
-    <button class="tab-btn" data-tab="tab-gmail" id="navGmail">
-      <span>&#128231;</span> Gmail &amp; Email Scanner
+    <button class="tab-btn" data-tab="tab-analyze" id="navAnalyze">
+      <span>&#128221;</span> Text &amp; Message Analyzer
     </button>
     <button class="tab-btn" data-tab="tab-sms" id="navSms">
-      <span>&#128172;</span> SMS &amp; Mobile Messages
+      <span>&#128172;</span> SMS &amp; Mobile WhatsApp
     </button>
-    <button class="tab-btn" data-tab="tab-notifications" id="navNotifications">
-      <span>&#128276;</span> Live Notifications
+    <button class="tab-btn" data-tab="tab-gmail" id="navGmail">
+      <span>&#128231;</span> Gmail Scanner
     </button>
     <button class="tab-btn" data-tab="tab-extension" id="navExtension">
       <span>&#129513;</span> Chrome Extension
     </button>
   </nav>
 
+  <!-- ======================================================================
+       MAIN CONTENT CONTAINER
+       ====================================================================== -->
   <main class="main-content">
-    
-    <!-- TAB 1: TEXT ANALYZER -->
-    <section class="tab-panel active" id="tab-analyze">
+
+    <!-- ====================================================================
+         TAB 1: WINDOWS NOTIFICATIONS (LIVE) - RESTORED CONTROLS
+         ==================================================================== -->
+    <section class="tab-panel active" id="tab-notifications">
       <div class="card">
-        <h2 class="card-title"><span>&#128269;</span> Text &amp; Message Analysis</h2>
+        <h2 class="card-title"><span>&#128276;</span> Windows Notification Monitoring</h2>
         <p class="card-description">
-          Paste any message, advertisement, or news claim. Operates 100% locally on your phone or laptop.
+          Automatically intercept and analyze incoming desktop notifications for phishing, spam, and sensational claims.
+          Runs 100% locally on your computer with zero external data transmission.
+        </p>
+
+        <div class="alert alert-info">
+          <span>&#128737;&#65039;</span>
+          <div>
+            <strong>Why local companion is required for Windows Toasts:</strong>
+            Standard web browsers cannot access OS-level Windows notifications directly due to browser sandboxing.
+            The local Windows Companion connects to the Windows 10/11 <code>UserNotificationListener</code> WinRT API 
+            to pass permitted notification text to this dashboard via loopback (<code>127.0.0.1:8765</code>).
+            <div style="margin-top: 0.35rem; font-size: 0.8rem; color: #7dd3fc;">
+              <em>On mobile and other devices, click the <strong>SMS &amp; Mobile WhatsApp</strong> or <strong>Gmail Scanner</strong> tabs above for instant AI scanning.</em>
+            </div>
+          </div>
+        </div>
+
+        <!-- Companion Status & Connection Controls -->
+        <div class="controls-grid">
+          <div style="background-color: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+              Companion Server Status
+            </div>
+            <div style="font-size: 1.1rem; font-weight: 700; margin: 0.4rem 0;" id="companionDetailStatus">
+              Checking...
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;" id="companionDetailHint">
+              Universal Web mode is active. Launch <code>run.bat</code> on Windows for live toast monitoring.
+            </p>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btnRefreshCompanion">Check Connection</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnRequestPermission">Open Windows Settings</button>
+            </div>
+          </div>
+
+          <div style="background-color: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+              Monitoring Controls
+            </div>
+            <div style="display: flex; gap: 0.5rem; margin: 0.75rem 0; flex-wrap: wrap;">
+              <button type="button" class="btn btn-primary btn-sm" id="btnToggleMonitoring">Start Monitoring</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnPauseMonitoring" disabled>Pause</button>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">
+              Current state: <strong id="monitoringStatusLabel" style="color: #94a3b8;">Stopped</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- App Filter Selection -->
+        <div style="margin-top: 1rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem;">
+            <span>&#127919;</span> Monitored Applications Filter
+          </h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">
+            Choose which applications to inspect. Windows provides the source app identity with each notification.
+          </p>
+          <div class="apps-grid" id="appsFilterContainer"></div>
+        </div>
+
+        <!-- History Privacy Toggle -->
+        <div style="margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+          <div class="toggle-group">
+            <div>
+              <div style="font-size: 0.875rem; font-weight: 600;">Save Notification Analysis History</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">
+                Disabled by default. Stored solely in your local browser private storage.
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggleSaveHistory">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <button type="button" class="btn btn-danger btn-sm" id="btnClearNotifHistory">Clear Notification History</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test Notification Simulator Card -->
+      <div class="card">
+        <h3 class="card-title"><span>&#129514;</span> Notification Simulator &amp; Test Suite</h3>
+        <p class="card-description">
+          Test notification handling instantly on any laptop or mobile phone. Includes tests for phishing, promotional spam, news claims, and masked content.
+        </p>
+
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPhishing">&#127907; Test Phishing Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPromo">&#128226; Test Promo Spam Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimNews">&#128240; Test Sensational News Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimSafe">&#9989; Test Safe Toast</button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnSimUnavailable">&#128274; Test Unavailable Content Toast</button>
+        </div>
+      </div>
+
+      <!-- Live Notification Feed Card -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 class="card-title" style="margin-bottom: 0;">
+            <span>&#128233;</span> Monitored Notification Feed
+          </h3>
+          <span style="font-size: 0.8rem; color: var(--text-muted);" id="feedCountLabel">0 notifications</span>
+        </div>
+
+        <div id="notifFeedContainer" class="notif-feed">
+          <div id="emptyNotifFeed" style="text-align: center; padding: 2rem; color: var(--text-muted); border: 1px dashed var(--border-color); border-radius: var(--radius-md);">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">&#128276;</div>
+            <p style="font-weight: 600;">No Notifications Received Yet</p>
+            <p style="font-size: 0.85rem;">Click "Start Monitoring" above, or use the simulator buttons to test.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 2: UNIVERSAL TEXT & MESSAGE ANALYZER
+         ==================================================================== -->
+    <section class="tab-panel" id="tab-analyze">
+      <div class="card">
+        <h2 class="card-title"><span>&#128269;</span> Text, Message &amp; News Analysis</h2>
+        <p class="card-description">
+          Paste any message, promotion, or sensational news claim to inspect for scams, phishing, and clickbait patterns.
         </p>
 
         <div class="alert alert-warning" id="emptyInputAlert" style="display: none;">
@@ -329,16 +831,21 @@ body {
           <div><strong>Input Required:</strong> Please enter or paste text to analyze.</div>
         </div>
 
-        <textarea id="textInput" class="textarea-field" rows="5" placeholder="Paste message, advertisement, or news claim here..."></textarea>
+        <textarea id="textInput" class="textarea-field" rows="5" placeholder="Paste any text message, WhatsApp forward, email excerpt, or news claim here..."></textarea>
         
+        <div class="input-footer">
+          <span id="charCountLabel">0 characters</span>
+          <span style="color: var(--text-dim);">Processed strictly in local browser memory</span>
+        </div>
+
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
-          <div style="display: flex; gap: 0.5rem; align-items: center;">
+          <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
             <select id="sampleSelect" class="select-input">
-              <option value="">-- Choose sample --</option>
+              <option value="">-- Choose Quick Sample --</option>
               <option value="phishing">&#127907; Phishing / Password Theft</option>
               <option value="promo_spam">&#128226; Urgent Promotional Spam</option>
               <option value="news_claim">&#128240; Sensational News Claim</option>
-              <option value="extortion">&#9889; Extortion &amp; Threat</option>
+              <option value="extortion">&#9889; Extortion &amp; Legal Threat</option>
               <option value="safe_msg">&#9989; Safe Personal Message</option>
             </select>
             <button type="button" class="btn btn-secondary btn-sm" id="btnLoadSample">Insert Sample</button>
@@ -350,111 +857,146 @@ body {
         </div>
       </div>
 
+      <!-- Results Container -->
       <div id="resultsContainer" style="display: none;">
         <div class="metrics-overview">
           <div class="metric-card">
             <div class="metric-label">Classification</div>
             <div class="metric-value"><span id="resClassificationBadge" class="badge">Safe</span></div>
+            <div class="metric-footer" id="resClassificationDetail">Evaluation based on heuristic patterns.</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">Trust Score</div>
-            <div class="metric-value"><span id="resTrustScore">95</span><span style="font-size: 1rem; color: #94a3b8;">/100</span></div>
+            <div class="metric-value"><span id="resTrustScore">95</span><span style="font-size: 1rem; color: #94a3b8; font-weight: normal;"> / 100</span></div>
+            <div class="metric-footer">Heuristic safety indicator. Not a mathematical guarantee.</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">Risk Level</div>
             <div class="metric-value"><span id="resRiskLevel">Low</span></div>
+            <div class="metric-footer">Estimated exposure to deceptive or manipulative patterns.</div>
           </div>
         </div>
+
+        <!-- Detailed Findings Card -->
         <div class="card">
           <h3 class="card-title"><span>&#128203;</span> Findings &amp; Explanation</h3>
-          <p id="resExplanation" style="margin: 0.5rem 0 1rem; color: #e2e8f0;"></p>
-          <div id="resWarningFlags" class="flags-list"></div>
+          
+          <div style="margin-bottom: 1rem;">
+            <strong style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted);">Summary Explanation:</strong>
+            <p id="resExplanation" style="margin-top: 0.35rem; color: #e2e8f0; line-height: 1.6;"></p>
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <strong style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted);">Detected Risk Flags:</strong>
+            <div id="resWarningFlags" class="flags-list"></div>
+          </div>
+
+          <!-- Specific Matched Text Snippets -->
+          <div id="snippetsContainer" style="display: none; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <strong style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted);">Phrases Detected in Input:</strong>
+            <ul id="resSnippetList" style="list-style: none; margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;"></ul>
+          </div>
+
+          <!-- Specialized News & Claim Card -->
+          <div id="newsAnalysisBox" class="news-box" style="display: none;">
+            <div class="news-box-title">
+              <span>&#128240;</span> News &amp; Claim Evaluation Notice
+            </div>
+            <p style="font-size: 0.875rem; color: #e2e8f0; line-height: 1.5;" id="newsExplanationText">
+              This text contains sensational clickbait patterns or assertions lacking named sources.
+            </p>
+            <div style="margin-top: 0.75rem; font-size: 0.85rem; color: #c4b5fd;">
+              <strong>Important Transparency Notice:</strong> 
+              This application evaluates language structures and patterns. It does <em>not</em> consult live fact-checking databases, and cannot determine whether a real-world event is true or false.
+            </div>
+            <ul class="checklist" id="newsChecklist">
+              <li>Check whether recognized wire services (e.g. Associated Press, Reuters) report this claim.</li>
+              <li>Seek primary documentation: published peer-reviewed journals, official court filings, or government gazettes.</li>
+              <li>Search established independent fact-checking databases such as Snopes, PolitiFact, or FactCheck.org.</li>
+            </ul>
+          </div>
+
+          <!-- Engine Disclaimer -->
+          <div class="alert alert-info" style="margin-top: 1.5rem; margin-bottom: 0;">
+            <span>&#128737;&#65039;</span>
+            <div style="font-size: 0.8rem;">
+              <strong>Local Privacy Guarantee:</strong> Analysis is executed 100% inside your browser session. Your text is never transmitted to cloud servers or third-party AI APIs.
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 2: GMAIL & EMAIL SCANNER (NEW FEATURE 1) -->
-    <section class="tab-panel" id="tab-gmail">
-      <div class="card">
-        <h2 class="card-title"><span>&#128231;</span> Gmail &amp; Email Phishing Inspector</h2>
-        <p class="card-description">
-          Detects fake invoice scams (Geek Squad/PayPal), password reset lures, CEO wire fraud, and lookalike sender domains.
-        </p>
-
-        <div style="margin-bottom: 0.75rem;">
-          <input type="text" id="emailSubject" class="input-text" placeholder="Email Subject line (e.g. URGENT: Unusual sign-in attempt detected)">
-          <textarea id="emailBody" class="textarea-field" rows="5" placeholder="Paste email content, message body, or sender details here..."></textarea>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
-          <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
-            <span style="font-size: 0.85rem; color: #94a3b8; font-weight: 600;">Load Email Scam Scenario:</span>
-            <button type="button" class="btn btn-secondary btn-sm" id="btnEmailSampleInvoice">&#128181; Fake Invoice ($499)</button>
-            <button type="button" class="btn btn-secondary btn-sm" id="btnEmailSamplePassword">&#128272; Fake Password Reset</button>
-            <button type="button" class="btn btn-secondary btn-sm" id="btnEmailSampleSafe">&#9989; Safe Work Email</button>
-          </div>
-          <button type="button" class="btn btn-primary" id="btnScanEmail">Scan Email</button>
-        </div>
-      </div>
-
-      <div id="emailResultsContainer" style="display: none;">
-        <div class="metrics-overview">
-          <div class="metric-card">
-            <div class="metric-label">Email Threat Verdict</div>
-            <div class="metric-value"><span id="emailBadge" class="badge">Safe</span></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Sender Trust</div>
-            <div class="metric-value"><span id="emailTrust">90</span><span style="font-size: 1rem; color: #94a3b8;">/100</span></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">Phishing Risk</div>
-            <div class="metric-value"><span id="emailRisk">Low</span></div>
-          </div>
-        </div>
-        <div class="card">
-          <h3 class="card-title"><span>&#128737;&#65039;</span> Email Security Breakdown</h3>
-          <p id="emailExplanation" style="margin: 0.5rem 0 1rem; color: #e2e8f0;"></p>
-          <div id="emailFlags" class="flags-list"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 3: SMS & MOBILE MESSAGES (NEW FEATURE 2) -->
+    <!-- ====================================================================
+         TAB 2: SMS & MOBILE WHATSAPP INSPECTOR
+         ==================================================================== -->
     <section class="tab-panel" id="tab-sms">
       <div class="card">
-        <h2 class="card-title"><span>&#128172;</span> SMS, WhatsApp &amp; Mobile Chat Inspector</h2>
+        <h2 class="card-title"><span>&#128172;</span> SMS &amp; Mobile WhatsApp Inspector</h2>
         <p class="card-description">
-          Detects bank OTP theft, fake courier parcel messages, lottery lures, and UPI cash reward scams.
+          Detects UPI cash reward lures ("Click link have 5000 rupees"), bank OTP theft, electricity disconnect scams, and courier fraud.
         </p>
 
-        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleUpi">&#128176; "Click link have 5000 rs"</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleBank">&#127974; Bank Account Blocked</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSamplePackage">&#128230; Package Delivery Missed</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleSafe">&#9989; Safe Family Text</button>
+        <!-- Quick Presets -->
+        <div style="margin-bottom: 1rem;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 0.4rem;">
+            Test Quick Mobile Lures:
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleUpi">&#128176; "Click link have 5000 rs"</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSamplePower">&#9889; Electricity Overdue</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleBank">&#127974; Bank Account Blocked</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSamplePackage">&#128230; IndiaPost Package Missed</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleSafe">&#9989; Safe Family Text</button>
+          </div>
         </div>
 
+        <!-- Custom Inputs -->
+        <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);" for="smsSenderInput">Sender / Contact Name:</label>
+            <input type="text" id="smsSenderInput" class="input-text" placeholder="e.g. WhatsApp (+91 9876543210) or SBI-ALERT" value="WhatsApp (Mahesh)">
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);" for="smsTextInput">Message Text:</label>
+            <textarea id="smsTextInput" class="textarea-field" rows="3" placeholder="Type or paste any SMS or WhatsApp message here...">Click the link have 5000 rupees</textarea>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnPasteClipboard">&#128203; Paste from Clipboard</button>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" class="btn btn-secondary" id="btnClearSms">Clear</button>
+            <button type="button" class="btn btn-primary" id="btnScanSms">Scan Mobile Message</button>
+          </div>
+        </div>
+
+        <!-- Interactive Phone Mockup -->
         <div class="phone-mockup">
-          <div style="font-size: 0.75rem; text-align: center; color: #94a3b8; margin-bottom: 0.5rem;">&#128241; Incoming SMS / WhatsApp Preview</div>
-          <div id="phoneSender" style="font-size: 0.8rem; font-weight: bold; color: #38bdf8;">From: Unknown Sender</div>
-          <div class="chat-bubble" id="phoneBubble">Click the link have 5000 rupees</div>
-        </div>
-
-        <div style="text-align: center; margin-top: 1rem;">
-          <button type="button" class="btn btn-primary" id="btnScanSms">Scan Mobile Message</button>
+          <div class="phone-notch"></div>
+          <div class="phone-status-bar">
+            <span>9:41 AM</span>
+            <span>&#128246; 5G &#8226; 98% &#128267;</span>
+          </div>
+          <div id="phoneSender" style="font-size: 0.85rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.4rem;">
+            From: WhatsApp (Mahesh)
+          </div>
+          <div class="chat-bubble" id="phoneBubble">
+            Click the link have 5000 rupees
+          </div>
         </div>
       </div>
 
+      <!-- SMS Results Container -->
       <div id="smsResultsContainer" style="display: none;">
         <div class="metrics-overview">
           <div class="metric-card">
-            <div class="metric-label">SMS Status</div>
+            <div class="metric-label">Status</div>
             <div class="metric-value"><span id="smsBadge" class="badge">Safe</span></div>
           </div>
           <div class="metric-card">
             <div class="metric-label">Safety Rating</div>
-            <div class="metric-value"><span id="smsTrust">90</span><span style="font-size: 1rem; color: #94a3b8;">/100</span></div>
+            <div class="metric-value"><span id="smsTrust">90</span>/100</div>
           </div>
           <div class="metric-card">
             <div class="metric-label">Risk Level</div>
@@ -462,68 +1004,101 @@ body {
           </div>
         </div>
         <div class="card">
-          <h3 class="card-title"><span>&#128737;&#65039;</span> Message Assessment</h3>
-          <p id="smsExplanation" style="margin: 0.5rem 0 1rem; color: #e2e8f0;"></p>
+          <h3 class="card-title"><span>&#128737;&#65039;</span> Message Assessment &amp; Advice</h3>
+          <p id="smsExplanation" style="margin: 0.5rem 0 1rem; color: #e2e8f0; line-height: 1.5;"></p>
           <div id="smsFlags" class="flags-list"></div>
+
+          <div class="alert alert-warning" style="margin-top: 1.25rem; margin-bottom: 0;">
+            <span>&#9888;&#65039;</span>
+            <div style="font-size: 0.85rem;">
+              <strong>Security Rule:</strong> You NEVER need to enter your UPI PIN or scan a QR code to receive money. Official electricity and bank departments do not send personal WhatsApp messages threatening immediate disconnection.
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: NOTIFICATIONS -->
-    <section class="tab-panel" id="tab-notifications">
+    <!-- ====================================================================
+         TAB 3: GMAIL & EMAIL PHISHING INSPECTOR
+         ==================================================================== -->
+    <section class="tab-panel" id="tab-gmail">
       <div class="card">
-        <h2 class="card-title"><span>&#128276;</span> Live Notifications &amp; Alert Interceptor</h2>
+        <h2 class="card-title"><span>&#128231;</span> Gmail &amp; Email Phishing Inspector</h2>
         <p class="card-description">
-          Test and monitor notification alerts across Mobile, Web, and Desktop.
+          Detects fake invoices (Geek Squad, Norton, PayPal), password reset lures, and CEO wire fraud.
         </p>
 
-        <div class="alert alert-info">
-          <span>&#9989;</span>
-          <div>
-            <strong>Universal Mode Active:</strong> Running directly on your device with zero cloud tracking. 
-            On phones, tablets, and laptops, you can test notifications instantly below. On Windows PCs, you can also run <code>run.bat</code> for OS-level toasts.
+        <div style="margin-bottom: 1rem;">
+          <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 0.4rem;">
+            Test Quick Email Samples:
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btnEmailSampleInvoice">&#128181; Fake Invoice ($499)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnEmailSamplePassword">&#128272; Fake Password Reset</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnEmailSampleSafe">&#9989; Safe Work Email</button>
           </div>
         </div>
 
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPhishing">&#127907; Test Phishing Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimPromo">&#128226; Test Promo Spam Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimNews">&#128240; Test Sensational News Toast</button>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnSimSafe">&#9989; Test Safe Toast</button>
+        <div style="margin-bottom: 0.75rem;">
+          <input type="text" id="emailSender" class="input-text" placeholder="Sender Email (e.g. security@paypa1-support.com)">
+          <input type="text" id="emailSubject" class="input-text" placeholder="Email Subject line">
+          <textarea id="emailBody" class="textarea-field" rows="5" placeholder="Paste full email body or headers here..."></textarea>
         </div>
 
-        <div class="card" style="margin-bottom: 0;">
-          <h3 class="card-title"><span>&#128233;</span> Notification Live Feed</h3>
-          <div id="notifFeedContainer">
-            <p style="color: #94a3b8; font-size: 0.85rem;">Click any test button above to simulate live incoming notifications.</p>
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+          <button type="button" class="btn btn-secondary" id="btnClearEmail">Clear</button>
+          <button type="button" class="btn btn-primary" id="btnScanEmail">Scan Email</button>
+        </div>
+      </div>
+
+      <div id="emailResultsContainer" style="display: none;">
+        <div class="metrics-overview">
+          <div class="metric-card">
+            <div class="metric-label">Verdict</div>
+            <div class="metric-value"><span id="emailBadge" class="badge">Safe</span></div>
           </div>
+          <div class="metric-card">
+            <div class="metric-label">Trust Score</div>
+            <div class="metric-value"><span id="emailTrust">90</span>/100</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Risk Level</div>
+            <div class="metric-value"><span id="emailRisk">Low</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="card-title"><span>&#128737;&#65039;</span> Security Assessment</h3>
+          <p id="emailExplanation" style="margin: 0.5rem 0 1rem; color: #e2e8f0; line-height: 1.5;"></p>
+          <div id="emailFlags" class="flags-list"></div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 5: CHROME EXTENSION GUIDE -->
+    <!-- ====================================================================
+         TAB 5: CHROME EXTENSION
+         ==================================================================== -->
     <section class="tab-panel" id="tab-extension">
       <div class="card">
         <h2 class="card-title"><span>&#129513;</span> Automatic Gmail &amp; WhatsApp Chrome Extension</h2>
         <p class="card-description">
-          Want automatic real-time warnings right inside your Gmail inbox and WhatsApp Web without copying and pasting?
+          Real-time warnings directly inside Gmail and WhatsApp Web without copying and pasting.
         </p>
 
         <div class="alert alert-info">
           <span>&#128737;&#65039;</span>
           <div>
-            The complete <strong>AI Spam &amp; Phishing Shield Extension</strong> is ready in your project's <code>extension/</code> folder!
+            The complete <strong>AI Shield Extension</strong> is ready in your project's <code>extension/</code> folder!
           </div>
         </div>
 
         <div style="line-height: 1.7; color: #cbd5e1; font-size: 0.95rem;">
-          <h3 style="color: #38bdf8; margin: 1rem 0 0.5rem;">How to install on Chrome or Edge (Takes 1 minute):</h3>
+          <h3 style="color: #38bdf8; margin: 1rem 0 0.5rem;">How to install on Chrome or Edge (1 minute):</h3>
           <ol style="margin-left: 1.5rem;">
-            <li>Open Google Chrome or Microsoft Edge and go to <code>chrome://extensions/</code></li>
-            <li>Turn <strong>ON</strong> the toggle in the top-right corner: <strong>Developer mode</strong>.</li>
-            <li>Click the button in the top-left corner: <strong>Load unpacked</strong>.</li>
-            <li>Select the <code>extension</code> folder in your project directory.</li>
-            <li><strong>Done!</strong> Now whenever you open Gmail (<code>mail.google.com</code>) or WhatsApp Web (<code>web.whatsapp.com</code>), the extension automatically scans incoming messages and shows a safety badge!</li>
+            <li>Open Google Chrome or Microsoft Edge and navigate to <code>chrome://extensions/</code></li>
+            <li>Turn <strong>ON</strong> Developer mode (top-right toggle).</li>
+            <li>Click <strong>Load unpacked</strong> (top-left button).</li>
+            <li>Select the <code>extension</code> folder in your project.</li>
+            <li>Open <a href="https://mail.google.com" target="_blank" rel="noopener" style="color: #38bdf8;">mail.google.com</a> or <a href="https://web.whatsapp.com" target="_blank" rel="noopener" style="color: #38bdf8;">web.whatsapp.com</a> to see automatic real-time warnings!</li>
           </ol>
         </div>
       </div>
@@ -531,126 +1106,228 @@ body {
 
   </main>
 
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
   <footer class="app-footer">
-    AI Spam, Message &amp; News Detector &bull; Universal Protection &bull; Privacy-First
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+      <div>AI Spam, Message &amp; News Detector &copy; 2026. Local Privacy-First Architecture.</div>
+      <div style="color: var(--text-dim);">No telemetry &#8226; No cloud tracking &#8226; Universal Cross-Device</div>
+    </div>
   </footer>
 
-  <!-- CORE SCRIPTS -->
+  <!-- ======================================================================
+       CLIENT-SIDE SCRIPTS
+       ====================================================================== -->
   <script>
-    // TextAnalyzer Engine
+    // --- 1. CORE TEXT ANALYZER ENGINE ---
     const TextAnalyzer = (function () {
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function findMatches(text, regex, category, weight, label, explanationTmpl) {
+        const matches = [];
+        let match;
+        const regexClone = new RegExp(regex.source, regex.flags);
+        while ((match = regexClone.exec(text)) !== null) {
+          const matchedText = match[0].trim();
+          if (matchedText.length > 0) {
+            matches.push({
+              category,
+              weight,
+              label,
+              matchedSnippet: matchedText,
+              explanation: explanationTmpl.replace('{snippet}', `"${matchedText}"`)
+            });
+          }
+          if (!regex.global) break;
+        }
+        return matches;
+      }
+
       const RULES = [
         {
-          category: 'phishing',
-          weight: 35,
-          label: 'Phishing: Password / Credential Request',
+          category: 'phishing', weight: 35, label: 'Phishing: Password / Credential Request',
           regex: /\b(enter\s+your\s+password|confirm\s+your\s+password|reset\s+your\s+password|verify\s+your\s+credentials|login\s+to\s+keep|re-activate\s+your\s+account|identity\s+verification\s+required)\b/gi,
           explanation: 'Requests user passwords or login credentials ({snippet}), a signature technique in credential phishing.'
         },
         {
-          category: 'phishing',
-          weight: 35,
-          label: 'Phishing: Security / OTP Code Request',
+          category: 'phishing', weight: 35, label: 'Phishing: Security / OTP Code Request',
           regex: /\b(verification\s+code|one-time\s+pin|otp\s+code|2fa\s+code|security\s+code|do\s+not\s+share\s+this\s+code|send\s+me\s+the\s+code)\b/gi,
           explanation: 'Solicits temporary security or verification codes ({snippet}) used to hijack accounts.'
         },
         {
-          category: 'financial_scam',
-          weight: 30,
-          label: 'Financial Urgency / Account Suspension Alert',
-          regex: /\b(account\s+(has\s+been\s+)?(suspended|locked|frozen|compromised)|unauthorized\s+transaction|wire\s+transfer\s+pending|bank\s+account\s+will\s+be\s+closed|update\s+billing\s+details|card\s+temporarily\s+blocked|yono\s+account|update\s+pan)\b/gi,
-          explanation: 'Fabricates banking crisis or immediate account suspension ({snippet}).'
+          category: 'financial_scam', weight: 30, label: 'Financial Urgency / Account Suspension Alert',
+          regex: /\b(account\s+(has\s+been\s+)?(suspended|locked|frozen|compromised)|unauthorized\s+transaction|wire\s+transfer\s+pending|bank\s+account\s+will\s+be\s+closed|update\s+billing\s+details|card\s+temporarily\s+blocked|yono\s+account|update\s+pan|electricity\s+(?:power\s+)?disconnect)\b/gi,
+          explanation: 'Fabricates banking crisis or immediate service suspension ({snippet}).'
         },
         {
-          category: 'suspicious_url',
-          weight: 30,
-          label: 'Suspicious URL / Deceptive Link',
+          category: 'suspicious_url', weight: 30, label: 'Suspicious URL / Deceptive Link',
           regex: /(https?:\/\/(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?(?:\/[^\s]*)?)|(https?:\/\/[^\s\/]+(?:paypa[l1]|arnazon|app1e|micros0ft|netf1ix|sec-login|verify-acc)[^\s]*)|(https?:\/\/[^\s\/]+\.(?:xyz|top|work|click|tk|gq)[^\s]*)/gi,
           explanation: 'Contains suspicious domain formatting or lookalike link ({snippet}).'
         },
         {
-          category: 'promotional_spam',
-          weight: 25,
-          label: 'Unsolicited Cash / Reward Promise',
-          regex: /\b((?:have|get|win|receive|earn|claim)\s+(?:[\$₹£€]|rs\.?|inr\s*)?\s*\d+[\d,]*\s*(?:rupees|rs|dollars|inr|cash|bucks)?)\b/gi,
+          category: 'promotional_spam', weight: 25, label: 'Unsolicited Cash / Reward Promise',
+          regex: /\b((?:have|get|win|receive|earn|claim)\s+(?:[\$\u20B9\u20AC\u00A3]|rs\.?|inr\s*)?\s*\d+[\d,]*\s*(?:rupees|rs|dollars|inr|cash|bucks)?)\b/gi,
           explanation: 'Promises unearned cash or monetary reward ({snippet}) typical of click-lure scams.'
         },
         {
-          category: 'phishing',
-          weight: 22,
-          label: 'Suspicious Action / Click-Link Coercion',
+          category: 'phishing', weight: 22, label: 'Suspicious Action / Click-Link Coercion',
           regex: /\b(click\s+(?:the|this|here|on)?\s*link|tap\s+(?:the|this)?\s*link|open\s+the\s+link|click\s+here\s+to\s+claim)\b/gi,
           explanation: 'Coerces user to open untrusted links ({snippet}) to claim promised incentives.'
         },
         {
-          category: 'promotional_spam',
-          weight: 20,
-          label: 'Unsolicited Prize / Sweepstakes Claim',
+          category: 'threat_extortion', weight: 35, label: 'Threat / Legal Extortion Coercion',
+          regex: /\b(arrest\s+warrant|police\s+action|legal\s+case|court\s+notice|pay\s+immediately\s+or|recorded\s+you|compromised\s+your\s+webcam)\b/gi,
+          explanation: 'Uses intimidation, false legal prosecution, or blackmail threats ({snippet}).'
+        },
+        {
+          category: 'promotional_spam', weight: 20, label: 'Unsolicited Prize / Sweepstakes Claim',
           regex: /\b(you\s+have\s+won|lottery\s+winner|selected\s+to\s+receive|claim\s+your\s+free|congratulations\s+winner)\b/gi,
           explanation: 'Claims unearned lottery prizes or rewards ({snippet}).'
         },
         {
-          category: 'urgency_coercion',
-          weight: 20,
-          label: 'Artificial Urgency / Time Pressure',
+          category: 'urgency_coercion', weight: 20, label: 'Artificial Urgency / Time Pressure',
           regex: /\b(act\s+now|within\s+(?:24|12|48|15)\s*(?:hours|minutes|hrs|mins)|immediate\s+action\s+required|final\s+(?:warning|notice)|before\s+it(?:'s|\s+is)\s+too\s+late)\b/gi,
           explanation: 'Applies psychological time pressure ({snippet}) to force impulsive action.'
         },
         {
-          category: 'sensational_news',
-          weight: 20,
-          label: 'Sensational Clickbait / Unverified Claim',
+          category: 'sensational_news', weight: 20, label: 'Sensational Clickbait / Unverified Claim',
           regex: /\b(shocking\s+truth|bombshell\s+(?:report|revelation)|what\s+they\s+don't\s+want\s+you\s+to\s+know|insiders\s+confirm|100%\s+proven|secret\s+cure)\b/gi,
           explanation: 'Employs sensational clickbait or unverified claims ({snippet}) lacking named sources.'
         }
       ];
 
-      function analyzeText(rawText) {
-        const text = (rawText || '').trim();
-        if (!text) {
-          return { status: 'error', message: 'Empty input' };
+      function analyzeText(rawText, options = {}) {
+        const text = typeof rawText === 'string' ? rawText : '';
+        const trimmed = text.trim();
+        if (!trimmed) {
+          return { status: 'error', errorCode: 'EMPTY_INPUT', message: 'No text provided. Please enter text to analyze.' };
+        }
+
+        const isExplicitlyUnavailable =
+          options.isUnavailable ||
+          /^(?:\[?\s*content\s+unavailable\s*\]?|\[?\s*hidden\s+notification\s*\]?|\[?\s*message\s+hidden\s*\]?|\[?\s*no\s+text\s+exposed\s*\]?)$/i.test(trimmed);
+
+        if (isExplicitlyUnavailable) {
+          return {
+            status: 'success',
+            isUnavailable: true,
+            classification: 'Needs Verification',
+            trustScore: 50,
+            riskLevel: 'Medium',
+            warningFlags: ['Content Withheld / Unavailable'],
+            explanation: 'The notification body was omitted or protected by source app privacy settings. Unable to analyze hidden content.',
+            detailedFindings: [{
+              category: 'privacy_restriction',
+              label: 'Content Withheld',
+              matchedSnippet: trimmed,
+              explanation: 'Notification content withheld for privacy.'
+            }],
+            newsAnalysis: null
+          };
         }
 
         const findings = [];
-        let riskScore = 0;
+        const triggeredCategories = new Set();
 
         for (const rule of RULES) {
-          const match = rule.regex.exec(text);
-          if (match) {
-            findings.push({
-              label: rule.label,
-              category: rule.category,
-              weight: rule.weight,
-              matchedSnippet: match[0],
-              explanation: rule.explanation.replace('{snippet}', `"${match[0]}"`)
-            });
-            riskScore += rule.weight;
+          const matches = findMatches(trimmed, rule.regex, rule.category, rule.weight, rule.label, rule.explanation);
+          if (matches.length > 0) {
+            findings.push(...matches);
+            triggeredCategories.add(rule.category);
           }
         }
 
-        const clampedRisk = Math.min(100, Math.max(0, riskScore));
-        const trustScore = Math.max(5, Math.min(95, 95 - clampedRisk));
-        
+        let rawRiskScore = 0;
+        findings.forEach(f => { rawRiskScore += f.weight; });
+
+        // Uppercase screaming check
+        const letterChars = trimmed.replace(/[^a-zA-Z]/g, '');
+        if (letterChars.length >= 15) {
+          const upperChars = letterChars.replace(/[^A-Z]/g, '');
+          if (upperChars.length / letterChars.length >= 0.70) {
+            rawRiskScore += 12;
+            findings.push({
+              category: 'formatting_urgency',
+              weight: 12,
+              label: 'Aggressive Capitalization (Shouting)',
+              matchedSnippet: trimmed.slice(0, 40) + '...',
+              explanation: 'Contains excessive uppercase lettering, often used to force emotional urgency.'
+            });
+            triggeredCategories.add('formatting_urgency');
+          }
+        }
+
+        const clampedRiskScore = Math.min(100, Math.max(0, Math.round(rawRiskScore)));
+        const trustScore = Math.max(5, Math.min(95, 95 - clampedRiskScore));
+
         let riskLevel = 'Low';
-        if (clampedRisk >= 50) riskLevel = 'High';
-        else if (clampedRisk >= 20) riskLevel = 'Medium';
+        if (clampedRiskScore >= 60) riskLevel = 'High';
+        else if (clampedRiskScore >= 25) riskLevel = 'Medium';
+        else riskLevel = 'Low';
 
         let classification = 'Safe';
-        const hasHarm = findings.some(f => f.category === 'phishing' || f.category === 'financial_scam' || f.category === 'suspicious_url');
-        const hasSpam = findings.some(f => f.category === 'promotional_spam');
-        const hasNews = findings.some(f => f.category === 'sensational_news');
+        const isHarmful =
+          triggeredCategories.has('phishing') ||
+          triggeredCategories.has('threat_extortion') ||
+          triggeredCategories.has('financial_scam') ||
+          triggeredCategories.has('suspicious_url');
 
-        if (hasHarm) classification = 'Potentially Harmful';
-        else if (hasNews) classification = 'Needs Verification';
-        else if (hasSpam) classification = 'Spam';
+        const isSpam = triggeredCategories.has('promotional_spam');
+        const isNews = triggeredCategories.has('sensational_news');
 
-        let explanation = 'No deceptive triggers or credential requests detected.';
-        if (classification === 'Potentially Harmful') {
-          explanation = 'Contains high-risk phishing or scam indicators designed to extract credentials or funds.';
+        if (isHarmful && (clampedRiskScore >= 30 || triggeredCategories.has('phishing') || triggeredCategories.has('threat_extortion'))) {
+          classification = 'Potentially Harmful';
+        } else if (isSpam && !isNews) {
+          classification = 'Spam';
+        } else if (isNews) {
+          classification = 'Needs Verification';
+        } else if (clampedRiskScore >= 25) {
+          classification = 'Needs Verification';
+        } else {
+          classification = 'Safe';
+        }
+
+        const warningFlags = [];
+        const uniqueLabels = new Set();
+        findings.forEach(f => {
+          if (!uniqueLabels.has(f.label)) {
+            uniqueLabels.add(f.label);
+            warningFlags.push(f.label);
+          }
+        });
+        if (warningFlags.length === 0) warningFlags.push('No obvious risk indicators detected');
+
+        let explanation = '';
+        if (classification === 'Safe') {
+          explanation = 'No aggressive marketing lures, credential requests, or sensational deception patterns were detected. The message structure appears normal and consistent with standard communication.';
+        } else if (classification === 'Potentially Harmful') {
+          const topPhrases = findings
+            .filter(f => ['phishing', 'financial_scam', 'threat_extortion', 'suspicious_url'].includes(f.category))
+            .map(f => `"${f.matchedSnippet}"`).slice(0, 3).join(', ');
+          explanation = `Detected high-risk language including ${topPhrases || 'sensitive requests'}. This strongly resembles deceptive phishing, financial fraud, or coercive extortion attempting to induce immediate user action.`;
         } else if (classification === 'Spam') {
-          explanation = 'Contains promotional solicitation or unearned cash reward lures.';
-        } else if (classification === 'Needs Verification') {
-          explanation = 'Contains sensational claims that require independent verification with reliable primary sources.';
+          const promoPhrases = findings
+            .filter(f => ['promotional_spam'].includes(f.category))
+            .map(f => `"${f.matchedSnippet}"`).slice(0, 3).join(', ');
+          explanation = `Contains unsolicited promotional spam and aggressive commercial solicitation such as ${promoPhrases || 'unearned reward claims'}.`;
+        } else {
+          explanation = 'Contains sensational claims, dramatic assertions, or content lacking authoritative source verification. Proceed with caution and verify independently.';
+        }
+
+        let newsAnalysis = null;
+        if (isNews || classification === 'Needs Verification') {
+          newsAnalysis = {
+            whyNeedsVerification: 'The text exhibits language patterns commonly associated with viral clickbait, sensational headlines, or unverified claims lacking cited sources.'
+          };
         }
 
         return {
@@ -658,15 +1335,214 @@ body {
           classification,
           trustScore,
           riskLevel,
+          warningFlags,
           explanation,
-          warningFlags: findings.map(f => f.label)
+          detailedFindings: findings,
+          newsAnalysis,
+          charCount: trimmed.length
         };
       }
 
-      return { analyzeText };
+      return { analyzeText, escapeHtml };
     })();
 
-    // UI Logic
+    // --- 2. NOTIFICATION MANAGER SERVICE ---
+    const NotificationManager = (function () {
+      const COMPANION_URL = 'http://127.0.0.1:8765';
+      const STORAGE_KEY_HISTORY = 'ai_detector_notif_history';
+      const STORAGE_KEY_SAVE_PREF = 'ai_detector_save_history_enabled';
+
+      class Service {
+        constructor() {
+          this.isMonitoring = false;
+          this.isPaused = false;
+          this.companionConnected = false;
+          this.winrtPermission = 'Allowed';
+          this.listeners = new Map();
+          this.monitoredApps = [
+            { id: 'all', name: 'All Applications', enabled: true },
+            { id: 'whatsapp', name: 'WhatsApp', enabled: true },
+            { id: 'teams', name: 'Microsoft Teams', enabled: true },
+            { id: 'outlook', name: 'Windows Mail / Outlook', enabled: true },
+            { id: 'chrome', name: 'Google Chrome', enabled: true },
+            { id: 'edge', name: 'Microsoft Edge', enabled: true },
+            { id: 'slack', name: 'Slack', enabled: true },
+            { id: 'system', name: 'Windows System', enabled: true }
+          ];
+          this.history = [];
+          this.saveHistoryEnabled = false;
+          this.pollInterval = null;
+          this.lastSequence = 0;
+          this._loadSettings();
+        }
+
+        _loadSettings() {
+          try {
+            this.saveHistoryEnabled = localStorage.getItem(STORAGE_KEY_SAVE_PREF) === 'true';
+            if (this.saveHistoryEnabled) {
+              const raw = localStorage.getItem(STORAGE_KEY_HISTORY);
+              if (raw) this.history = JSON.parse(raw);
+            }
+          } catch (e) {}
+        }
+
+        setSaveHistoryEnabled(enable) {
+          this.saveHistoryEnabled = !!enable;
+          try {
+            localStorage.setItem(STORAGE_KEY_SAVE_PREF, this.saveHistoryEnabled ? 'true' : 'false');
+            if (!this.saveHistoryEnabled) {
+              this.history = [];
+              localStorage.removeItem(STORAGE_KEY_HISTORY);
+            }
+          } catch (e) {}
+        }
+
+        clearHistory() {
+          this.history = [];
+          try { localStorage.removeItem(STORAGE_KEY_HISTORY); } catch (e) {}
+          this._notify('history_cleared', {});
+        }
+
+        on(evt, cb) {
+          if (!this.listeners.has(evt)) this.listeners.set(evt, []);
+          this.listeners.get(evt).push(cb);
+        }
+
+        _notify(evt, data) {
+          const cbs = this.listeners.get(evt) || [];
+          cbs.forEach(fn => { try { fn(data); } catch (e) {} });
+        }
+
+        isAppAllowed(app) {
+          if (!app) return true;
+          const all = this.monitoredApps.find(a => a.id === 'all');
+          if (all && all.enabled) return true;
+          const low = app.toLowerCase();
+          return this.monitoredApps.some(a => a.enabled && a.id !== 'all' && (low.includes(a.id) || low.includes(a.name.toLowerCase())));
+        }
+
+        async checkCompanionStatus() {
+          try {
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 1800);
+            const res = await fetch(`${COMPANION_URL}/api/status`, { signal: controller.signal });
+            clearTimeout(tid);
+            if (res.ok) {
+              const data = await res.json();
+              this.companionConnected = true;
+              this.winrtPermission = data.winrtPermission || 'Allowed';
+              this._notify('companion_status', { connected: true, details: data });
+              return data;
+            }
+          } catch (e) {
+            this.companionConnected = false;
+            this._notify('companion_status', { connected: false });
+          }
+          return null;
+        }
+
+        async requestWindowsPermission() {
+          try {
+            await fetch(`${COMPANION_URL}/api/request-permission`, { method: 'POST' });
+          } catch (e) {}
+        }
+
+        startMonitoring() {
+          if (this.isMonitoring) return;
+          this.isMonitoring = true;
+          this.isPaused = false;
+          this._notify('monitoring_state', { isMonitoring: true, isPaused: false });
+          this.pollInterval = setInterval(() => this._poll(), 2000);
+          this._poll();
+        }
+
+        stopMonitoring() {
+          this.isMonitoring = false;
+          this.isPaused = false;
+          if (this.pollInterval) { clearInterval(this.pollInterval); this.pollInterval = null; }
+          this._notify('monitoring_state', { isMonitoring: false, isPaused: false });
+        }
+
+        togglePause() {
+          if (!this.isMonitoring) return false;
+          this.isPaused = !this.isPaused;
+          this._notify('monitoring_state', { isMonitoring: true, isPaused: this.isPaused });
+          return this.isPaused;
+        }
+
+        async _poll() {
+          if (!this.isMonitoring || this.isPaused) return;
+          try {
+            const res = await fetch(`${COMPANION_URL}/api/notifications?since=${this.lastSequence}`);
+            if (res.ok) {
+              const data = await res.json();
+              if (data && Array.isArray(data.notifications)) {
+                data.notifications.forEach(n => this._ingest(n));
+                if (data.sequence) this.lastSequence = data.sequence;
+              }
+            }
+          } catch (e) {}
+        }
+
+        _ingest(notif) {
+          if (!this.isAppAllowed(notif.sourceApp)) return null;
+          const analysis = TextAnalyzer.analyzeText(notif.body, { isUnavailable: notif.isUnavailable });
+          const entry = {
+            id: 'notif_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+            timestamp: new Date().toISOString(),
+            sourceApp: notif.sourceApp || 'Unknown App',
+            title: notif.title || 'Notification',
+            body: notif.body || '',
+            isUnavailable: notif.isUnavailable || false,
+            analysis
+          };
+          this.history.unshift(entry);
+          if (this.history.length > 50) this.history.pop();
+          if (this.saveHistoryEnabled) {
+            try { localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(this.history)); } catch (e) {}
+          }
+          this._notify('notification_received', entry);
+          return entry;
+        }
+
+        simulateNotification(kind) {
+          const samples = {
+            phishing: {
+              sourceApp: 'Microsoft Teams',
+              title: 'IT Support Security Notice',
+              body: 'URGENT: Your account credentials expire today. Click link and confirm your password immediately: https://sec-login.work/verify to prevent permanent lock.'
+            },
+            promo_spam: {
+              sourceApp: 'Google Chrome',
+              title: 'Flash Cash Notification',
+              body: 'Congratulations Mahesh! You have won 5000 rupees cash reward! Claim your free gift voucher within 15 minutes before it expires.'
+            },
+            news: {
+              sourceApp: 'Microsoft Edge',
+              title: 'Breaking News Alert',
+              body: 'SHOCKING TRUTH REVEALED: Insiders confirm secret cure suppressed by big corporations. What they don\'t want you to know!'
+            },
+            safe: {
+              sourceApp: 'WhatsApp',
+              title: 'Family Group',
+              body: 'Dinner is scheduled for 7:30 PM this evening. Let us know if you want anything specific picked up!'
+            },
+            unavailable: {
+              sourceApp: 'Windows Mail',
+              title: 'Private Encrypted Message',
+              body: '[Content Unavailable]',
+              isUnavailable: true
+            }
+          };
+          const data = samples[kind] || samples.safe;
+          return this._ingest(data);
+        }
+      }
+
+      return new Service();
+    })();
+
+    // --- 3. UI CONTROLLER ---
     document.addEventListener('DOMContentLoaded', () => {
       // Tab Navigation
       const navTabs = document.querySelectorAll('.tab-btn');
@@ -677,41 +1553,55 @@ body {
           navTabs.forEach(t => t.classList.remove('active'));
           tabPanels.forEach(p => p.classList.remove('active'));
           tab.classList.add('active');
-          document.getElementById(target).classList.add('active');
+          const panel = document.getElementById(target);
+          if (panel) panel.classList.add('active');
         });
       });
 
-      // TAB 1: General Analyzer
+      // Character Counter on Text Input
       const textInput = document.getElementById('textInput');
-      const sampleSelect = document.getElementById('sampleSelect');
-      const btnLoadSample = document.getElementById('btnLoadSample');
-      const btnClear = document.getElementById('btnClear');
-      const btnAnalyze = document.getElementById('btnAnalyze');
-      const resultsContainer = document.getElementById('resultsContainer');
-      const emptyAlert = document.getElementById('emptyInputAlert');
-
-      const SAMPLES = {
-        phishing: 'URGENT: Your Bank account has been temporarily suspended. Enter your password and 2FA code immediately at http://192.168.1.55/sec-login within 24 hours to prevent account closure!',
-        promo_spam: 'CONGRATULATIONS WINNER! You have won $1,000 cash! Claim your free prize now. Buy now for only $1 during this exclusive flash sale.',
-        news_claim: 'BOMBSHELL report: Insiders confirm secret cure discovered that mainstream media won\'t show! 100% proven results.',
-        extortion: 'FINAL NOTICE: Immediate action required. Pay ransom before it is too late or your family will be exposed to law enforcement.',
-        safe_msg: 'Hi Sarah, the project presentation has been reviewed. Let\'s meet tomorrow at 10 AM to finalize the slides.'
-      };
-
-      btnLoadSample.addEventListener('click', () => {
-        if (sampleSelect.value && SAMPLES[sampleSelect.value]) {
-          textInput.value = SAMPLES[sampleSelect.value];
-          emptyAlert.style.display = 'none';
+      const charCountLabel = document.getElementById('charCountLabel');
+      textInput.addEventListener('input', () => {
+        const len = textInput.value.length;
+        charCountLabel.textContent = `${len.toLocaleString()} character${len === 1 ? '' : 's'}`;
+        if (len > 0) {
+          document.getElementById('emptyInputAlert').style.display = 'none';
         }
       });
 
-      btnClear.addEventListener('click', () => {
-        textInput.value = '';
-        resultsContainer.style.display = 'none';
-        emptyAlert.style.display = 'none';
+      // Quick Samples for Tab 1
+      const SAMPLES = {
+        phishing: 'Security Alert: Your corporate account has been suspended. Please confirm your password and verify your credentials at http://192.168.1.1/sec-login within 24 hours to avoid termination.',
+        promo_spam: 'SPECIAL OFFER: You have been selected to win 5000 rupees cash! Act now before offer ends. Claim your free voucher immediately!',
+        news_claim: 'SHOCKING TRUTH: Insiders confirm secret miracle cure 100% proven to reverse aging, but mainstream media won\'t report it!!',
+        extortion: 'FINAL WARNING: We have recorded your screen and webcam. Pay $500 in Bitcoin within 24 hours or legal prosecution and police arrest warrant will be issued.',
+        safe_msg: 'Hey Mahesh, are we still meeting at 4 PM tomorrow to review the software project architecture? Let me know.'
+      };
+
+      const sampleSelect = document.getElementById('sampleSelect');
+      document.getElementById('btnLoadSample').addEventListener('click', () => {
+        if (sampleSelect.value && SAMPLES[sampleSelect.value]) {
+          textInput.value = SAMPLES[sampleSelect.value];
+          textInput.dispatchEvent(new Event('input'));
+        }
       });
 
-      btnAnalyze.addEventListener('click', () => {
+      document.getElementById('btnClear').addEventListener('click', () => {
+        textInput.value = '';
+        textInput.dispatchEvent(new Event('input'));
+        document.getElementById('resultsContainer').style.display = 'none';
+        document.getElementById('emptyInputAlert').style.display = 'none';
+      });
+
+      // Analyze Button Handler (Tab 1)
+      const resultsContainer = document.getElementById('resultsContainer');
+      const emptyAlert = document.getElementById('emptyInputAlert');
+      const snippetsContainer = document.getElementById('snippetsContainer');
+      const resSnippetList = document.getElementById('resSnippetList');
+      const newsAnalysisBox = document.getElementById('newsAnalysisBox');
+      const newsExplanationText = document.getElementById('newsExplanationText');
+
+      document.getElementById('btnAnalyze').addEventListener('click', () => {
         const val = textInput.value.trim();
         if (!val) {
           emptyAlert.style.display = 'flex';
@@ -720,98 +1610,135 @@ body {
         }
         emptyAlert.style.display = 'none';
         const res = TextAnalyzer.analyzeText(val);
-        
-        document.getElementById('resClassificationBadge').textContent = res.classification;
-        document.getElementById('resClassificationBadge').className = 'badge badge-' + (res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : res.classification === 'Potentially Harmful' ? 'harmful' : 'verify');
+
+        const badge = document.getElementById('resClassificationBadge');
+        badge.textContent = res.classification;
+        badge.className = 'badge badge-' + (res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : res.classification === 'Potentially Harmful' ? 'harmful' : 'verify');
+
         document.getElementById('resTrustScore').textContent = res.trustScore;
-        document.getElementById('resRiskLevel').textContent = res.riskLevel;
+        const riskEl = document.getElementById('resRiskLevel');
+        riskEl.textContent = res.riskLevel;
+        riskEl.className = res.riskLevel === 'Low' ? 'risk-low' : res.riskLevel === 'Medium' ? 'risk-medium' : 'risk-high';
+
         document.getElementById('resExplanation').textContent = res.explanation;
-        
+
+        // Warning Flags
         const flagsDiv = document.getElementById('resWarningFlags');
         flagsDiv.innerHTML = '';
         res.warningFlags.forEach(f => {
           const chip = document.createElement('span');
           chip.className = 'flag-chip';
-          chip.textContent = '⚠️ ' + f;
+          chip.textContent = '\u{1F6A9} ' + f;
           flagsDiv.appendChild(chip);
         });
+
+        // Snippets List
+        if (res.detailedFindings && res.detailedFindings.length > 0) {
+          snippetsContainer.style.display = 'block';
+          resSnippetList.innerHTML = '';
+          res.detailedFindings.slice(0, 6).forEach(f => {
+            const li = document.createElement('li');
+            li.style.fontSize = '0.875rem';
+            li.style.color = 'var(--text-muted)';
+            li.innerHTML = `<strong style="color: #cbd5e1;">${TextAnalyzer.escapeHtml(f.label)}:</strong> Found phrase <span class="quote-highlight">${TextAnalyzer.escapeHtml(f.matchedSnippet)}</span>`;
+            resSnippetList.appendChild(li);
+          });
+        } else {
+          snippetsContainer.style.display = 'none';
+        }
+
+        // News Analysis Box
+        if (res.newsAnalysis) {
+          newsAnalysisBox.style.display = 'block';
+          newsExplanationText.textContent = res.newsAnalysis.whyNeedsVerification;
+        } else {
+          newsAnalysisBox.style.display = 'none';
+        }
 
         resultsContainer.style.display = 'block';
       });
 
-      // TAB 2: GMAIL SCANNER (FEATURE 1)
-      const emailSubject = document.getElementById('emailSubject');
-      const emailBody = document.getElementById('emailBody');
-      const btnScanEmail = document.getElementById('btnScanEmail');
-      const emailResults = document.getElementById('emailResultsContainer');
-
-      document.getElementById('btnEmailSampleInvoice').addEventListener('click', () => {
-        emailSubject.value = 'Invoice #INV-94829 from Geek Squad / PayPal Support';
-        emailBody.value = 'Dear Customer, Thank you for your auto-renewal order of $499.00. If you did not make this transaction, call our support immediately to dispute this charge or enter your password at http://192.168.1.1/sec-login within 24 hours.';
-      });
-      document.getElementById('btnEmailSamplePassword').addEventListener('click', () => {
-        emailSubject.value = 'Security Alert: Unusual sign-in attempt detected on your Google account';
-        emailBody.value = 'Someone just tried to access your account from Russia. Confirm your password and verify your credentials immediately to avoid permanent account termination.';
-      });
-      document.getElementById('btnEmailSampleSafe').addEventListener('click', () => {
-        emailSubject.value = 'Team Sync Notes & Next Steps';
-        emailBody.value = 'Hi Team, Thanks for attending today\'s meeting. Please review the attached document and submit your feedback before Friday.';
-      });
-
-      btnScanEmail.addEventListener('click', () => {
-        const text = (emailSubject.value + ' ' + emailBody.value).trim();
-        if (!text) return;
-        const res = TextAnalyzer.analyzeText(text);
-
-        document.getElementById('emailBadge').textContent = res.classification;
-        document.getElementById('emailBadge').className = 'badge badge-' + (res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : res.classification === 'Potentially Harmful' ? 'harmful' : 'verify');
-        document.getElementById('emailTrust').textContent = res.trustScore;
-        document.getElementById('emailRisk').textContent = res.riskLevel;
-        document.getElementById('emailExplanation').textContent = res.explanation;
-
-        const flagsDiv = document.getElementById('emailFlags');
-        flagsDiv.innerHTML = '';
-        res.warningFlags.forEach(f => {
-          const chip = document.createElement('span');
-          chip.className = 'flag-chip';
-          chip.textContent = '⚠️ ' + f;
-          flagsDiv.appendChild(chip);
-        });
-        emailResults.style.display = 'block';
-      });
-
-      // TAB 3: SMS SCANNER (FEATURE 2)
+      // --- TAB 2: SMS & MOBILE WHATSAPP ---
+      const smsSenderInput = document.getElementById('smsSenderInput');
+      const smsTextInput = document.getElementById('smsTextInput');
       const phoneSender = document.getElementById('phoneSender');
       const phoneBubble = document.getElementById('phoneBubble');
-      const btnScanSms = document.getElementById('btnScanSms');
-      const smsResults = document.getElementById('smsResultsContainer');
+
+      function syncPhoneMockup() {
+        phoneSender.textContent = 'From: ' + (smsSenderInput.value.trim() || 'Unknown Sender');
+        phoneBubble.textContent = smsTextInput.value.trim() || 'Message preview will appear here...';
+      }
+
+      smsSenderInput.addEventListener('input', syncPhoneMockup);
+      smsTextInput.addEventListener('input', syncPhoneMockup);
+
+      document.getElementById('btnPasteClipboard').addEventListener('click', async () => {
+        try {
+          if (navigator.clipboard && navigator.clipboard.readText) {
+            const text = await navigator.clipboard.readText();
+            if (text) {
+              smsTextInput.value = text;
+              syncPhoneMockup();
+            }
+          } else {
+            alert('Clipboard paste not supported in this browser. Please paste directly into the box.');
+          }
+        } catch (e) {
+          alert('Please allow clipboard permission or paste directly into the text box.');
+        }
+      });
+
+      document.getElementById('btnClearSms').addEventListener('click', () => {
+        smsSenderInput.value = '';
+        smsTextInput.value = '';
+        syncPhoneMockup();
+        document.getElementById('smsResultsContainer').style.display = 'none';
+      });
 
       document.getElementById('btnSmsSampleUpi').addEventListener('click', () => {
-        phoneSender.textContent = 'From: WhatsApp (Mahesh)';
-        phoneBubble.textContent = 'Click the link have 5000 rupees';
-      });
-      document.getElementById('btnSmsSampleBank').addEventListener('click', () => {
-        phoneSender.textContent = 'From: SBI-ALERT';
-        phoneBubble.textContent = 'Dear SBI user, your YONO account has been suspended today. Please update PAN card and verify your credentials at http://sbi-verify.xyz/login immediately.';
-      });
-      document.getElementById('btnSmsSamplePackage').addEventListener('click', () => {
-        phoneSender.textContent = 'From: IndiaPost-Tracking';
-        phoneBubble.textContent = 'Your parcel cannot be delivered due to missing house number. Click link within 12 hours to update delivery details.';
-      });
-      document.getElementById('btnSmsSampleSafe').addEventListener('click', () => {
-        phoneSender.textContent = 'From: Mom';
-        phoneBubble.textContent = 'Hi dear, don\'t forget to pick up groceries on your way back home. See you soon!';
+        smsSenderInput.value = 'WhatsApp (Mahesh)';
+        smsTextInput.value = 'Click the link have 5000 rupees';
+        syncPhoneMockup();
       });
 
-      btnScanSms.addEventListener('click', () => {
-        const text = phoneBubble.textContent.trim();
+      document.getElementById('btnSmsSamplePower').addEventListener('click', () => {
+        smsSenderInput.value = 'SMS (Electricity-Dept)';
+        smsTextInput.value = 'Dear Consumer, Your electricity power will be disconnected tonight at 9:30 PM because your previous month bill was not updated. Immediately call 9876543210 or click link to pay.';
+        syncPhoneMockup();
+      });
+
+      document.getElementById('btnSmsSampleBank').addEventListener('click', () => {
+        smsSenderInput.value = 'SBI-ALERT';
+        smsTextInput.value = 'Dear SBI user, your YONO account has been suspended today. Please update PAN card and verify your credentials at http://sbi-verify.xyz/login immediately.';
+        syncPhoneMockup();
+      });
+
+      document.getElementById('btnSmsSamplePackage').addEventListener('click', () => {
+        smsSenderInput.value = 'IndiaPost-Tracking';
+        smsTextInput.value = 'Your parcel cannot be delivered due to missing house number. Click link within 12 hours to update delivery details.';
+        syncPhoneMockup();
+      });
+
+      document.getElementById('btnSmsSampleSafe').addEventListener('click', () => {
+        smsSenderInput.value = 'Mom';
+        smsTextInput.value = 'Hi dear, don\'t forget to pick up groceries on your way back home. See you soon!';
+        syncPhoneMockup();
+      });
+
+      document.getElementById('btnScanSms').addEventListener('click', () => {
+        const text = smsTextInput.value.trim();
         if (!text) return;
         const res = TextAnalyzer.analyzeText(text);
 
-        document.getElementById('smsBadge').textContent = res.classification;
-        document.getElementById('smsBadge').className = 'badge badge-' + (res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : res.classification === 'Potentially Harmful' ? 'harmful' : 'verify');
+        const badge = document.getElementById('smsBadge');
+        badge.textContent = res.classification;
+        badge.className = 'badge badge-' + (res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : res.classification === 'Potentially Harmful' ? 'harmful' : 'verify');
+
         document.getElementById('smsTrust').textContent = res.trustScore;
-        document.getElementById('smsRisk').textContent = res.riskLevel;
+        const riskEl = document.getElementById('smsRisk');
+        riskEl.textContent = res.riskLevel;
+        riskEl.className = res.riskLevel === 'Low' ? 'risk-low' : res.riskLevel === 'Medium' ? 'risk-medium' : 'risk-high';
+
         document.getElementById('smsExplanation').textContent = res.explanation;
 
         const flagsDiv = document.getElementById('smsFlags');
@@ -819,32 +1746,231 @@ body {
         res.warningFlags.forEach(f => {
           const chip = document.createElement('span');
           chip.className = 'flag-chip';
-          chip.textContent = '⚠️ ' + f;
+          chip.textContent = '\u{1F6A9} ' + f;
           flagsDiv.appendChild(chip);
         });
-        smsResults.style.display = 'block';
+
+        document.getElementById('smsResultsContainer').style.display = 'block';
       });
 
-      // TAB 4: NOTIFICATIONS TEST TOASTS
-      const notifFeed = document.getElementById('notifFeedContainer');
-      function addToast(title, body, sender) {
-        const res = TextAnalyzer.analyzeText(title + ' ' + body);
-        const el = document.createElement('div');
-        el.className = 'chat-bubble';
-        el.style.borderLeftColor = res.classification === 'Safe' ? '#10b981' : res.classification === 'Spam' ? '#f59e0b' : '#ef4444';
-        el.innerHTML = `
-          <div style="font-size:0.75rem; color:#94a3b8; font-weight:bold;">📱 ${sender} &bull; ${new Date().toLocaleTimeString()}</div>
-          <div style="font-weight:bold; margin:2px 0;">${title}</div>
-          <div style="color:#e2e8f0; font-size:0.8rem;">${body}</div>
-          <div style="margin-top:4px;"><span class="badge badge-${res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : 'harmful'}">${res.classification}</span> <span style="font-size:0.75rem; color:#94a3b8;">Risk: ${res.riskLevel}</span></div>
-        `;
-        notifFeed.prepend(el);
+      // --- TAB 3: GMAIL SCANNER ---
+      const emailSender = document.getElementById('emailSender');
+      const emailSubject = document.getElementById('emailSubject');
+      const emailBody = document.getElementById('emailBody');
+
+      document.getElementById('btnClearEmail').addEventListener('click', () => {
+        emailSender.value = '';
+        emailSubject.value = '';
+        emailBody.value = '';
+        document.getElementById('emailResultsContainer').style.display = 'none';
+      });
+
+      document.getElementById('btnEmailSampleInvoice').addEventListener('click', () => {
+        emailSender.value = 'billing@paypa1-security.com';
+        emailSubject.value = 'Invoice #INV-94829 from Geek Squad / PayPal Support';
+        emailBody.value = 'Dear Customer, Thank you for your auto-renewal order of $499.00. If you did not make this transaction, call our support immediately to dispute this charge or enter your password at http://192.168.1.1/sec-login within 24 hours.';
+      });
+
+      document.getElementById('btnEmailSamplePassword').addEventListener('click', () => {
+        emailSender.value = 'alert@goog1e-verify.xyz';
+        emailSubject.value = 'Security Alert: Unusual sign-in attempt detected on your Google account';
+        emailBody.value = 'Someone just tried to access your account from an unknown IP. Confirm your password and verify your credentials immediately to avoid permanent account termination.';
+      });
+
+      document.getElementById('btnEmailSampleSafe').addEventListener('click', () => {
+        emailSender.value = 'colleague@company.com';
+        emailSubject.value = 'Team Sync Notes & Next Steps';
+        emailBody.value = 'Hi Team, Thanks for attending today\'s meeting. Please review the attached notes and submit your feedback before Friday afternoon.';
+      });
+
+      document.getElementById('btnScanEmail').addEventListener('click', () => {
+        const fullContent = (emailSender.value + ' ' + emailSubject.value + ' ' + emailBody.value).trim();
+        if (!fullContent) return;
+        const res = TextAnalyzer.analyzeText(fullContent);
+
+        const badge = document.getElementById('emailBadge');
+        badge.textContent = res.classification;
+        badge.className = 'badge badge-' + (res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : res.classification === 'Potentially Harmful' ? 'harmful' : 'verify');
+
+        document.getElementById('emailTrust').textContent = res.trustScore;
+        const riskEl = document.getElementById('emailRisk');
+        riskEl.textContent = res.riskLevel;
+        riskEl.className = res.riskLevel === 'Low' ? 'risk-low' : res.riskLevel === 'Medium' ? 'risk-medium' : 'risk-high';
+
+        document.getElementById('emailExplanation').textContent = res.explanation;
+
+        const flagsDiv = document.getElementById('emailFlags');
+        flagsDiv.innerHTML = '';
+        res.warningFlags.forEach(f => {
+          const chip = document.createElement('span');
+          chip.className = 'flag-chip';
+          chip.textContent = '\u{1F6A9} ' + f;
+          flagsDiv.appendChild(chip);
+        });
+
+        document.getElementById('emailResultsContainer').style.display = 'block';
+      });
+
+      // --- TAB 4: WINDOWS NOTIFICATIONS CONTROLLER ---
+      const companionStatusPill = document.getElementById('companionStatusPill');
+      const companionStatusText = document.getElementById('companionStatusText');
+      const companionDetailStatus = document.getElementById('companionDetailStatus');
+      const companionDetailHint = document.getElementById('companionDetailHint');
+      const btnRefreshCompanion = document.getElementById('btnRefreshCompanion');
+      const btnRequestPermission = document.getElementById('btnRequestPermission');
+
+      const btnToggleMonitoring = document.getElementById('btnToggleMonitoring');
+      const btnPauseMonitoring = document.getElementById('btnPauseMonitoring');
+      const monitoringStatusLabel = document.getElementById('monitoringStatusLabel');
+      const appsFilterContainer = document.getElementById('appsFilterContainer');
+      const toggleSaveHistory = document.getElementById('toggleSaveHistory');
+      const btnClearNotifHistory = document.getElementById('btnClearNotifHistory');
+      const notifFeedContainer = document.getElementById('notifFeedContainer');
+      const emptyNotifFeed = document.getElementById('emptyNotifFeed');
+      const feedCountLabel = document.getElementById('feedCountLabel');
+
+      // Render App Filters
+      function renderAppFilters() {
+        appsFilterContainer.innerHTML = '';
+        NotificationManager.monitoredApps.forEach(app => {
+          const label = document.createElement('label');
+          label.className = 'app-checkbox-label';
+          const chk = document.createElement('input');
+          chk.type = 'checkbox';
+          chk.checked = app.enabled;
+          chk.addEventListener('change', () => {
+            app.enabled = chk.checked;
+            if (app.id === 'all') {
+              NotificationManager.monitoredApps.forEach(a => { a.enabled = chk.checked; });
+              renderAppFilters();
+            }
+          });
+          label.appendChild(chk);
+          label.appendChild(document.createTextNode(app.name));
+          appsFilterContainer.appendChild(label);
+        });
       }
 
-      document.getElementById('btnSimPhishing').addEventListener('click', () => addToast('Unauthorized Login Alert', 'Verify password and security code at http://192.168.1.1/sec-login immediately.', 'Bank Security'));
-      document.getElementById('btnSimPromo').addEventListener('click', () => addToast('CONGRATULATIONS WINNER!', 'You have won $1,000 cash voucher! Click here to claim.', 'Shopping Deals'));
-      document.getElementById('btnSimNews').addEventListener('click', () => addToast('BOMBSHELL report!', 'Insiders confirm secret cure discovered that mainstream media won\'t show.', 'News App'));
-      document.getElementById('btnSimSafe').addEventListener('click', () => addToast('New Message', 'Hey, let\'s catch up tomorrow afternoon.', 'WhatsApp'));
+      // Monitoring Toggle
+      btnToggleMonitoring.addEventListener('click', () => {
+        if (!NotificationManager.isMonitoring) {
+          NotificationManager.startMonitoring();
+        } else {
+          NotificationManager.stopMonitoring();
+        }
+      });
+
+      btnPauseMonitoring.addEventListener('click', () => {
+        NotificationManager.togglePause();
+      });
+
+      async function refreshCompanion() {
+        companionDetailStatus.textContent = 'Checking companion...';
+        const res = await NotificationManager.checkCompanionStatus();
+        updateCompanionUI(res);
+      }
+
+      function updateCompanionUI(res) {
+        if (res && NotificationManager.companionConnected) {
+          companionStatusPill.className = 'companion-pill';
+          companionStatusText.textContent = 'Windows Companion Connected';
+          companionDetailStatus.innerHTML = '<span style="color: var(--color-safe);">Connected (Port 8765)</span>';
+          companionDetailHint.innerHTML = `Windows WinRT Toast Access: <strong>${NotificationManager.winrtPermission}</strong>. Intercepting desktop toasts.`;
+          btnRequestPermission.disabled = false;
+        } else {
+          companionStatusPill.className = 'companion-pill';
+          companionStatusText.textContent = 'Universal Web & Mobile Active';
+          companionDetailStatus.innerHTML = '<span style="color: var(--color-safe);">Active on Web & Mobile</span>';
+          companionDetailHint.innerHTML = 'Universal scanner is fully active. Use the interactive tests below or launch <code>run.bat</code> on Windows.';
+          btnRequestPermission.disabled = true;
+        }
+      }
+
+      btnRefreshCompanion.addEventListener('click', refreshCompanion);
+      btnRequestPermission.addEventListener('click', () => NotificationManager.requestWindowsPermission());
+
+      NotificationManager.on('monitoring_state', state => {
+        if (state.isMonitoring) {
+          btnToggleMonitoring.textContent = 'Stop Monitoring';
+          btnToggleMonitoring.className = 'btn btn-danger btn-sm';
+          btnPauseMonitoring.disabled = false;
+          btnPauseMonitoring.textContent = state.isPaused ? 'Resume' : 'Pause';
+          monitoringStatusLabel.textContent = state.isPaused ? 'Paused' : 'Monitoring Active (Checking every 2s)';
+          monitoringStatusLabel.style.color = state.isPaused ? '#f59e0b' : '#10b981';
+        } else {
+          btnToggleMonitoring.textContent = 'Start Monitoring';
+          btnToggleMonitoring.className = 'btn btn-primary btn-sm';
+          btnPauseMonitoring.disabled = true;
+          btnPauseMonitoring.textContent = 'Pause';
+          monitoringStatusLabel.textContent = 'Stopped';
+          monitoringStatusLabel.style.color = '#94a3b8';
+        }
+      });
+
+      // History controls
+      toggleSaveHistory.checked = NotificationManager.saveHistoryEnabled;
+      toggleSaveHistory.addEventListener('change', () => {
+        NotificationManager.setSaveHistoryEnabled(toggleSaveHistory.checked);
+      });
+      btnClearNotifHistory.addEventListener('click', () => {
+        NotificationManager.clearHistory();
+      });
+
+      // Simulator buttons
+      document.getElementById('btnSimPhishing').addEventListener('click', () => NotificationManager.simulateNotification('phishing'));
+      document.getElementById('btnSimPromo').addEventListener('click', () => NotificationManager.simulateNotification('promo_spam'));
+      document.getElementById('btnSimNews').addEventListener('click', () => NotificationManager.simulateNotification('news'));
+      document.getElementById('btnSimSafe').addEventListener('click', () => NotificationManager.simulateNotification('safe'));
+      document.getElementById('btnSimUnavailable').addEventListener('click', () => NotificationManager.simulateNotification('unavailable'));
+
+      // Feed rendering
+      function renderFeed() {
+        const history = NotificationManager.history;
+        feedCountLabel.textContent = `${history.length} notification${history.length === 1 ? '' : 's'}`;
+        if (history.length === 0) {
+          notifFeedContainer.innerHTML = '';
+          notifFeedContainer.appendChild(emptyNotifFeed);
+          return;
+        }
+        notifFeedContainer.innerHTML = '';
+        history.forEach(item => {
+          const card = document.createElement('div');
+          const cls = item.analysis.classification === 'Safe' ? 'safe' :
+                      item.analysis.classification === 'Spam' ? 'spam' :
+                      item.analysis.classification === 'Potentially Harmful' ? 'harmful' : 'verify';
+          card.className = `notif-item ${cls}`;
+
+          const timeStr = new Date(item.timestamp).toLocaleTimeString();
+          card.innerHTML = `
+            <div class="notif-header">
+              <div>
+                <strong>${TextAnalyzer.escapeHtml(item.sourceApp)}</strong> &#8226;
+                <span style="color: #cbd5e1;">${TextAnalyzer.escapeHtml(item.title)}</span>
+              </div>
+              <div>
+                <span class="badge badge-${cls}">${item.analysis.classification}</span>
+                <span style="font-size: 0.75rem; color: var(--text-dim); margin-left: 0.5rem;">${timeStr}</span>
+              </div>
+            </div>
+            <div class="notif-body">${TextAnalyzer.escapeHtml(item.body || '[Content Unavailable]')}</div>
+            <div style="font-size: 0.8rem; color: #cbd5e1;">
+              <strong>Risk Level:</strong> <span class="risk-${item.analysis.riskLevel.toLowerCase()}">${item.analysis.riskLevel}</span> (Trust: ${item.analysis.trustScore}/100)
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+              ${TextAnalyzer.escapeHtml(item.analysis.explanation)}
+            </div>
+          `;
+          notifFeedContainer.appendChild(card);
+        });
+      }
+
+      NotificationManager.on('notification_received', () => renderFeed());
+      NotificationManager.on('history_cleared', () => renderFeed());
+
+      // Init
+      renderAppFilters();
+      refreshCompanion();
+      renderFeed();
     });
   </script>
 </body>

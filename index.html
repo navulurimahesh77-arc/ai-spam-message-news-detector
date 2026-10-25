@@ -1224,9 +1224,6 @@ input:checked + .slider:before { transform: translateX(20px); }
       function analyzeText(rawText, options = {}) {
         const text = typeof rawText === 'string' ? rawText : '';
         const trimmed = text.trim();
-        if (!trimmed) {
-          return { status: 'error', errorCode: 'EMPTY_INPUT', message: 'No text provided. Please enter text to analyze.' };
-        }
 
         const isExplicitlyUnavailable =
           options.isUnavailable ||
@@ -1244,11 +1241,15 @@ input:checked + .slider:before { transform: translateX(20px); }
             detailedFindings: [{
               category: 'privacy_restriction',
               label: 'Content Withheld',
-              matchedSnippet: trimmed,
+              matchedSnippet: trimmed || '[Content Unavailable]',
               explanation: 'Notification content withheld for privacy.'
             }],
             newsAnalysis: null
           };
+        }
+
+        if (!trimmed) {
+          return { status: 'error', errorCode: 'EMPTY_INPUT', message: 'No text provided. Please enter text to analyze.' };
         }
 
         const findings = [];
@@ -1473,6 +1474,9 @@ input:checked + .slider:before { transform: translateX(20px); }
           this._notify('monitoring_state', { isMonitoring: true, isPaused: false });
           this.pollInterval = setInterval(() => this._poll(), 2000);
           this._poll();
+          if (!this.companionConnected && this.history.length === 0) {
+            this.simulateNotification('phishing');
+          }
         }
 
         stopMonitoring() {
@@ -1496,10 +1500,11 @@ input:checked + .slider:before { transform: translateX(20px); }
               const res = await fetch(`${COMPANION_URL}/api/notifications?since=${this.lastSequence}`);
               if (res.ok) {
                 const data = await res.json();
-                if (data && Array.isArray(data.notifications)) {
-                  data.notifications.forEach(n => this._ingest(n));
-                  if (data.sequence) this.lastSequence = data.sequence;
+                const notifList = Array.isArray(data?.notifications) ? data.notifications : (data?.notifications ? [data.notifications] : []);
+                if (notifList.length > 0) {
+                  notifList.forEach(n => this._ingest(n));
                 }
+                if (data && data.sequence) this.lastSequence = data.sequence;
               }
             } catch (e) {
               this.companionConnected = false;
@@ -1508,7 +1513,7 @@ input:checked + .slider:before { transform: translateX(20px); }
           } else {
             // Universal Mobile / Standalone mode: deliver periodic test notifications to show active detection
             this._simCounter = (this._simCounter || 0) + 1;
-            if (this._simCounter % 4 === 0) {
+            if (this._simCounter % 2 === 0) {
               const simTypes = ['phishing', 'promo_spam', 'news', 'safe'];
               const chosen = simTypes[Math.floor(Math.random() * simTypes.length)];
               this.simulateNotification(chosen);
@@ -1517,8 +1522,23 @@ input:checked + .slider:before { transform: translateX(20px); }
         }
 
         _ingest(notif) {
+          if (!notif) return null;
           if (!this.isAppAllowed(notif.sourceApp)) return null;
-          const analysis = TextAnalyzer.analyzeText(notif.body, { isUnavailable: notif.isUnavailable });
+          const textToAnalyze = (notif.body && notif.body.trim()) ? notif.body : (notif.title || 'System Notification');
+          let analysis = TextAnalyzer.analyzeText(textToAnalyze, { isUnavailable: notif.isUnavailable });
+          if (!analysis || analysis.status === 'error' || !analysis.riskLevel) {
+            analysis = {
+              status: 'success',
+              isUnavailable: !!notif.isUnavailable,
+              classification: notif.isUnavailable ? 'Needs Verification' : 'Safe',
+              riskLevel: notif.isUnavailable ? 'Medium' : 'Low',
+              trustScore: notif.isUnavailable ? 50 : 85,
+              warningFlags: notif.isUnavailable ? ['Content Withheld / Unavailable'] : [],
+              explanation: notif.isUnavailable
+                ? 'Notification body protected by privacy settings.'
+                : 'Standard application notification without high-risk indicators.'
+            };
+          }
           const entry = {
             id: 'notif_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
             timestamp: new Date().toISOString(),
@@ -1980,9 +2000,15 @@ input:checked + .slider:before { transform: translateX(20px); }
         notifFeedContainer.innerHTML = '';
         history.forEach(item => {
           const card = document.createElement('div');
-          const cls = item.analysis.classification === 'Safe' ? 'safe' :
-                      item.analysis.classification === 'Spam' ? 'spam' :
-                      item.analysis.classification === 'Potentially Harmful' ? 'harmful' : 'verify';
+          const an = item.analysis || {};
+          const classification = an.classification || 'Safe';
+          const riskLevel = an.riskLevel || 'Low';
+          const trustScore = typeof an.trustScore === 'number' ? an.trustScore : 85;
+          const explanation = an.explanation || 'Notification evaluated.';
+
+          const cls = classification === 'Safe' ? 'safe' :
+                      classification === 'Spam' ? 'spam' :
+                      classification === 'Potentially Harmful' ? 'harmful' : 'verify';
           card.className = `notif-item ${cls}`;
 
           const timeStr = new Date(item.timestamp).toLocaleTimeString();
@@ -1993,16 +2019,16 @@ input:checked + .slider:before { transform: translateX(20px); }
                 <span style="color: #cbd5e1;">${TextAnalyzer.escapeHtml(item.title)}</span>
               </div>
               <div>
-                <span class="badge badge-${cls}">${item.analysis.classification}</span>
+                <span class="badge badge-${cls}">${classification}</span>
                 <span style="font-size: 0.75rem; color: var(--text-dim); margin-left: 0.5rem;">${timeStr}</span>
               </div>
             </div>
             <div class="notif-body">${TextAnalyzer.escapeHtml(item.body || '[Content Unavailable]')}</div>
             <div style="font-size: 0.8rem; color: #cbd5e1;">
-              <strong>Risk Level:</strong> <span class="risk-${item.analysis.riskLevel.toLowerCase()}">${item.analysis.riskLevel}</span> (Trust: ${item.analysis.trustScore}/100)
+              <strong>Risk Level:</strong> <span class="risk-${riskLevel.toLowerCase()}">${riskLevel}</span> (Trust: ${trustScore}/100)
             </div>
             <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
-              ${TextAnalyzer.escapeHtml(item.analysis.explanation)}
+              ${TextAnalyzer.escapeHtml(explanation)}
             </div>
           `;
           notifFeedContainer.appendChild(card);

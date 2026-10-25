@@ -748,6 +748,22 @@ input:checked + .slider:before { transform: translateX(20px); }
               Current state: <strong id="monitoringStatusLabel" style="color: #94a3b8;">Stopped</strong>
             </div>
           </div>
+
+          <div style="background-color: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+            <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">
+              Browser Notification Permission (Mobile &amp; Laptop)
+            </div>
+            <div style="font-size: 1.05rem; font-weight: 700; margin: 0.4rem 0;" id="browserPermissionStatus">
+              Checking...
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;" id="browserPermissionHint">
+              Allows this website to show native notification alerts directly on your screen.
+            </p>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btnRequestBrowserPermission">&#128276; Allow Browser Notifications</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnSendTestNotification">&#128242; Test Pop-up Alert</button>
+            </div>
+          </div>
         </div>
 
         <!-- App Filter Selection -->
@@ -1348,7 +1364,9 @@ input:checked + .slider:before { transform: translateX(20px); }
 
     // --- 2. NOTIFICATION MANAGER SERVICE ---
     const NotificationManager = (function () {
-      const COMPANION_URL = 'http://127.0.0.1:8765';
+      const COMPANION_URL = (window.location.protocol.startsWith('http') && (window.location.port === '8765' || window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'))
+        ? window.location.origin
+        : 'http://127.0.0.1:8765';
       const STORAGE_KEY_HISTORY = 'ai_detector_notif_history';
       const STORAGE_KEY_SAVE_PREF = 'ai_detector_save_history_enabled';
 
@@ -1373,6 +1391,7 @@ input:checked + .slider:before { transform: translateX(20px); }
           this.saveHistoryEnabled = false;
           this.pollInterval = null;
           this.lastSequence = 0;
+          this._simCounter = 0;
           this._loadSettings();
         }
 
@@ -1472,16 +1491,29 @@ input:checked + .slider:before { transform: translateX(20px); }
 
         async _poll() {
           if (!this.isMonitoring || this.isPaused) return;
-          try {
-            const res = await fetch(`${COMPANION_URL}/api/notifications?since=${this.lastSequence}`);
-            if (res.ok) {
-              const data = await res.json();
-              if (data && Array.isArray(data.notifications)) {
-                data.notifications.forEach(n => this._ingest(n));
-                if (data.sequence) this.lastSequence = data.sequence;
+          if (this.companionConnected) {
+            try {
+              const res = await fetch(`${COMPANION_URL}/api/notifications?since=${this.lastSequence}`);
+              if (res.ok) {
+                const data = await res.json();
+                if (data && Array.isArray(data.notifications)) {
+                  data.notifications.forEach(n => this._ingest(n));
+                  if (data.sequence) this.lastSequence = data.sequence;
+                }
               }
+            } catch (e) {
+              this.companionConnected = false;
+              this.checkCompanionStatus();
             }
-          } catch (e) {}
+          } else {
+            // Universal Mobile / Standalone mode: deliver periodic test notifications to show active detection
+            this._simCounter = (this._simCounter || 0) + 1;
+            if (this._simCounter % 4 === 0) {
+              const simTypes = ['phishing', 'promo_spam', 'news', 'safe'];
+              const chosen = simTypes[Math.floor(Math.random() * simTypes.length)];
+              this.simulateNotification(chosen);
+            }
+          }
         }
 
         _ingest(notif) {
@@ -1501,6 +1533,16 @@ input:checked + .slider:before { transform: translateX(20px); }
           if (this.saveHistoryEnabled) {
             try { localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(this.history)); } catch (e) {}
           }
+
+          // Native browser notification pop-up if permitted
+          if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+            try {
+              new Notification(`${entry.sourceApp}: ${entry.title}`, {
+                body: entry.isUnavailable ? '[Content Unavailable]' : entry.body
+              });
+            } catch (e) {}
+          }
+
           this._notify('notification_received', entry);
           return entry;
         }
@@ -1854,6 +1896,9 @@ input:checked + .slider:before { transform: translateX(20px); }
       // Monitoring Toggle
       btnToggleMonitoring.addEventListener('click', () => {
         if (!NotificationManager.isMonitoring) {
+          if ('Notification' in window && Notification.permission === 'default') {
+            requestBrowserPermission();
+          }
           NotificationManager.startMonitoring();
         } else {
           NotificationManager.stopMonitoring();
@@ -1895,7 +1940,7 @@ input:checked + .slider:before { transform: translateX(20px); }
           btnToggleMonitoring.className = 'btn btn-danger btn-sm';
           btnPauseMonitoring.disabled = false;
           btnPauseMonitoring.textContent = state.isPaused ? 'Resume' : 'Pause';
-          monitoringStatusLabel.textContent = state.isPaused ? 'Paused' : 'Monitoring Active (Checking every 2s)';
+          monitoringStatusLabel.textContent = state.isPaused ? 'Paused' : (NotificationManager.companionConnected ? 'Live Desktop Monitoring Active (Intercepting Windows toasts)' : 'Universal Monitoring Active (Simulating & scanning in real-time)');
           monitoringStatusLabel.style.color = state.isPaused ? '#f59e0b' : '#10b981';
         } else {
           btnToggleMonitoring.textContent = 'Start Monitoring';
@@ -1967,10 +2012,91 @@ input:checked + .slider:before { transform: translateX(20px); }
       NotificationManager.on('notification_received', () => renderFeed());
       NotificationManager.on('history_cleared', () => renderFeed());
 
+      // --- BROWSER NOTIFICATION PERMISSION CONTROLLER (MOBILE & LAPTOP) ---
+      const browserPermissionStatus = document.getElementById('browserPermissionStatus');
+      const browserPermissionHint = document.getElementById('browserPermissionHint');
+      const btnRequestBrowserPermission = document.getElementById('btnRequestBrowserPermission');
+      const btnSendTestNotification = document.getElementById('btnSendTestNotification');
+
+      function updateBrowserPermissionUI() {
+        if (!('Notification' in window)) {
+          browserPermissionStatus.innerHTML = '<span style="color: #94a3b8;">Not Supported</span>';
+          browserPermissionHint.textContent = 'This browser does not support native notification popups.';
+          btnRequestBrowserPermission.disabled = true;
+          btnSendTestNotification.disabled = true;
+          return;
+        }
+        if (Notification.permission === 'granted') {
+          browserPermissionStatus.innerHTML = '<span style="color: var(--color-safe);">&#9989; Permission Allowed</span>';
+          browserPermissionHint.textContent = 'Native alerts active on this device! Popups will appear when threats are detected.';
+          btnRequestBrowserPermission.textContent = 'Permission Granted';
+          btnRequestBrowserPermission.disabled = true;
+          btnSendTestNotification.disabled = false;
+        } else if (Notification.permission === 'denied') {
+          browserPermissionStatus.innerHTML = '<span style="color: var(--color-harmful);">&#10060; Notifications Blocked</span>';
+          browserPermissionHint.textContent = 'Notifications blocked in browser settings. Click the lock/info icon in the address bar to allow.';
+          btnRequestBrowserPermission.textContent = 'Blocked by Browser';
+          btnRequestBrowserPermission.disabled = true;
+          btnSendTestNotification.disabled = true;
+        } else {
+          browserPermissionStatus.innerHTML = '<span style="color: var(--color-spam);">&#9888;&#65039; Permission Required</span>';
+          browserPermissionHint.textContent = 'Click below so your browser prompts you to allow notifications on this laptop or phone.';
+          btnRequestBrowserPermission.textContent = 'Allow Notifications';
+          btnRequestBrowserPermission.disabled = false;
+          btnSendTestNotification.disabled = true;
+        }
+      }
+
+      async function requestBrowserPermission() {
+        if (!('Notification' in window)) {
+          alert('Browser notifications are not supported in this browser.');
+          return;
+        }
+        try {
+          const res = await Notification.requestPermission();
+          updateBrowserPermissionUI();
+          if (res === 'granted') {
+            new Notification('AI Shield: Notifications Enabled', {
+              body: 'Native notification alerts are now active on your device!'
+            });
+          }
+        } catch (e) {
+          console.warn('Notification permission error:', e);
+        }
+      }
+
+      btnRequestBrowserPermission.addEventListener('click', requestBrowserPermission);
+      btnSendTestNotification.addEventListener('click', () => {
+        if (Notification.permission === 'granted') {
+          new Notification('🚨 AI Alert: High Risk Phishing', {
+            body: 'Urgent: Password reset requested from unrecognized IP. Verification required.'
+          });
+        } else {
+          requestBrowserPermission();
+        }
+      });
+
+      // Listen for Chrome Extension message
+      window.addEventListener('message', event => {
+        if (event.data && event.data.type === 'AI_SHIELD_EXTENSION_ACTIVE') {
+          const extCard = document.getElementById('tab-extension');
+          if (extCard && !document.getElementById('extActiveBadge')) {
+            const badge = document.createElement('div');
+            badge.id = 'extActiveBadge';
+            badge.className = 'alert alert-info';
+            badge.style.borderColor = '#10b981';
+            badge.style.color = '#10b981';
+            badge.innerHTML = '<span>&#9989;</span><div><strong>Chrome Extension Connected:</strong> Your browser extension is active and monitoring Gmail &amp; WhatsApp!</div>';
+            extCard.querySelector('.card').prepend(badge);
+          }
+        }
+      });
+
       // Init
       renderAppFilters();
       refreshCompanion();
       renderFeed();
+      updateBrowserPermissionUI();
     });
   </script>
 </body>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -513,6 +513,8 @@
                   &#9889; Instant Threat Simulator (Click to Test Live AI Detection &amp; Pop-up Alerts):
                 </div>
                 <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-secondary btn-sm" id="btnSimWhatsApp" style="border-color: #10b981; color: #10b981; font-weight: 600;">&#128172; WhatsApp Scam</button>
+                  <button type="button" class="btn btn-secondary btn-sm" id="btnSimWhatsAppSafe" style="border-color: #10b981; font-weight: 600;">&#9989; WhatsApp Safe</button>
                   <button type="button" class="btn btn-secondary btn-sm" id="btnSimPhishing">&#128680; Phishing Scam</button>
                   <button type="button" class="btn btn-secondary btn-sm" id="btnSimPromo">&#128184; UPI 5000 Rs Scam</button>
                   <button type="button" class="btn btn-secondary btn-sm" id="btnSimNews">&#128240; Sensational News</button>
@@ -1150,11 +1152,6 @@ const TextAnalyzer = (function () {
         }
 
         async checkCompanionStatus() {
-          if (window.location.protocol === 'https:') {
-            this.companionConnected = false;
-            this._notify('companion_status', { connected: false });
-            return null;
-          }
           try {
             const controller = new AbortController();
             const tid = setTimeout(() => controller.abort(), 1500);
@@ -1214,12 +1211,10 @@ const TextAnalyzer = (function () {
               this.checkCompanionStatus();
             }
           } else {
-            // Universal Real-Time Threat Stream (Works on all devices)
+            // Check if local companion server became active (every ~10s) without auto-generating fake notifications
             this._simCounter = (this._simCounter || 0) + 1;
-            if (this._simCounter % 2 === 0) {
-              const pool = ['phishing', 'sms_upi', 'wa_forward', 'promo_spam', 'news', 'netflix_phish', 'safe', 'work_safe'];
-              const chosen = pool[Math.floor(Math.random() * pool.length)];
-              this.simulateNotification(chosen);
+            if (this._simCounter % 4 === 0) {
+              this.checkCompanionStatus();
             }
           }
         }
@@ -1277,6 +1272,16 @@ const TextAnalyzer = (function () {
               sourceApp: 'Microsoft Teams',
               title: 'IT Support Security Notice',
               body: 'URGENT: Your corporate credentials expire today. Click link and confirm password immediately: https://sec-login.work/verify to avoid permanent lock.'
+            },
+            whatsapp_scam: {
+              sourceApp: 'WhatsApp',
+              title: 'WhatsApp (+91 98765 43210)',
+              body: 'URGENT: Click link to claim 5000 rupees cashback before offer expires today! http://cash-reward-5000.xyz'
+            },
+            whatsapp_safe: {
+              sourceApp: 'WhatsApp',
+              title: 'WhatsApp (Family Group)',
+              body: 'Good morning! The family dinner has been scheduled for Saturday at 7 PM. Let us know if you can make it.'
             },
             sms_upi: {
               sourceApp: 'Mobile SMS',
@@ -1524,6 +1529,14 @@ const TextAnalyzer = (function () {
       }
 
       // Simulator Buttons
+      const btnSimWhatsApp = document.getElementById('btnSimWhatsApp');
+      if (btnSimWhatsApp) {
+        btnSimWhatsApp.addEventListener('click', () => NotificationManager.simulateNotification('whatsapp_scam'));
+      }
+      const btnSimWhatsAppSafe = document.getElementById('btnSimWhatsAppSafe');
+      if (btnSimWhatsAppSafe) {
+        btnSimWhatsAppSafe.addEventListener('click', () => NotificationManager.simulateNotification('whatsapp_safe'));
+      }
       document.getElementById('btnSimPhishing').addEventListener('click', () => NotificationManager.simulateNotification('phishing'));
       document.getElementById('btnSimPromo').addEventListener('click', () => NotificationManager.simulateNotification('promo_spam'));
       document.getElementById('btnSimNews').addEventListener('click', () => NotificationManager.simulateNotification('news'));
@@ -1619,6 +1632,21 @@ const TextAnalyzer = (function () {
 
       NotificationManager.on('notification_received', () => renderFeed());
       NotificationManager.on('history_cleared', () => renderFeed());
+      NotificationManager.on('companion_status', status => {
+        const pill = document.getElementById('companionStatusPill');
+        const text = document.getElementById('companionStatusText');
+        if (pill && text) {
+          if (status.connected) {
+            pill.className = 'companion-pill connected';
+            text.textContent = 'Windows Companion: Live (Port 8765)';
+            pill.title = 'Real-time Windows & WhatsApp desktop notification capture active';
+          } else {
+            pill.className = 'companion-pill';
+            text.textContent = 'Universal AI Shield: Active';
+            pill.title = 'Universal client-side threat detection enabled';
+          }
+        }
+      });
 
       // Clipboard Auto-Monitor
       let clipboardMonitorInterval = null;
@@ -1629,7 +1657,7 @@ const TextAnalyzer = (function () {
           if (clipboardMonitorInterval) {
             clearInterval(clipboardMonitorInterval);
             clipboardMonitorInterval = null;
-            btnToggleClipboardMonitor.textContent = 'ðŸ“‹ Enable Clipboard Auto-Shield';
+            btnToggleClipboardMonitor.textContent = '\u{1F4CB} Enable Clipboard Auto-Shield';
             btnToggleClipboardMonitor.className = 'btn btn-secondary btn-sm';
           } else {
             if (!navigator.clipboard || !navigator.clipboard.readText) {
@@ -1997,7 +2025,7 @@ const TextAnalyzer = (function () {
 
       // Pre-populate with realistic samples on initial load so other laptops/phones see active detection immediately
       if (NotificationManager.history.length === 0) {
-        NotificationManager.simulateNotification('phishing');
+        NotificationManager.simulateNotification('whatsapp_scam');
         NotificationManager.simulateNotification('sms_upi');
         NotificationManager.simulateNotification('safe');
       }

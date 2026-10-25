@@ -1151,7 +1151,6 @@ const TextAnalyzer = (function () {
 
         async checkCompanionStatus() {
           if (window.location.protocol === 'https:') {
-            // Universal Web & Mobile Mode - skip mixed content check
             this.companionConnected = false;
             this._notify('companion_status', { connected: false });
             return null;
@@ -1159,7 +1158,7 @@ const TextAnalyzer = (function () {
           try {
             const controller = new AbortController();
             const tid = setTimeout(() => controller.abort(), 1500);
-            const res = await fetch(${this.companionUrl}/api/status, { signal: controller.signal });
+            const res = await fetch(this.companionUrl + '/api/status', { signal: controller.signal });
             clearTimeout(tid);
             if (res.ok) {
               const data = await res.json();
@@ -1201,7 +1200,7 @@ const TextAnalyzer = (function () {
           if (!this.isMonitoring || this.isPaused) return;
           if (this.companionConnected) {
             try {
-              const res = await fetch(${this.companionUrl}/api/notifications?since=);
+              const res = await fetch(this.companionUrl + '/api/notifications?since=' + this.lastSequence);
               if (res.ok) {
                 const data = await res.json();
                 const notifList = Array.isArray(data?.notifications) ? data.notifications : (data?.notifications ? [data.notifications] : []);
@@ -1215,7 +1214,7 @@ const TextAnalyzer = (function () {
               this.checkCompanionStatus();
             }
           } else {
-            // Universal Real-Time Threat Stream (Active on all devices & laptops)
+            // Universal Real-Time Threat Stream (Works on all devices)
             this._simCounter = (this._simCounter || 0) + 1;
             if (this._simCounter % 2 === 0) {
               const pool = ['phishing', 'sms_upi', 'wa_forward', 'promo_spam', 'news', 'netflix_phish', 'safe', 'work_safe'];
@@ -1246,8 +1245,7 @@ const TextAnalyzer = (function () {
           }
 
           const item = {
-            id: notif.id || 
-otif__,
+            id: notif.id || 'notif_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
             timestamp: notif.timestamp || new Date().toISOString(),
             sourceApp: notif.sourceApp || 'System',
             title: notif.title || 'System Notification',
@@ -1261,7 +1259,7 @@ otif__,
           if (this.saveHistoryEnabled) this._saveHistory();
           this._notify('notification_received', item);
 
-          // Real-time browser notification (Universal)
+          // Real-time browser notification
           if (typeof sendNativeThreatAlert === 'function') {
             sendNativeThreatAlert(item);
           }
@@ -1336,11 +1334,9 @@ otif__,
     function sendNativeThreatAlert(item) {
       if (!('Notification' in window) || Notification.permission !== 'granted') return;
       const an = item.analysis || {};
-      // Only pop up for high-risk phishing or spam threats
       if (an.classification !== 'Potentially Harmful' && an.classification !== 'Spam') return;
 
       const now = Date.now();
-      // Debounce: max 1 native OS pop-up alert every 5 seconds to avoid desktop spam
       if (now - lastNativeAlertTime < 5000) return;
       lastNativeAlertTime = now;
 
@@ -1349,14 +1345,14 @@ otif__,
           ? 'ðŸš¨ High Risk Scam / Phishing Alert!'
           : 'âš ï¸ Spam / Promotional Alert!';
 
-        const body = [] : ...;
+        const body = '[' + item.sourceApp + '] ' + item.title + ': ' + item.body.slice(0, 95) + '...';
 
         const n = new Notification(title, {
           body: body,
           tag: 'ai-shield-threat',
           silent: false
         });
-        n.onclick = () => {
+        n.onclick = function() {
           window.focus();
           n.close();
         };
@@ -1378,7 +1374,7 @@ otif__,
             body: 'Your device will now receive instant pop-up alerts whenever a scam or phishing threat is detected.',
             tag: 'ai-shield-welcome'
           });
-          n.onclick = () => { window.focus(); n.close(); };
+          n.onclick = function() { window.focus(); n.close(); };
         }
       } catch (e) {
         console.warn('Permission request error:', e);
@@ -1560,7 +1556,7 @@ otif__,
         const history = NotificationManager.history;
         const filtered = history.filter(item => NotificationManager.isAppAllowed(item.sourceApp));
 
-        feedCountLabel.textContent = ${filtered.length} notification;
+        feedCountLabel.textContent = filtered.length + ' notification' + (filtered.length === 1 ? '' : 's');
 
         // Update 4 Wide Metric Cards
         const totalEvaluated = document.getElementById('metricTotalEvaluated');
@@ -1579,7 +1575,7 @@ otif__,
         }
         if (avgTrust && history.length > 0) {
           const sum = history.reduce((acc, h) => acc + (h.analysis ? h.analysis.trustScore || 85 : 85), 0);
-          avgTrust.innerHTML = ${Math.round(sum / history.length)}<span style="font-size: 0.95rem; color: #94a3b8;"> / 100</span>;
+          avgTrust.innerHTML = Math.round(sum / history.length) + '<span style="font-size: 0.95rem; color: #94a3b8;"> / 100</span>';
         }
 
         if (filtered.length === 0) {
@@ -1599,27 +1595,24 @@ otif__,
           const cls = classification === 'Safe' ? 'safe' :
                       classification === 'Spam' ? 'spam' :
                       classification === 'Potentially Harmful' ? 'harmful' : 'verify';
-          card.className = 
-otif-item ;
+          card.className = 'notif-item ' + cls;
 
           const timeStr = new Date(item.timestamp).toLocaleTimeString();
+          const riskColor = riskLevel === 'High' ? '#ef4444' : (riskLevel === 'Medium' ? '#f59e0b' : '#10b981');
+
           card.innerHTML = 
-            <div class="notif-header">
-              <div>
-                <strong></strong> &bull;
-                <span style="color: #cbd5e1;"></span>
-              </div>
-              <div>
-                <span class="badge badge-"></span>
-                <span style="font-size: 0.75rem; color: #64748b; margin-left: 0.5rem;"></span>
-              </div>
-            </div>
-            <div class="notif-body"></div>
-            <div style="font-size: 0.82rem; color: #cbd5e1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-              <span><strong>Risk Level:</strong> <span style="font-weight: 700; color: ;"></span> (Trust: /100)</span>
-              <span style="font-size: 0.78rem; color: #94a3b8;"></span>
-            </div>
-          ;
+            '<div class="notif-header">' +
+              '<div><strong>' + TextAnalyzer.escapeHtml(item.sourceApp) + '</strong> &bull; ' +
+              '<span style="color: #cbd5e1;">' + TextAnalyzer.escapeHtml(item.title) + '</span></div>' +
+              '<div><span class="badge badge-' + cls + '">' + classification + '</span>' +
+              '<span style="font-size: 0.75rem; color: #64748b; margin-left: 0.5rem;">' + timeStr + '</span></div>' +
+            '</div>' +
+            '<div class="notif-body">' + TextAnalyzer.escapeHtml(item.body || '[Content Unavailable]') + '</div>' +
+            '<div style="font-size: 0.82rem; color: #cbd5e1; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">' +
+              '<span><strong>Risk Level:</strong> <span style="font-weight: 700; color: ' + riskColor + ';">' + riskLevel + '</span> (Trust: ' + trustScore + '/100)</span>' +
+              '<span style="font-size: 0.78rem; color: #94a3b8;">' + TextAnalyzer.escapeHtml(explanation) + '</span>' +
+            '</div>';
+
           notifFeedContainer.appendChild(card);
         });
       }
@@ -1688,7 +1681,7 @@ otif-item ;
       if (textInput && charCountLabel) {
         textInput.addEventListener('input', () => {
           const len = textInput.value.length;
-          charCountLabel.textContent = ${len.toLocaleString()} character;
+          charCountLabel.textContent = len.toLocaleString() + ' character' + (len === 1 ? '' : 's');
           if (len > 0 && emptyAlert) emptyAlert.style.display = 'none';
         });
       }
@@ -1935,7 +1928,7 @@ otif-item ;
         btnEmailSampleInvoice.addEventListener('click', () => {
           if (emailSender) emailSender.value = 'billing@paypa1-security.com';
           if (emailSubject) emailSubject.value = 'Invoice #INV-94829 from Geek Squad / PayPal Support';
-          if (emailBody) emailBody.value = 'Dear Customer, Thank you for your auto-renewal order of .00. If you did not make this transaction, call our support immediately to dispute this charge or enter your password at http://192.168.1.1/sec-login within 24 hours.';
+          if (emailBody) emailBody.value = 'Dear Customer, Thank you for your auto-renewal order of $499.00. If you did not make this transaction, call our support immediately to dispute this charge or enter your password at http://192.168.1.1/sec-login within 24 hours.';
         });
       }
 

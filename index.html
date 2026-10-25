@@ -1511,12 +1511,10 @@ input:checked + .slider:before { transform: translateX(20px); }
               this.checkCompanionStatus();
             }
           } else {
-            // Universal Mobile / Standalone mode: deliver periodic test notifications to show active detection
+            // Periodically check if local companion has been launched
             this._simCounter = (this._simCounter || 0) + 1;
-            if (this._simCounter % 2 === 0) {
-              const simTypes = ['phishing', 'promo_spam', 'news', 'safe'];
-              const chosen = simTypes[Math.floor(Math.random() * simTypes.length)];
-              this.simulateNotification(chosen);
+            if (this._simCounter % 5 === 0) {
+              this.checkCompanionStatus();
             }
           }
         }
@@ -1552,15 +1550,6 @@ input:checked + .slider:before { transform: translateX(20px); }
           if (this.history.length > 50) this.history.pop();
           if (this.saveHistoryEnabled) {
             try { localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(this.history)); } catch (e) {}
-          }
-
-          // Native browser notification pop-up if permitted
-          if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
-            try {
-              new Notification(`${entry.sourceApp}: ${entry.title}`, {
-                body: entry.isUnavailable ? '[Content Unavailable]' : entry.body
-              });
-            } catch (e) {}
           }
 
           this._notify('notification_received', entry);

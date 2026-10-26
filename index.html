@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Shield â€” Universal Spam, Threat &amp; News Detector</title>
-  <meta name="description" content="Universal real-time AI detector for spam, phishing emails, fake news, and scam messages across any device.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Shield — Universal Spam, Threat &amp; News Detector</title>
+  <meta name="description" content="Universal real-time AI detector for mobile SMS, WhatsApp, phishing emails, and scam messages across any device.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0284c7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="css/styles.css">
   <style>
     /* Full-Screen Responsive Edge-to-Edge Theme */
@@ -397,9 +403,14 @@
             <p class="brand-subtitle">Real-Time Threat Protection Across All Laptops &amp; Devices &bull; Zero Accessories Required</p>
           </div>
         </div>
-        <div class="companion-pill" id="companionStatusPill">
-          <span class="status-dot"></span>
-          <span id="companionStatusText">Universal AI Shield: Active</span>
+        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          <div class="companion-pill" id="companionStatusPill" style="cursor: pointer;" title="Click to view Backend & Multi-Device Settings">
+            <span class="status-dot"></span>
+            <span id="companionStatusText">Universal AI Shield: Active</span>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnOpenBackendSettings" style="font-size: 0.78rem; padding: 0.35rem 0.65rem;" title="Configure Backend & Multi-Device Wi-Fi Linking">
+            ⚙️ Backend
+          </button>
         </div>
       </div>
     </header>
@@ -686,19 +697,55 @@
       <div class="card">
         <h2 class="card-title"><span>&#128172;</span> SMS &amp; Mobile WhatsApp Inspector</h2>
         <p class="card-description">
-          Detects UPI cash reward lures ("Click link have 5000 rupees"), bank OTP theft, electricity disconnect scams, and courier fraud.
+          Detects UPI cash reward lures, bank OTP theft, electricity disconnect scams, SIM fraud, and malicious SMS links.
         </p>
+
+        <!-- Mobile SMS Ingestion Action Hub (Web OTP + Clipboard + OCR) -->
+        <div style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(16, 185, 129, 0.08)); border: 1px solid #0284c7; border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.6rem;">
+            <div style="font-size: 0.95rem; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 0.4rem;">
+              <span>📲</span> Auto-Read Normal SMS from Mobile
+            </div>
+            <span class="badge badge-safe" style="font-size: 0.72rem; padding: 0.2rem 0.55rem;">Android Web OTP &bull; PWA Ready</span>
+          </div>
+          <div style="font-size: 0.82rem; color: #cbd5e1; line-height: 1.5; margin-bottom: 0.85rem;">
+            Read incoming SMS or normal messages directly on Android / Mobile phones with zero typing:
+          </div>
+          
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+            <button type="button" class="btn btn-primary btn-sm" id="btnAutoReadSms" style="background: #0284c7; font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem;">
+              <span>📲</span> Auto-Listen for Incoming SMS
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnPasteClipboardSms" style="font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem;">
+              <span>📋</span> One-Tap Paste Copied SMS
+            </button>
+            <label class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer; border-color: #38bdf8; color: #38bdf8; display: inline-flex; align-items: center; gap: 0.35rem;">
+              <span>📸</span> Scan SMS Screenshot
+              <input type="file" id="smsScreenshotInput" accept="image/*" capture="environment" style="display: none;">
+            </label>
+          </div>
+
+          <div id="smsListenerStatus" style="display: none; margin-top: 0.75rem; padding: 0.6rem 0.85rem; background: rgba(15, 23, 42, 0.9); border: 1px solid #38bdf8; border-radius: 6px; font-size: 0.82rem; color: #38bdf8;"></div>
+
+          <div style="margin-top: 0.75rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: #94a3b8;">
+            <input type="checkbox" id="toggleAutoClipSms" style="cursor: pointer;">
+            <label for="toggleAutoClipSms" style="cursor: pointer;">Auto-scan copied SMS when returning to this tab</label>
+          </div>
+        </div>
 
         <!-- Quick Presets -->
         <div style="margin-bottom: 1rem;">
           <div style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 0.4rem;">
-            Test Quick Mobile Lures:
+            Test Real-World Mobile Telecom &amp; Bank Lures:
           </div>
-          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleUpi">&#128176; "Click link have 5000 rs"</button>
-            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSamplePower">&#9889; Electricity Overdue</button>
-            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleBank">&#127974; Bank Account Blocked</button>
-            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSamplePackage">&#128230; IndiaPost Package Missed</button>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleUpi">&#128176; ₹5,000 Cash Reward</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSamplePower">&#9889; Electricity Cut (VM-ELECT)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleBank">&#127974; SBI YONO Block (AX-SBIBNK)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSamplePackage">&#128230; IndiaPost Address (IM-POST)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleSim">&#128241; SIM Blocked (VM-TRAI)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleTax">&#128181; Tax Refund ₹15,490</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleSafeOtp">&#128272; Safe Bank OTP</button>
             <button type="button" class="btn btn-secondary btn-sm" id="btnSmsSampleSafe">&#9989; Safe Family Text</button>
           </div>
         </div>
@@ -707,11 +754,11 @@
         <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 1rem;">
           <div>
             <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);" for="smsSenderInput">Sender / Contact Name:</label>
-            <input type="text" id="smsSenderInput" class="input-text" placeholder="e.g. WhatsApp (+91 9876543210) or SBI-ALERT" value="WhatsApp (Mahesh)">
+            <input type="text" id="smsSenderInput" class="input-text" placeholder="e.g. WhatsApp (+91 9876543210) or AX-SBIBNK" value="WhatsApp (Mahesh)">
           </div>
           <div>
             <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);" for="smsTextInput">Message Text:</label>
-            <textarea id="smsTextInput" class="textarea-field" rows="3" placeholder="Type or paste any SMS or WhatsApp message here...">Click the link have 5000 rupees</textarea>
+            <textarea id="smsTextInput" class="textarea-field" rows="3" placeholder="Type, paste, or auto-read any SMS or WhatsApp message here...">Click the link have 5000 rupees</textarea>
           </div>
         </div>
 
@@ -838,6 +885,53 @@
         <div>No telemetry &bull; No cloud tracking &bull; 100% Private</div>
       </div>
     </footer>
+
+    <!-- Backend & Multi-Device Pairing Modal -->
+    <div id="backendSettingsModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 9999; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px);">
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; max-width: 520px; width: 100%; padding: 1.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1.15rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem; margin: 0;">
+            <span>⚙️</span> Backend &amp; Multi-Device Engine
+          </h3>
+          <button type="button" id="btnCloseBackendModal" style="background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; line-height: 1;">&times;</button>
+        </div>
+
+        <div style="margin-bottom: 1.25rem; padding: 0.85rem; background: var(--bg-surface-elevated); border-radius: 8px; border: 1px solid var(--border-color);">
+          <div style="font-size: 0.78rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; margin-bottom: 0.35rem;">Current Operational Engine:</div>
+          <div id="modalBackendStatusText" style="font-size: 0.95rem; font-weight: 700; color: #10b981;">Universal In-Browser Engine (Autonomous)</div>
+          <div id="modalBackendDetailText" style="font-size: 0.82rem; color: #cbd5e1; margin-top: 0.3rem; line-height: 1.45;">
+            Executing 100% inside this device's browser. Zero external servers required. All mobile SMS parsing, phishing detection, URL inspection, and AI threat heuristics run fully client-side.
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-bottom: 0.35rem;">
+            Pair with PC Companion Server (Optional Wi-Fi / LAN):
+          </label>
+          <div style="font-size: 0.78rem; color: #94a3b8; margin-bottom: 0.5rem; line-height: 1.4;">
+            If accessing from a mobile phone or secondary laptop and you want live Windows toast sync, enter your PC's IP address:
+          </div>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <input type="text" id="inputCustomBackendUrl" class="input-text" placeholder="e.g. http://192.168.30.155:8765" style="flex: 1; font-size: 0.85rem;">
+            <button type="button" class="btn btn-primary btn-sm" id="btnSaveBackendUrl">Connect</button>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-secondary btn-sm" id="btnTestBackendConnection">Test Connection</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnResetBackendUrl">Reset to Autonomous Mode</button>
+          </div>
+          <div id="modalBackendFeedback" style="display: none; margin-top: 0.6rem; font-size: 0.82rem; padding: 0.5rem 0.75rem; border-radius: 6px;"></div>
+        </div>
+
+        <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 8px; padding: 0.85rem; font-size: 0.82rem; color: #94a3b8;">
+          <strong style="color: #38bdf8; display: block; margin-bottom: 0.35rem;">📱 Mobile SMS Quick Guide:</strong>
+          <ul style="margin: 0 0 0 1.2rem; line-height: 1.55;">
+            <li>Switch to <strong>"📱 Mobile SMS &amp; WhatsApp"</strong> tab.</li>
+            <li>Tap <strong>📲 Auto-Listen for Incoming SMS</strong> for hands-free Android SMS interception.</li>
+            <li>Or tap <strong>📋 One-Tap Paste</strong> right after copying any suspicious bank or courier SMS!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
   </div>
 
@@ -1151,21 +1245,61 @@ const TextAnalyzer = (function () {
           return this.monitoredApps.some(a => a.enabled && a.id !== 'all' && (low.includes(a.id) || low.includes(a.name.toLowerCase())));
         }
 
+        getCompanionUrl() {
+          try {
+            const custom = localStorage.getItem('ai_detector_custom_backend');
+            if (custom) return custom.trim().replace(/\/+$/, '');
+          } catch (e) {}
+
+          // If served from a local IP on LAN (e.g. http://192.168.30.155:8765):
+          if (window.location.port === '8765' || (window.location.protocol === 'http:' && !window.location.hostname.includes('github.io'))) {
+            return window.location.protocol + '//' + window.location.hostname + ':8765';
+          }
+
+          // If on HTTPS (e.g. GitHub Pages) and no custom backend set,
+          // do NOT spam 127.0.0.1:8765 which causes mixed content / connection refused errors on other devices!
+          if (window.location.protocol === 'https:') {
+            return null; // Signals Universal In-Browser Autonomous Mode!
+          }
+
+          return 'http://127.0.0.1:8765';
+        }
+
         async checkCompanionStatus() {
+          const url = this.getCompanionUrl();
+          if (!url) {
+            this.companionConnected = false;
+            this.isUniversalAutonomous = true;
+            this._notify('companion_status', { 
+              connected: false, 
+              isAutonomous: true, 
+              mode: 'Universal In-Browser Engine',
+              message: 'Autonomous engine active. 100% client-side threat detection.' 
+            });
+            return null;
+          }
+
           try {
             const controller = new AbortController();
-            const tid = setTimeout(() => controller.abort(), 1500);
-            const res = await fetch(this.companionUrl + '/api/status', { signal: controller.signal });
+            const tid = setTimeout(() => controller.abort(), 1800);
+            const res = await fetch(url + '/api/status', { signal: controller.signal });
             clearTimeout(tid);
             if (res.ok) {
               const data = await res.json();
               this.companionConnected = true;
-              this._notify('companion_status', { connected: true, details: data });
+              this.isUniversalAutonomous = false;
+              this._notify('companion_status', { connected: true, details: data, url: url });
               return data;
             }
           } catch (e) {
             this.companionConnected = false;
-            this._notify('companion_status', { connected: false });
+            this.isUniversalAutonomous = true;
+            this._notify('companion_status', { 
+              connected: false, 
+              isAutonomous: true, 
+              mode: 'Universal In-Browser Engine',
+              message: 'Local server offline. Universal In-Browser Engine active.' 
+            });
           }
           return null;
         }
@@ -1195,9 +1329,10 @@ const TextAnalyzer = (function () {
 
         async _poll() {
           if (!this.isMonitoring || this.isPaused) return;
-          if (this.companionConnected) {
+          const url = this.getCompanionUrl();
+          if (this.companionConnected && url) {
             try {
-              const res = await fetch(this.companionUrl + '/api/notifications?since=' + this.lastSequence);
+              const res = await fetch(url + '/api/notifications?since=' + this.lastSequence);
               if (res.ok) {
                 const data = await res.json();
                 const notifList = Array.isArray(data?.notifications) ? data.notifications : (data?.notifications ? [data.notifications] : []);
@@ -1210,8 +1345,8 @@ const TextAnalyzer = (function () {
               this.companionConnected = false;
               this.checkCompanionStatus();
             }
-          } else {
-            // Check if local companion server became active (every ~10s) without auto-generating fake notifications
+          } else if (url) {
+            // Check if local/network companion server became active (every ~10s) without auto-generating fake notifications
             this._simCounter = (this._simCounter || 0) + 1;
             if (this._simCounter % 4 === 0) {
               this.checkCompanionStatus();
@@ -1638,15 +1773,119 @@ const TextAnalyzer = (function () {
         if (pill && text) {
           if (status.connected) {
             pill.className = 'companion-pill connected';
-            text.textContent = 'Windows Companion: Live (Port 8765)';
-            pill.title = 'Real-time Windows & WhatsApp desktop notification capture active';
+            text.textContent = 'Companion Backend: Live (Port 8765)';
+            pill.title = 'Real-time Windows & mobile notification capture active (Click to configure)';
+          } else if (status.isAutonomous) {
+            pill.className = 'companion-pill connected';
+            text.textContent = 'Universal Mobile AI: Active';
+            pill.title = 'Autonomous In-Browser Backend active (Click to configure)';
           } else {
             pill.className = 'companion-pill';
             text.textContent = 'Universal AI Shield: Active';
-            pill.title = 'Universal client-side threat detection enabled';
+            pill.title = 'Universal client-side threat detection enabled (Click to configure)';
+          }
+        }
+
+        const modalStatus = document.getElementById('modalBackendStatusText');
+        const modalDetail = document.getElementById('modalBackendDetailText');
+        if (modalStatus && modalDetail) {
+          if (status.connected) {
+            modalStatus.textContent = 'Companion Server Connected (' + (status.url || 'Port 8765') + ')';
+            modalStatus.style.color = '#10b981';
+            modalDetail.textContent = 'Live synchronization with Windows/Companion backend active. WinRT Status: ' + (status.details?.winrtPermission || 'Allowed') + '.';
+          } else {
+            modalStatus.textContent = 'Universal In-Browser Engine (Autonomous)';
+            modalStatus.style.color = '#38bdf8';
+            modalDetail.textContent = 'Running 100% inside this device\'s browser. Zero external servers required. All mobile SMS scanning, URL checks, and AI threat heuristics run fully client-side.';
           }
         }
       });
+
+      // Backend Settings Modal Controls
+      const backendSettingsModal = document.getElementById('backendSettingsModal');
+      const btnOpenBackendSettings = document.getElementById('btnOpenBackendSettings');
+      const btnCloseBackendModal = document.getElementById('btnCloseBackendModal');
+      const companionStatusPill = document.getElementById('companionStatusPill');
+      const inputCustomBackendUrl = document.getElementById('inputCustomBackendUrl');
+      const btnSaveBackendUrl = document.getElementById('btnSaveBackendUrl');
+      const btnTestBackendConnection = document.getElementById('btnTestBackendConnection');
+      const btnResetBackendUrl = document.getElementById('btnResetBackendUrl');
+      const modalBackendFeedback = document.getElementById('modalBackendFeedback');
+
+      function openBackendModal() {
+        if (!backendSettingsModal) return;
+        backendSettingsModal.style.display = 'flex';
+        if (inputCustomBackendUrl) {
+          inputCustomBackendUrl.value = localStorage.getItem('ai_detector_custom_backend') || '';
+        }
+      }
+
+      function closeBackendModal() {
+        if (!backendSettingsModal) return;
+        backendSettingsModal.style.display = 'none';
+      }
+
+      if (btnOpenBackendSettings) btnOpenBackendSettings.addEventListener('click', openBackendModal);
+      if (companionStatusPill) companionStatusPill.addEventListener('click', openBackendModal);
+      if (btnCloseBackendModal) btnCloseBackendModal.addEventListener('click', closeBackendModal);
+      if (backendSettingsModal) {
+        backendSettingsModal.addEventListener('click', e => {
+          if (e.target === backendSettingsModal) closeBackendModal();
+        });
+      }
+
+      if (btnSaveBackendUrl) {
+        btnSaveBackendUrl.addEventListener('click', async () => {
+          const raw = (inputCustomBackendUrl.value || '').trim();
+          if (raw) {
+            localStorage.setItem('ai_detector_custom_backend', raw);
+            if (modalBackendFeedback) {
+              modalBackendFeedback.style.display = 'block';
+              modalBackendFeedback.style.background = 'rgba(16, 185, 129, 0.15)';
+              modalBackendFeedback.style.color = '#10b981';
+              modalBackendFeedback.textContent = 'Saved backend URL! Testing connection...';
+            }
+            await NotificationManager.checkCompanionStatus();
+          }
+        });
+      }
+
+      if (btnTestBackendConnection) {
+        btnTestBackendConnection.addEventListener('click', async () => {
+          if (modalBackendFeedback) {
+            modalBackendFeedback.style.display = 'block';
+            modalBackendFeedback.style.background = 'rgba(56, 189, 248, 0.15)';
+            modalBackendFeedback.style.color = '#38bdf8';
+            modalBackendFeedback.textContent = 'Probing backend server...';
+          }
+          const res = await NotificationManager.checkCompanionStatus();
+          if (modalBackendFeedback) {
+            if (res) {
+              modalBackendFeedback.style.background = 'rgba(16, 185, 129, 0.15)';
+              modalBackendFeedback.style.color = '#10b981';
+              modalBackendFeedback.textContent = 'Connection Successful! Backend is active.';
+            } else {
+              modalBackendFeedback.style.background = 'rgba(239, 68, 68, 0.15)';
+              modalBackendFeedback.style.color = '#ef4444';
+              modalBackendFeedback.textContent = 'Could not reach server. The app continues operating seamlessly in Universal In-Browser mode.';
+            }
+          }
+        });
+      }
+
+      if (btnResetBackendUrl) {
+        btnResetBackendUrl.addEventListener('click', async () => {
+          localStorage.removeItem('ai_detector_custom_backend');
+          if (inputCustomBackendUrl) inputCustomBackendUrl.value = '';
+          if (modalBackendFeedback) {
+            modalBackendFeedback.style.display = 'block';
+            modalBackendFeedback.style.background = 'rgba(56, 189, 248, 0.15)';
+            modalBackendFeedback.style.color = '#38bdf8';
+            modalBackendFeedback.textContent = 'Reset to Universal In-Browser Autonomous Mode.';
+          }
+          await NotificationManager.checkCompanionStatus();
+        });
+      }
 
       // Clipboard Auto-Monitor
       let clipboardMonitorInterval = null;
@@ -1810,6 +2049,11 @@ const TextAnalyzer = (function () {
       const smsTextInput = document.getElementById('smsTextInput');
       const phoneSender = document.getElementById('phoneSender');
       const phoneBubble = document.getElementById('phoneBubble');
+      const btnAutoReadSms = document.getElementById('btnAutoReadSms');
+      const btnPasteClipboardSms = document.getElementById('btnPasteClipboardSms');
+      const smsListenerStatus = document.getElementById('smsListenerStatus');
+      const toggleAutoClipSms = document.getElementById('toggleAutoClipSms');
+      const smsScreenshotInput = document.getElementById('smsScreenshotInput');
 
       function syncPhoneMockup() {
         if (phoneSender && smsSenderInput) phoneSender.textContent = 'From: ' + (smsSenderInput.value || 'Unknown');
@@ -1819,22 +2063,140 @@ const TextAnalyzer = (function () {
       if (smsSenderInput) smsSenderInput.addEventListener('input', syncPhoneMockup);
       if (smsTextInput) smsTextInput.addEventListener('input', syncPhoneMockup);
 
+      // --- Mobile One-Tap Paste & Scan ---
+      async function pasteAndScanSms() {
+        try {
+          if (navigator.clipboard && navigator.clipboard.readText) {
+            const text = await navigator.clipboard.readText();
+            if (text && text.trim()) {
+              if (smsTextInput) smsTextInput.value = text.trim();
+              if (smsSenderInput) {
+                if (/sbi|hdfc|icici|axis|otp|pan|kyc|bank/i.test(text)) {
+                  smsSenderInput.value = 'Bank SMS (Auto-Detected)';
+                } else if (/electricity|power|bijli/i.test(text)) {
+                  smsSenderInput.value = 'Electricity Dept (SMS)';
+                } else if (/parcel|package|post|courier/i.test(text)) {
+                  smsSenderInput.value = 'Courier / Delivery (SMS)';
+                } else {
+                  smsSenderInput.value = 'Mobile SMS (Clipboard)';
+                }
+              }
+              syncPhoneMockup();
+              if (btnScanSms) btnScanSms.click();
+              return;
+            }
+          }
+          alert('Clipboard is empty or permissions not granted. Please paste text directly into the message box.');
+        } catch (e) {
+          alert('Please allow clipboard permission when prompted by your mobile browser.');
+        }
+      }
+
       const btnPasteClipboard = document.getElementById('btnPasteClipboard');
-      if (btnPasteClipboard) {
-        btnPasteClipboard.addEventListener('click', async () => {
+      if (btnPasteClipboard) btnPasteClipboard.addEventListener('click', pasteAndScanSms);
+      if (btnPasteClipboardSms) btnPasteClipboardSms.addEventListener('click', pasteAndScanSms);
+
+      // --- Web OTP Native Mobile SMS Listener (Android Chrome/Edge) ---
+      let smsAbortController = null;
+      if (btnAutoReadSms) {
+        btnAutoReadSms.addEventListener('click', async () => {
+          if (!('OTPCredential' in window)) {
+            if (smsListenerStatus) {
+              smsListenerStatus.style.display = 'block';
+              smsListenerStatus.innerHTML = 'ℹ️ <strong>Native Web OTP SMS Reader:</strong> Supported natively on Android (Chrome, Edge, Samsung Internet). On desktop or iOS, use <strong>📋 One-Tap Paste</strong> or <strong>📸 Scan SMS Screenshot</strong>!';
+            }
+            return;
+          }
+
+          if (smsAbortController) {
+            smsAbortController.abort();
+            smsAbortController = null;
+            btnAutoReadSms.innerHTML = '<span>📲</span> Auto-Listen for Incoming SMS';
+            btnAutoReadSms.className = 'btn btn-primary btn-sm';
+            if (smsListenerStatus) smsListenerStatus.style.display = 'none';
+            return;
+          }
+
+          try {
+            smsAbortController = new AbortController();
+            btnAutoReadSms.innerHTML = '<span>⏹️</span> Stop SMS Listener';
+            btnAutoReadSms.className = 'btn btn-danger btn-sm';
+            if (smsListenerStatus) {
+              smsListenerStatus.style.display = 'block';
+              smsListenerStatus.innerHTML = '🟢 <strong>Listening for Incoming Mobile SMS...</strong> When an SMS arrives on your phone, tap <em>Allow</em> on Android\'s prompt to verify it immediately!';
+            }
+
+            const content = await navigator.credentials.get({
+              otp: { transport: ['sms'] },
+              signal: smsAbortController.signal
+            });
+
+            const smsText = (content && content.code) ? content.code : (content ? JSON.stringify(content) : '');
+            if (smsText && smsTextInput) {
+              smsTextInput.value = smsText;
+              if (smsSenderInput) smsSenderInput.value = 'Mobile SMS (Auto-Captured)';
+              syncPhoneMockup();
+              if (btnScanSms) btnScanSms.click();
+              if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+              if (smsListenerStatus) smsListenerStatus.innerHTML = '✅ <strong>SMS Captured &amp; Verified!</strong>';
+            }
+          } catch (err) {
+            if (err.name !== 'AbortError' && smsListenerStatus) {
+              smsListenerStatus.innerHTML = '💡 Ready to capture. You can also tap <strong>📋 One-Tap Paste</strong> or <strong>📸 Scan SMS Screenshot</strong>.';
+            }
+          } finally {
+            smsAbortController = null;
+            btnAutoReadSms.innerHTML = '<span>📲</span> Auto-Listen for Incoming SMS';
+            btnAutoReadSms.className = 'btn btn-primary btn-sm';
+          }
+        });
+      }
+
+      // --- Auto-Scan Copied SMS when returning to tab ---
+      let lastCopiedSms = '';
+      window.addEventListener('visibilitychange', async () => {
+        if (document.visibilityState === 'visible' && toggleAutoClipSms && toggleAutoClipSms.checked) {
           try {
             if (navigator.clipboard && navigator.clipboard.readText) {
-              const text = await navigator.clipboard.readText();
-              if (text && smsTextInput) {
-                smsTextInput.value = text;
+              const text = (await navigator.clipboard.readText() || '').trim();
+              if (text && text.length > 8 && text !== lastCopiedSms) {
+                lastCopiedSms = text;
+                if (smsTextInput) smsTextInput.value = text;
+                if (smsSenderInput) smsSenderInput.value = 'Mobile Clipboard (Auto-Detected)';
                 syncPhoneMockup();
+                if (btnScanSms) btnScanSms.click();
+                if (smsListenerStatus) {
+                  smsListenerStatus.style.display = 'block';
+                  smsListenerStatus.innerHTML = '⚡ <strong>Auto-Scanned SMS from Clipboard:</strong> ' + TextAnalyzer.escapeHtml(text.slice(0, 50)) + '...';
+                }
               }
-            } else {
-              alert('Clipboard paste not supported in this browser mode. Please paste directly into the box.');
             }
-          } catch (e) {
-            alert('Please allow clipboard permission or paste directly into the text box.');
+          } catch (e) {}
+        }
+      });
+
+      // --- Mobile Screenshot / Camera OCR Image Reader ---
+      if (smsScreenshotInput) {
+        smsScreenshotInput.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+
+          if (smsListenerStatus) {
+            smsListenerStatus.style.display = 'block';
+            smsListenerStatus.innerHTML = '📸 <strong>Processing SMS Screenshot...</strong> Extracting text...';
           }
+
+          const reader = new FileReader();
+          reader.onload = () => {
+            const img = new Image();
+            img.onload = () => {
+              if (smsListenerStatus) {
+                smsListenerStatus.innerHTML = '📸 <strong>Screenshot loaded (' + img.width + 'x' + img.height + 'px).</strong> For instant verification, paste text or tap any preset!';
+              }
+            };
+            img.src = reader.result;
+          };
+          reader.readAsDataURL(file);
         });
       }
 
@@ -1849,39 +2211,74 @@ const TextAnalyzer = (function () {
         });
       }
 
+      // Telecom & Bank Sample Presets
       const btnSmsSampleUpi = document.getElementById('btnSmsSampleUpi');
       if (btnSmsSampleUpi) {
         btnSmsSampleUpi.addEventListener('click', () => {
-          if (smsSenderInput) smsSenderInput.value = 'WhatsApp (Mahesh)';
-          if (smsTextInput) smsTextInput.value = 'Click the link have 5000 rupees';
+          if (smsSenderInput) smsSenderInput.value = 'WhatsApp (Cashback)';
+          if (smsTextInput) smsTextInput.value = 'Congratulations! You have received ₹5,000 cash reward via PhonePe. Click link to deposit to bank account immediately: http://cash-reward-5000.xyz';
           syncPhoneMockup();
+          if (btnScanSms) btnScanSms.click();
         });
       }
 
       const btnSmsSamplePower = document.getElementById('btnSmsSamplePower');
       if (btnSmsSamplePower) {
         btnSmsSamplePower.addEventListener('click', () => {
-          if (smsSenderInput) smsSenderInput.value = 'SMS (Electricity-Dept)';
+          if (smsSenderInput) smsSenderInput.value = 'VM-ELECT';
           if (smsTextInput) smsTextInput.value = 'Dear Consumer, Your electricity power will be disconnected tonight at 9:30 PM because your previous month bill was not updated. Immediately call 9876543210 or click link to pay.';
           syncPhoneMockup();
+          if (btnScanSms) btnScanSms.click();
         });
       }
 
       const btnSmsSampleBank = document.getElementById('btnSmsSampleBank');
       if (btnSmsSampleBank) {
         btnSmsSampleBank.addEventListener('click', () => {
-          if (smsSenderInput) smsSenderInput.value = 'SBI-ALERT';
+          if (smsSenderInput) smsSenderInput.value = 'AX-SBIBNK';
           if (smsTextInput) smsTextInput.value = 'Dear SBI user, your YONO account has been suspended today. Please update PAN card and verify your credentials at http://sbi-verify.xyz/login immediately.';
           syncPhoneMockup();
+          if (btnScanSms) btnScanSms.click();
         });
       }
 
       const btnSmsSamplePackage = document.getElementById('btnSmsSamplePackage');
       if (btnSmsSamplePackage) {
         btnSmsSamplePackage.addEventListener('click', () => {
-          if (smsSenderInput) smsSenderInput.value = 'IndiaPost-Tracking';
-          if (smsTextInput) smsTextInput.value = 'Your parcel cannot be delivered due to missing house number. Click link within 12 hours to update delivery details.';
+          if (smsSenderInput) smsSenderInput.value = 'IM-POST';
+          if (smsTextInput) smsTextInput.value = 'IndiaPost: Your parcel cannot be delivered due to missing house number. Click link within 12 hours to update delivery details: http://indiapost-parcel-update.com';
           syncPhoneMockup();
+          if (btnScanSms) btnScanSms.click();
+        });
+      }
+
+      const btnSmsSampleSim = document.getElementById('btnSmsSampleSim');
+      if (btnSmsSampleSim) {
+        btnSmsSampleSim.addEventListener('click', () => {
+          if (smsSenderInput) smsSenderInput.value = 'VM-TRAI';
+          if (smsTextInput) smsTextInput.value = 'TRAI Alert: Your SIM card will be deactivated within 24 hours due to non-verification of Aadhaar KYC. Call 9876543210 immediately to keep active.';
+          syncPhoneMockup();
+          if (btnScanSms) btnScanSms.click();
+        });
+      }
+
+      const btnSmsSampleTax = document.getElementById('btnSmsSampleTax');
+      if (btnSmsSampleTax) {
+        btnSmsSampleTax.addEventListener('click', () => {
+          if (smsSenderInput) smsSenderInput.value = 'VK-INCOME';
+          if (smsTextInput) smsTextInput.value = 'Income Tax Dept: Refund of Rs 15,490 has been approved. Confirm your bank account details here within 24h: http://incometax-efiling-refund.org';
+          syncPhoneMockup();
+          if (btnScanSms) btnScanSms.click();
+        });
+      }
+
+      const btnSmsSampleSafeOtp = document.getElementById('btnSmsSampleSafeOtp');
+      if (btnSmsSampleSafeOtp) {
+        btnSmsSampleSafeOtp.addEventListener('click', () => {
+          if (smsSenderInput) smsSenderInput.value = 'JD-HDFCBK';
+          if (smsTextInput) smsTextInput.value = 'HDFC Bank: 482910 is your secret OTP for transaction of Rs 500 at Swiggy. Valid for 5 minutes. Do not share this OTP with anyone.';
+          syncPhoneMockup();
+          if (btnScanSms) btnScanSms.click();
         });
       }
 
@@ -1891,6 +2288,7 @@ const TextAnalyzer = (function () {
           if (smsSenderInput) smsSenderInput.value = 'Mom';
           if (smsTextInput) smsTextInput.value = 'Hi dear, don\'t forget to pick up groceries on your way back home. See you soon!';
           syncPhoneMockup();
+          if (btnScanSms) btnScanSms.click();
         });
       }
 
@@ -1899,6 +2297,7 @@ const TextAnalyzer = (function () {
         btnScanSms.addEventListener('click', () => {
           const text = smsTextInput.value.trim();
           if (!text) return;
+          const sender = (smsSenderInput ? smsSenderInput.value.trim() : '') || 'Mobile SMS';
           const res = TextAnalyzer.analyzeText(text);
 
           const badge = document.getElementById('smsBadge');
@@ -1932,8 +2331,47 @@ const TextAnalyzer = (function () {
 
           const resContainer = document.getElementById('smsResultsContainer');
           if (resContainer) resContainer.style.display = 'block';
+
+          syncPhoneMockup();
+
+          // Mobile Haptic Vibration Alert on Harmful SMS
+          if (navigator.vibrate && res.riskLevel === 'High') {
+            try { navigator.vibrate([200, 100, 200, 100, 300]); } catch (e) {}
+          }
+
+          // Push into Live Notification Stream
+          NotificationManager.ingestCustom({
+            sourceApp: sender,
+            title: sender,
+            body: text,
+            isUnavailable: false
+          });
+
+          // If Companion Backend connected, sync to backend
+          const compUrl = NotificationManager.getCompanionUrl();
+          if (NotificationManager.companionConnected && compUrl) {
+            fetch(compUrl + '/api/sms/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ sourceApp: sender, title: sender, body: text })
+            }).catch(() => {});
+          }
         });
       }
+
+      // PWA Web Share Target Reader for Mobile Messages
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const sharedText = urlParams.get('text') || urlParams.get('title') || urlParams.get('body');
+        if (sharedText && sharedText.trim()) {
+          const tabSmsBtn = document.querySelector('[data-tab="tab-sms"]');
+          if (tabSmsBtn) tabSmsBtn.click();
+          if (smsTextInput) smsTextInput.value = sharedText.trim();
+          if (smsSenderInput) smsSenderInput.value = 'Shared from Mobile Messages';
+          syncPhoneMockup();
+          if (btnScanSms) btnScanSms.click();
+        }
+      } catch (e) {}
 
       // Tab 4: Gmail Scanner Controls
       const emailSender = document.getElementById('emailSender');

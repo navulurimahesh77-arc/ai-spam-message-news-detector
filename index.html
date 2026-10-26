@@ -378,15 +378,196 @@
     }
     .input-text:focus { border-color: #38bdf8; }
 
+    /* Results Display Grid */
+    .metrics-overview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .metric-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+    .metric-label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .metric-value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+    }
+    .metric-footer {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 0.45rem;
+      line-height: 1.35;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .badge-safe {
+      background-color: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #10b981;
+    }
+    .badge-spam {
+      background-color: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #f59e0b;
+    }
+    .badge-harmful {
+      background-color: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #ef4444;
+    }
+    .badge-verify {
+      background-color: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      color: #c084fc;
+    }
+
+    /* Risk Level Colors */
+    .risk-low { color: #10b981; font-weight: 800; }
+    .risk-medium { color: #f59e0b; font-weight: 800; }
+    .risk-high { color: #ef4444; font-weight: 800; }
+
+    /* Warning Flags & Chips */
+    .flags-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .flag-chip {
+      background-color: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* Select Dropdown */
+    .select-input {
+      background-color: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: #f8fafc;
+      padding: 0.55rem 0.85rem;
+      font-size: 0.875rem;
+      outline: none;
+      cursor: pointer;
+    }
+    .select-input:focus { border-color: #38bdf8; }
+
+    /* Input Footer & Char Counter */
+    .input-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin: 0.4rem 0 1rem;
+    }
+
+    /* Alerts */
+    .alert {
+      padding: 0.85rem 1.15rem;
+      border-radius: 8px;
+      margin-bottom: 1.25rem;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      line-height: 1.5;
+    }
+    .alert-warning {
+      background-color: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fde68a;
+    }
+    .alert-info {
+      background-color: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #bae6fd;
+    }
+
+    /* News Box */
+    .news-box {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(19, 29, 49, 0.8));
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+    }
+    .news-box-title {
+      color: #c084fc;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .checklist {
+      list-style: none;
+      margin-top: 0.75rem;
+    }
+    .checklist li {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .checklist li::before {
+      content: "✓";
+      color: #c084fc;
+      font-weight: bold;
+    }
+
     /* Mobile & Responsive */
     @media (max-width: 1024px) {
       .metrics-grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .metrics-overview { grid-template-columns: repeat(2, 1fr); }
       .command-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
       .app-header, .tabs-nav, .main-content, .notif-permission-bar { padding-left: 1rem; padding-right: 1rem; }
       .metrics-grid-4 { grid-template-columns: 1fr; }
+      .metrics-overview { grid-template-columns: 1fr; }
       .brand-title { font-size: 1.1rem; }
+      .input-footer { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
     }
   </style>
 </head>
@@ -399,17 +580,17 @@
         <div class="brand-wrapper">
           <div class="brand-icon">&#128737;&#65039;</div>
           <div>
-            <h1 class="brand-title">AI Shield: Universal Spam, Threat &amp; News Detector</h1>
-            <p class="brand-subtitle">Real-Time Threat Protection Across All Laptops &amp; Devices &bull; Zero Accessories Required</p>
+            <h1 class="brand-title">AI Shield: Spam, Message &amp; News Detector</h1>
+            <p class="brand-subtitle">Private Client-Side Inspection for Messages, SMS, Emails &amp; News Claims</p>
           </div>
         </div>
         <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
-          <div class="companion-pill" id="companionStatusPill" style="cursor: pointer;" title="Click to view Backend & Multi-Device Settings">
+          <div class="companion-pill" id="companionStatusPill" style="cursor: pointer;" title="Click to view Engine &amp; Multi-Device Settings">
             <span class="status-dot"></span>
-            <span id="companionStatusText">Universal AI Shield: Active</span>
+            <span id="companionStatusText">Client-Side Engine: Active</span>
           </div>
-          <button type="button" class="btn btn-secondary btn-sm" id="btnOpenBackendSettings" style="font-size: 0.78rem; padding: 0.35rem 0.65rem;" title="Configure Backend & Multi-Device Wi-Fi Linking">
-            ⚙️ Backend
+          <button type="button" class="btn btn-secondary btn-sm" id="btnOpenBackendSettings" style="font-size: 0.78rem; padding: 0.35rem 0.65rem;" title="Configure Engine &amp; Multi-Device Wi-Fi Linking">
+            ⚙️ Settings
           </button>
         </div>
       </div>
@@ -421,10 +602,10 @@
         <span style="font-size: 1.4rem;">&#128276;</span>
         <div>
           <div style="font-size: 0.92rem; font-weight: 700; color: #fff;" id="browserPermissionStatus">
-            Enable Real-Time Pop-Up Alerts on Your Screen
+            Browser Pop-Up Threat Alerts (Optional)
           </div>
           <div style="font-size: 0.8rem; color: #94a3b8;" id="browserPermissionHint">
-            Allow notifications to receive instant pop-up alerts on this laptop or phone whenever a scam or phishing threat is detected.
+            Allow notifications to receive an alert whenever you analyze a message that contains high-risk threats. (Note: Web browsers cannot read notifications from other apps).
           </div>
         </div>
       </div>
@@ -440,10 +621,7 @@
 
     <!-- Navigation Tabs (Only 4 pure universal tabs) -->
     <nav class="tabs-nav" aria-label="Main Navigation">
-      <button class="tab-btn active" data-tab="tab-notifications" id="navNotifications">
-        <span>&#128680;</span> Live Threat Stream &amp; Shield
-      </button>
-      <button class="tab-btn" data-tab="tab-analyze" id="navAnalyze">
+      <button class="tab-btn active" data-tab="tab-analyze" id="navAnalyze">
         <span>&#128221;</span> Text &amp; Message Analyzer
       </button>
       <button class="tab-btn" data-tab="tab-sms" id="navSms">
@@ -452,15 +630,26 @@
       <button class="tab-btn" data-tab="tab-gmail" id="navGmail">
         <span>&#128231;</span> Gmail Phishing Scanner
       </button>
+      <button class="tab-btn" data-tab="tab-notifications" id="navNotifications">
+        <span>&#128680;</span> Threat Simulator &amp; Feed
+      </button>
     </nav>
 
     <!-- Main Content Container -->
     <main class="main-content">
 
       <!-- ====================================================================
-           TAB 1: LIVE THREAT STREAM & SHIELD
+           TAB 1: THREAT SIMULATOR & STREAM (TESTBED)
            ==================================================================== -->
-      <section class="tab-panel active" id="tab-notifications">
+      <section class="tab-panel" id="tab-notifications">
+
+        <!-- Browser Capability Notice -->
+        <div class="alert alert-info" style="margin-bottom: 1.25rem; border-left: 4px solid #38bdf8; background: rgba(56, 189, 248, 0.1);">
+          <span>ℹ️</span>
+          <div style="font-size: 0.85rem; line-height: 1.5;">
+            <strong>Browser Security &amp; Capability Notice:</strong> Due to web browser security sandboxing, this website cannot passively monitor, intercept, or read notifications from other apps (such as WhatsApp, SMS, or Teams) on your device, and does not run or monitor notifications when closed. Use the simulator buttons below or paste messages into the scanner to test real-time detection and browser alerts.
+          </div>
+        </div>
 
         <!-- 4 Wide Hero Metric Counters -->
         <div class="metrics-grid-4">
@@ -494,23 +683,23 @@
             <div class="card">
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.85rem; margin-bottom: 0.85rem;">
                 <div>
-                  <h2 class="card-title" style="margin: 0;"><span>&#128680;</span> Live Real-Time Threat Stream</h2>
+                  <h2 class="card-title" style="margin: 0;"><span>&#128680;</span> Threat Simulator &amp; Stream</h2>
                   <div style="font-size: 0.82rem; color: #94a3b8; margin-top: 0.2rem;">
-                    Monitoring WhatsApp, SMS, Teams, Outlook &amp; Web messages. Allow notifications for instant OS pop-ups.
+                    Simulate real-world notifications or paste text to test client-side AI threat evaluation and alerts. (Web browsers cannot passively monitor other apps).
                   </div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
                   <button type="button" class="btn btn-danger btn-sm" id="btnToggleMonitoring">Stop Monitoring</button>
                   <button type="button" class="btn btn-secondary btn-sm" id="btnPauseMonitoring">Pause</button>
                   <button type="button" class="btn btn-secondary btn-sm" id="btnClearNotifHistory">Clear Stream</button>
-                  <button type="button" class="btn btn-secondary btn-sm" id="btnToggleClipboardMonitor" title="Automatically analyzes any text you copy on this laptop/phone">&#128203; Enable Clipboard Auto-Shield</button>
+                  <button type="button" class="btn btn-secondary btn-sm" id="btnToggleClipboardMonitor" title="When enabled, analyzes text you copy while this browser tab is focused">&#128203; Enable Clipboard Auto-Shield</button>
                 </div>
               </div>
 
               <!-- Stream Status & History Toggle -->
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.85rem; font-size: 0.85rem;">
                 <div>
-                  Status: <strong id="monitoringStatusLabel" style="color: #10b981;">Live Monitoring Active</strong> &bull; <span id="feedCountLabel" style="color: #94a3b8;">0 notifications</span>
+                  Status: <strong id="monitoringStatusLabel" style="color: #10b981;">Simulator Active</strong> &bull; <span id="feedCountLabel" style="color: #94a3b8;">0 notifications</span>
                 </div>
                 <label style="display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; color: #94a3b8; font-size: 0.8rem;">
                   <input type="checkbox" id="toggleSaveHistory">
@@ -582,7 +771,7 @@
         </div>
 
       </section>
-<section class="tab-panel" id="tab-analyze">
+      <section class="tab-panel active" id="tab-analyze">
       <div class="card">
         <h2 class="card-title"><span>&#128269;</span> Text, Message &amp; News Analysis</h2>
         <p class="card-description">
@@ -1959,17 +2148,31 @@ const TextAnalyzer = (function () {
         news_claim: 'SHOCKING TRUTH: Insiders confirm secret miracle cure 100% proven to reverse aging, but mainstream media won\'t report it!!',
         extortion: 'FINAL LEGAL WARNING: You are summoned for immediate federal arrest unless full settlement payment is transferred within 2 hours.',
         safe: 'Hi Team, please find attached the meeting notes and project timeline from today\'s sprint planning session.',
+        safe_msg: 'Hi Team, please find attached the meeting notes and project timeline from today\'s sprint planning session.',
         unavailable: '[Content Unavailable: Omitted by Windows privacy settings]'
       };
 
       const btnLoadSample = document.getElementById('btnLoadSample');
       const sampleSelect = document.getElementById('sampleSelect');
+      if (sampleSelect && textInput) {
+        sampleSelect.addEventListener('change', () => {
+          const k = sampleSelect.value;
+          if (k && SAMPLES[k]) {
+            textInput.value = SAMPLES[k];
+            textInput.dispatchEvent(new Event('input'));
+            const btnAn = document.getElementById('btnAnalyze');
+            if (btnAn) btnAn.click();
+          }
+        });
+      }
       if (btnLoadSample && sampleSelect && textInput) {
         btnLoadSample.addEventListener('click', () => {
           const k = sampleSelect.value;
-          if (SAMPLES[k]) {
+          if (k && SAMPLES[k]) {
             textInput.value = SAMPLES[k];
             textInput.dispatchEvent(new Event('input'));
+            const btnAn = document.getElementById('btnAnalyze');
+            if (btnAn) btnAn.click();
           }
         });
       }
@@ -2002,6 +2205,14 @@ const TextAnalyzer = (function () {
             badge.className = 'badge badge-' + (res.classification === 'Safe' ? 'safe' : res.classification === 'Spam' ? 'spam' : res.classification === 'Potentially Harmful' ? 'harmful' : 'verify');
           }
 
+          const classDetail = document.getElementById('resClassificationDetail');
+          if (classDetail) {
+            classDetail.textContent = res.classification === 'Safe' ? 'Legitimate communication patterns' :
+                                      res.classification === 'Spam' ? 'Commercial solicitation or unearned reward' :
+                                      res.classification === 'Potentially Harmful' ? 'Urgent credential, financial, or threat patterns' :
+                                      'Sensational claims requiring independent verification';
+          }
+
           const scoreEl = document.getElementById('resTrustScore');
           if (scoreEl) scoreEl.textContent = res.trustScore;
 
@@ -2029,18 +2240,41 @@ const TextAnalyzer = (function () {
             }
           }
 
+          const snippetsContainer = document.getElementById('snippetsContainer');
+          const snippetList = document.getElementById('resSnippetList');
+          if (snippetsContainer && snippetList) {
+            snippetList.innerHTML = '';
+            const validSnippets = (res.detailedFindings || []).filter(f => f && f.matchedSnippet);
+            if (validSnippets.length > 0) {
+              snippetsContainer.style.display = 'block';
+              validSnippets.forEach(f => {
+                const li = document.createElement('li');
+                li.style.cssText = 'background: var(--bg-surface-elevated); padding: 0.55rem 0.8rem; border-radius: 6px; border-left: 3px solid #ef4444; font-size: 0.85rem; color: #f1f5f9; display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap;';
+                li.innerHTML = '<span style="color: #ef4444; font-weight: 700; font-size: 0.8rem;">[' + TextAnalyzer.escapeHtml(f.label || 'Flag') + ']</span> <code style="color: #38bdf8; background: rgba(0,0,0,0.35); padding: 0.15rem 0.4rem; border-radius: 4px; font-family: monospace;">"' + TextAnalyzer.escapeHtml(f.matchedSnippet) + '"</code>';
+                snippetList.appendChild(li);
+              });
+            } else {
+              snippetsContainer.style.display = 'none';
+            }
+          }
+
           const newsBox = document.getElementById('newsAnalysisBox');
           if (newsBox) {
-            if (res.newsAnalysis && res.newsAnalysis.hasNewsClaims) {
+            if (res.newsAnalysis || res.classification === 'Needs Verification') {
               newsBox.style.display = 'block';
-              const newsExp = document.getElementById('newsAnalysisExplanation');
-              if (newsExp) newsExp.textContent = res.newsAnalysis.explanation;
+              const newsExp = document.getElementById('newsExplanationText') || document.getElementById('newsAnalysisExplanation');
+              if (newsExp && res.newsAnalysis) {
+                newsExp.textContent = res.newsAnalysis.whyNeedsVerification || res.newsAnalysis.explanation || 'This text contains sensational clickbait patterns or assertions lacking named sources.';
+              }
             } else {
               newsBox.style.display = 'none';
             }
           }
 
-          if (resultsContainer) resultsContainer.style.display = 'block';
+          if (resultsContainer) {
+            resultsContainer.style.display = 'block';
+            resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
         });
       }
 

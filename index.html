@@ -778,6 +778,24 @@
           Paste any message, promotion, or sensational news claim to inspect for scams, phishing, and clickbait patterns.
         </p>
 
+        <!-- Real-Time Incoming Notification Intercept Alert -->
+        <div id="liveNotificationAlert" style="display: none; margin-bottom: 1rem; padding: 0.85rem 1.15rem; border-radius: 8px; border-left: 5px solid #10b981; background: rgba(16, 185, 129, 0.12); animation: fadeIn 0.3s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <div style="font-size: 0.9rem;">
+              <span>&#128276;</span> <strong>Live Notification Intercepted:</strong>
+              <span id="liveAlertApp" style="color: #38bdf8; font-weight: 700;">WhatsApp</span> &bull;
+              <span id="liveAlertTitle" style="color: #cbd5e1; font-weight: 600;"></span>:
+              <span id="liveAlertBody" style="color: #f8fafc; font-weight: 500;"></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span id="liveAlertBadge" class="badge badge-safe">Safe</span>
+              <span id="liveAlertScore" style="font-size: 0.82rem; color: #10b981; font-weight: 700;">95/100</span>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnGoToFeed" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;">View in Stream &rarr;</button>
+            </div>
+          </div>
+          <div id="liveAlertExplanation" style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.35rem;"></div>
+        </div>
+
         <div class="alert alert-warning" id="emptyInputAlert" style="display: none;">
           <span>&#9888;&#65039;</span>
           <div><strong>Input Required:</strong> Please enter or paste text to analyze.</div>
@@ -1437,20 +1455,20 @@ const TextAnalyzer = (function () {
         getCompanionUrl() {
           try {
             const custom = localStorage.getItem('ai_detector_custom_backend');
-            if (custom) return custom.trim().replace(/\/+$/, '');
+            if (custom && custom.trim()) return custom.trim().replace(/\/+$/, '');
           } catch (e) {}
 
-          // If served from a local IP on LAN (e.g. http://192.168.30.155:8765):
-          if (window.location.port === '8765' || (window.location.protocol === 'http:' && !window.location.hostname.includes('github.io'))) {
+          // If served directly from companion server on port 8765
+          if (window.location.port === '8765') {
+            return window.location.origin;
+          }
+
+          // If on LAN HTTP connection
+          if (window.location.protocol === 'http:' && window.location.hostname && !window.location.hostname.includes('github.io') && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
             return window.location.protocol + '//' + window.location.hostname + ':8765';
           }
 
-          // If on HTTPS (e.g. GitHub Pages) and no custom backend set,
-          // do NOT spam 127.0.0.1:8765 which causes mixed content / connection refused errors on other devices!
-          if (window.location.protocol === 'https:') {
-            return null; // Signals Universal In-Browser Autonomous Mode!
-          }
-
+          // Default local companion endpoint for Windows desktop/laptop
           return 'http://127.0.0.1:8765';
         }
 
@@ -1470,7 +1488,7 @@ const TextAnalyzer = (function () {
 
           try {
             const controller = new AbortController();
-            const tid = setTimeout(() => controller.abort(), 1800);
+            const tid = setTimeout(() => controller.abort(), 2000);
             const res = await fetch(url + '/api/status', { signal: controller.signal });
             clearTimeout(tid);
             if (res.ok) {
@@ -1485,9 +1503,9 @@ const TextAnalyzer = (function () {
             this.isUniversalAutonomous = true;
             this._notify('companion_status', { 
               connected: false, 
-              isAutonomous: true, 
+              isAutonomous: false, 
               mode: 'Universal In-Browser Engine',
-              message: 'Local server offline. Universal In-Browser Engine active.' 
+              message: 'Local companion offline. Run run.bat on Windows to connect live notifications.' 
             });
           }
           return null;
@@ -1954,7 +1972,61 @@ const TextAnalyzer = (function () {
         });
       }
 
-      NotificationManager.on('notification_received', () => renderFeed());
+      NotificationManager.on('notification_received', item => {
+        renderFeed();
+
+        // Update Live Alert Banner on tab-analyze so incoming notifications are immediately visible!
+        const liveAlert = document.getElementById('liveNotificationAlert');
+        const alertApp = document.getElementById('liveAlertApp');
+        const alertTitle = document.getElementById('liveAlertTitle');
+        const alertBody = document.getElementById('liveAlertBody');
+        const alertBadge = document.getElementById('liveAlertBadge');
+        const alertScore = document.getElementById('liveAlertScore');
+        const alertExp = document.getElementById('liveAlertExplanation');
+
+        if (liveAlert && item) {
+          const an = item.analysis || {};
+          const classification = an.classification || 'Safe';
+          const trustScore = typeof an.trustScore === 'number' ? an.trustScore : 85;
+          const cls = classification === 'Safe' ? 'safe' :
+                      classification === 'Spam' ? 'spam' :
+                      classification === 'Potentially Harmful' ? 'harmful' : 'verify';
+          const borderColors = { safe: '#10b981', spam: '#f59e0b', harmful: '#ef4444', verify: '#a855f7' };
+          const bgColors = { safe: 'rgba(16, 185, 129, 0.12)', spam: 'rgba(245, 158, 11, 0.12)', harmful: 'rgba(239, 68, 68, 0.15)', verify: 'rgba(168, 85, 247, 0.12)' };
+
+          liveAlert.style.display = 'block';
+          liveAlert.style.borderLeftColor = borderColors[cls] || '#10b981';
+          liveAlert.style.background = bgColors[cls] || 'rgba(16, 185, 129, 0.12)';
+
+          if (alertApp) alertApp.textContent = item.sourceApp || 'Application';
+          if (alertTitle) alertTitle.textContent = item.title || 'Sender';
+          if (alertBody) alertBody.textContent = item.body || (item.isUnavailable ? '[Content Protected]' : '');
+          if (alertBadge) {
+            alertBadge.className = 'badge badge-' + cls;
+            alertBadge.textContent = classification;
+          }
+          if (alertScore) {
+            alertScore.style.color = borderColors[cls] || '#10b981';
+            alertScore.textContent = trustScore + '/100';
+          }
+          if (alertExp) alertExp.textContent = an.explanation || '';
+        }
+
+        // Update nav badge on Threat Simulator tab
+        const navNotif = document.getElementById('navNotifications');
+        if (navNotif) {
+          const count = NotificationManager.history.length;
+          navNotif.innerHTML = '<span>&#128680;</span> Threat Simulator &amp; Feed <span class="badge badge-safe" style="font-size: 0.72rem; padding: 0.1rem 0.4rem; margin-left: 0.35rem;">' + count + '</span>';
+        }
+      });
+
+      const btnGoToFeed = document.getElementById('btnGoToFeed');
+      if (btnGoToFeed) {
+        btnGoToFeed.addEventListener('click', () => {
+          const navNotif = document.getElementById('navNotifications');
+          if (navNotif) navNotif.click();
+        });
+      }
       NotificationManager.on('history_cleared', () => renderFeed());
       NotificationManager.on('companion_status', status => {
         const pill = document.getElementById('companionStatusPill');
@@ -1962,16 +2034,12 @@ const TextAnalyzer = (function () {
         if (pill && text) {
           if (status.connected) {
             pill.className = 'companion-pill connected';
-            text.textContent = 'Companion Backend: Live (Port 8765)';
-            pill.title = 'Real-time Windows & mobile notification capture active (Click to configure)';
-          } else if (status.isAutonomous) {
-            pill.className = 'companion-pill connected';
-            text.textContent = 'Universal Mobile AI: Active';
-            pill.title = 'Autonomous In-Browser Backend active (Click to configure)';
+            text.textContent = 'Windows Companion: Live (Port 8765)';
+            pill.title = 'Real-time Windows & WhatsApp notification capture active (Click to configure)';
           } else {
             pill.className = 'companion-pill';
-            text.textContent = 'Universal AI Shield: Active';
-            pill.title = 'Universal client-side threat detection enabled (Click to configure)';
+            text.textContent = 'In-Browser Engine (Companion Offline)';
+            pill.title = 'Local Windows Companion offline. Run run.bat on your laptop to enable live WhatsApp monitoring.';
           }
         }
 
@@ -2693,19 +2761,11 @@ const TextAnalyzer = (function () {
 
       // Initial Bootstrap
       renderAppFilters();
-      NotificationManager.checkCompanionStatus();
-
-      // Pre-populate with realistic samples on initial load so other laptops/phones see active detection immediately
-      if (NotificationManager.history.length === 0) {
-        NotificationManager.simulateNotification('whatsapp_scam');
-        NotificationManager.simulateNotification('sms_upi');
-        NotificationManager.simulateNotification('safe');
-      }
-
       renderFeed();
       updateBrowserPermissionUI();
+      NotificationManager.checkCompanionStatus();
 
-      // Auto-start monitoring for instant live experience on any device
+      // Auto-start monitoring to immediately listen for incoming companion notifications
       NotificationManager.startMonitoring();
     });
   </script>

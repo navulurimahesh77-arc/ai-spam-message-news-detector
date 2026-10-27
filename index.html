@@ -570,6 +570,7 @@
       .input-footer { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js" defer></script>
 </head>
 <body>
   <div class="app-container">
@@ -819,6 +820,10 @@
               <option value="safe_msg">&#9989; Safe Personal Message</option>
             </select>
             <button type="button" class="btn btn-secondary btn-sm" id="btnLoadSample">Insert Sample</button>
+            <label class="btn btn-secondary btn-sm" style="margin: 0; cursor: pointer; border-color: #38bdf8; color: #38bdf8; display: inline-flex; align-items: center; gap: 0.35rem;" title="Upload or capture message screenshot to extract text using OCR">
+              <span>📸</span> Scan Screenshot
+              <input type="file" id="mainScreenshotInput" accept="image/*" style="display: none;">
+            </label>
           </div>
           <div style="display: flex; gap: 0.5rem;">
             <button type="button" class="btn btn-secondary" id="btnClear">Clear</button>
@@ -2477,28 +2482,192 @@ const TextAnalyzer = (function () {
         }
       });
 
-      // --- Mobile Screenshot / Camera OCR Image Reader ---
+      // --- Universal Client-Side & Local Native OCR Image Reader ---
+      async function extractTextFromImage(file, onProgress) {
+        if (!file || !file.type.startsWith('image/')) {
+          throw new Error('Please select a valid image file (PNG, JPG, WebP).');
+        }
+
+        // 1. Try local companion Windows Native OCR (zero external network, fastest execution)
+        try {
+          const compUrl = NotificationManager.getCompanionUrl();
+          if (compUrl) {
+            if (onProgress) onProgress('Checking local Windows OCR engine...');
+            const reader = new FileReader();
+            const b64Promise = new Promise((resolve, reject) => {
+              reader.onload = () => resolve(reader.result.split(',')[1]);
+              reader.onerror = reject;
+              reader.readAsDataURL(file);
+            });
+            const b64Data = await b64Promise;
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 2000);
+            const res = await fetch(compUrl + '/api/ocr', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ image: b64Data }),
+              signal: controller.signal
+            }).catch(() => null);
+            clearTimeout(tid);
+            if (res && res.ok) {
+              const data = await res.json();
+              if (data && data.success && data.text && data.text.trim()) {
+                return data.text.trim();
+              }
+            }
+          }
+        } catch (e) {}
+
+        // 2. Load into HTML Image object for in-browser OCR
+        const img = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const i = new Image();
+            i.onload = () => resolve(i);
+            i.onerror = () => reject(new Error('Failed to load image.'));
+            i.src = reader.result;
+          };
+          reader.onerror = () => reject(new Error('Failed to read image file.'));
+          reader.readAsDataURL(file);
+        });
+
+        // 3. Try Native Browser TextDetector (Android Chrome & Desktop Chromium)
+        if ('TextDetector' in window) {
+          try {
+            if (onProgress) onProgress('Scanning with native browser TextDetector...');
+            const detector = new window.TextDetector();
+            const detected = await detector.detect(img);
+            if (detected && detected.length > 0) {
+              const text = detected.map(d => d.rawValue).filter(Boolean).join('\n').trim();
+              if (text) return text;
+            }
+          } catch (e) {}
+        }
+
+        // 4. Client-Side Tesseract.js (WebAssembly in browser Worker)
+        if (onProgress) onProgress('Loading client-side OCR engine...');
+        if (!window.Tesseract) {
+          await new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error('Client-side OCR library could not be loaded. Please ensure you are online or paste message text directly.'));
+            document.head.appendChild(script);
+          });
+        }
+
+        if (window.Tesseract) {
+          if (onProgress) onProgress('Recognizing text in screenshot...');
+          const worker = await window.Tesseract.createWorker('eng', 1, {
+            logger: m => {
+              if (onProgress && m.status) {
+                const pct = Math.round((m.progress || 0) * 100);
+                if (m.status === 'recognizing text') {
+                  onProgress('Recognizing text: ' + pct + '%');
+                } else if (m.status.includes('loading')) {
+                  onProgress('Loading language model...');
+                }
+              }
+            }
+          });
+          const ret = await worker.recognize(img);
+          await worker.terminate();
+          const txt = (ret && ret.data && ret.data.text) ? ret.data.text.trim() : '';
+          if (txt) return txt;
+        }
+
+        throw new Error('No legible text could be recognized from this screenshot. Please try a clearer screenshot or paste the text directly.');
+      }
+
+      // Handler for Tab 2: Mobile SMS Screenshot OCR
       if (smsScreenshotInput) {
-        smsScreenshotInput.addEventListener('change', (e) => {
+        smsScreenshotInput.addEventListener('change', async (e) => {
           const file = e.target.files && e.target.files[0];
           if (!file) return;
 
           if (smsListenerStatus) {
             smsListenerStatus.style.display = 'block';
-            smsListenerStatus.innerHTML = '📸 <strong>Processing SMS Screenshot...</strong> Extracting text...';
+            smsListenerStatus.innerHTML = '📸 <strong>Processing SMS Screenshot...</strong> Initializing OCR...';
           }
 
-          const reader = new FileReader();
-          reader.onload = () => {
-            const img = new Image();
-            img.onload = () => {
-              if (smsListenerStatus) {
-                smsListenerStatus.innerHTML = '📸 <strong>Screenshot loaded (' + img.width + 'x' + img.height + 'px).</strong> For instant verification, paste text or tap any preset!';
+          try {
+            const extracted = await extractTextFromImage(file, (msg) => {
+              if (smsListenerStatus) smsListenerStatus.innerHTML = '📸 <strong>OCR Scanning:</strong> ' + TextAnalyzer.escapeHtml(msg);
+            });
+
+            if (extracted && extracted.trim()) {
+              const cleanText = extracted.trim();
+              if (smsTextInput) smsTextInput.value = cleanText;
+
+              if (smsSenderInput) {
+                const senderMatch = cleanText.match(/(?:From|Sender|Chat with|Message from)[:\s]+([^\n\r]+)/i) ||
+                                    cleanText.match(/(\+?\d{10,13}|[A-Z]{2}-[A-Z0-9]{5,8}|WhatsApp)/i);
+                if (senderMatch && senderMatch[1]) {
+                  smsSenderInput.value = senderMatch[1].trim();
+                } else {
+                  smsSenderInput.value = 'Screenshot OCR (Mobile)';
+                }
               }
-            };
-            img.src = reader.result;
-          };
-          reader.readAsDataURL(file);
+
+              syncPhoneMockup();
+              if (btnScanSms) btnScanSms.click();
+
+              if (smsListenerStatus) {
+                smsListenerStatus.style.display = 'block';
+                smsListenerStatus.innerHTML = '✅ <strong>Screenshot OCR Extracted &amp; Analyzed!</strong> Verified message content below.';
+              }
+
+              const resContainer = document.getElementById('smsResultsContainer');
+              if (resContainer) {
+                resContainer.style.display = 'block';
+                resContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            } else {
+              if (smsListenerStatus) {
+                smsListenerStatus.style.display = 'block';
+                smsListenerStatus.innerHTML = '⚠️ <strong>No text detected in screenshot.</strong> Please ensure the message is legible and high contrast, or paste the text directly.';
+              }
+            }
+          } catch (err) {
+            if (smsListenerStatus) {
+              smsListenerStatus.style.display = 'block';
+              smsListenerStatus.innerHTML = '⚠️ <strong>OCR Error:</strong> ' + TextAnalyzer.escapeHtml(err.message || 'Could not process image.');
+            }
+          } finally {
+            smsScreenshotInput.value = '';
+          }
+        });
+      }
+
+      // Handler for Tab 1: Main Text Analyzer Screenshot OCR
+      const mainScreenshotInput = document.getElementById('mainScreenshotInput');
+      if (mainScreenshotInput && textInput) {
+        mainScreenshotInput.addEventListener('change', async (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+
+          const charLabel = document.getElementById('charCountLabel');
+          if (charLabel) charLabel.textContent = '📸 Scanning image OCR...';
+
+          try {
+            const extracted = await extractTextFromImage(file, (msg) => {
+              if (charLabel) charLabel.textContent = '📸 ' + msg;
+            });
+
+            if (extracted && extracted.trim()) {
+              textInput.value = extracted.trim();
+              textInput.dispatchEvent(new Event('input'));
+              const btnAn = document.getElementById('btnAnalyze');
+              if (btnAn) btnAn.click();
+            } else {
+              alert('No legible text could be recognized from this screenshot. Please try a clearer screenshot or paste the text directly.');
+            }
+          } catch (err) {
+            alert('OCR error: ' + (err.message || 'Could not process image.'));
+          } finally {
+            mainScreenshotInput.value = '';
+            if (charLabel) charLabel.textContent = textInput.value.length + ' characters';
+          }
         });
       }
 

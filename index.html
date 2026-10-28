@@ -620,6 +620,31 @@
       </div>
     </div>
 
+    <!-- Dedicated Companion Health & Real-Time WhatsApp Monitoring Banner -->
+    <div id="companionConnectionBanner" style="display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1.25rem; margin-bottom: 1.25rem; border-radius: 8px; font-size: 0.88rem; background: rgba(245, 158, 11, 0.12); border: 1px solid #f59e0b; transition: all 0.3s ease;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <span id="companionBannerIcon" style="font-size: 1.35rem;">🟡</span>
+        <div>
+          <div id="companionBannerTitle" style="font-weight: 700; color: #fff;">Windows Companion: Connecting...</div>
+          <div id="companionBannerSubtitle" style="font-size: 0.8rem; color: #cbd5e1; margin-top: 0.15rem;">Checking port 8765 for live WhatsApp capture...</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+        <a href="run.bat" download="run.bat" class="btn btn-primary btn-sm" id="btnBannerDownload" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; text-decoration: none; display: none;">
+          ⬇️ Download run.bat
+        </a>
+        <a href="SpamShield-Windows-Companion.zip" download="SpamShield-Windows-Companion.zip" class="btn btn-secondary btn-sm" id="btnBannerDownloadZip" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; text-decoration: none; display: none;">
+          📦 Download ZIP
+        </a>
+        <button type="button" class="btn btn-primary btn-sm" id="btnBannerAction" style="font-size: 0.78rem; padding: 0.35rem 0.75rem; display: none;">
+          Grant Access
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btnBannerCheckNow" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;">
+          🔄 Check Connection
+        </button>
+      </div>
+    </div>
+
     <!-- Navigation Tabs (Only 4 pure universal tabs) -->
     <nav class="tabs-nav" aria-label="Main Navigation">
       <button class="tab-btn active" data-tab="tab-analyze" id="navAnalyze">
@@ -694,6 +719,28 @@
                   <button type="button" class="btn btn-secondary btn-sm" id="btnPauseMonitoring">Pause</button>
                   <button type="button" class="btn btn-secondary btn-sm" id="btnClearNotifHistory">Clear Stream</button>
                   <button type="button" class="btn btn-secondary btn-sm" id="btnToggleClipboardMonitor" title="When enabled, analyzes text you copy while this browser tab is focused">&#128203; Enable Clipboard Auto-Shield</button>
+                </div>
+              </div>
+
+              <!-- Windows Companion 1-Click Download Card for Other Laptops -->
+              <div class="card" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(16, 185, 129, 0.08)); border: 1px solid #2563eb; margin-bottom: 1rem; padding: 0.9rem 1.15rem; border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+                  <div>
+                    <div style="font-size: 0.92rem; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 0.4rem;">
+                      <span>💻</span> Auto-Monitor WhatsApp on this Laptop
+                    </div>
+                    <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 0.2rem;">
+                      Download and double-click <strong>run.bat</strong> to automatically capture incoming WhatsApp messages on this laptop.
+                    </div>
+                  </div>
+                  <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                    <a href="run.bat" download="run.bat" class="btn btn-primary btn-sm" style="font-size: 0.78rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
+                      <span>⬇️</span> Download run.bat
+                    </a>
+                    <a href="SpamShield-Windows-Companion.zip" download="SpamShield-Windows-Companion.zip" class="btn btn-secondary btn-sm" style="font-size: 0.78rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem;">
+                      <span>📦</span> Download Package (ZIP)
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -1134,6 +1181,22 @@
           <div id="modalBackendFeedback" style="display: none; margin-top: 0.6rem; font-size: 0.82rem; padding: 0.5rem 0.75rem; border-radius: 6px;"></div>
         </div>
 
+        <!-- 1-Click Download for Windows Laptops -->
+        <div style="margin-bottom: 1.25rem; padding: 0.95rem; background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.3); border-radius: 8px;">
+          <strong style="color: #38bdf8; display: block; font-size: 0.88rem; margin-bottom: 0.35rem;">💻 Run on this Windows Laptop:</strong>
+          <div style="font-size: 0.8rem; color: #cbd5e1; margin-bottom: 0.65rem; line-height: 1.45;">
+            To let this laptop automatically capture WhatsApp notifications and display real-time safety scores, download and run the companion:
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="run.bat" download="run.bat" class="btn btn-primary btn-sm" style="text-decoration: none; font-size: 0.8rem;">
+              ⬇️ Download run.bat
+            </a>
+            <a href="SpamShield-Windows-Companion.zip" download="SpamShield-Windows-Companion.zip" class="btn btn-secondary btn-sm" style="text-decoration: none; font-size: 0.8rem;">
+              📦 Download ZIP Package
+            </a>
+          </div>
+        </div>
+
         <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 8px; padding: 0.85rem; font-size: 0.82rem; color: #94a3b8;">
           <strong style="color: #38bdf8; display: block; margin-bottom: 0.35rem;">📱 Mobile SMS Quick Guide:</strong>
           <ul style="margin: 0 0 0 1.2rem; line-height: 1.55;">
@@ -1558,11 +1621,8 @@ const TextAnalyzer = (function () {
               this.checkCompanionStatus();
             }
           } else if (url) {
-            // Check if local/network companion server became active (every ~10s) without auto-generating fake notifications
-            this._simCounter = (this._simCounter || 0) + 1;
-            if (this._simCounter % 4 === 0) {
-              this.checkCompanionStatus();
-            }
+            // Rapidly check if companion server became active so connection is immediate
+            this.checkCompanionStatus();
           }
         }
 
@@ -2048,6 +2108,60 @@ const TextAnalyzer = (function () {
           }
         }
 
+        // Update Prominent Live Connection Banner
+        const banner = document.getElementById('companionConnectionBanner');
+        const bIcon = document.getElementById('companionBannerIcon');
+        const bTitle = document.getElementById('companionBannerTitle');
+        const bSub = document.getElementById('companionBannerSubtitle');
+        const bAction = document.getElementById('btnBannerAction');
+
+        if (banner && bIcon && bTitle && bSub) {
+          if (status.connected) {
+            const perm = status.details?.winrtPermission;
+            if (perm === 'Denied') {
+              banner.style.background = 'rgba(239, 68, 68, 0.15)';
+              banner.style.borderColor = '#ef4444';
+              bIcon.textContent = '⚠️';
+              bTitle.textContent = 'Companion Connected, but Windows Permission is Denied';
+              bSub.textContent = 'Windows is blocking apps from reading notifications. Click "Grant Access" below to open Settings.';
+              if (bAction) {
+                bAction.style.display = 'inline-block';
+                bAction.textContent = 'Grant Access';
+                bAction.onclick = () => {
+                  const url = NotificationManager.getCompanionUrl();
+                  if (url) fetch(url + '/api/request-permission', { method: 'POST' }).catch(() => {});
+                };
+              }
+            } else {
+              banner.style.background = 'rgba(16, 185, 129, 0.15)';
+              banner.style.borderColor = '#10b981';
+              bIcon.textContent = '🟢';
+              bTitle.textContent = 'Windows Companion: Live & Active (Port 8765)';
+              bSub.textContent = 'Automatic WhatsApp monitoring is active! Incoming notifications will be analyzed automatically in real time.';
+              if (bAction) bAction.style.display = 'none';
+              const bDown = document.getElementById('btnBannerDownload');
+              const bDownZip = document.getElementById('btnBannerDownloadZip');
+              if (bDown) bDown.style.display = 'none';
+              if (bDownZip) bDownZip.style.display = 'none';
+            }
+          } else {
+            banner.style.background = 'rgba(245, 158, 11, 0.15)';
+            banner.style.borderColor = '#f59e0b';
+            bIcon.textContent = '🟡';
+            bTitle.textContent = 'Automatic WhatsApp Monitoring: Offline on this Laptop';
+            bSub.textContent = 'To monitor WhatsApp messages automatically on this laptop, download and run the companion below.';
+            const bDown = document.getElementById('btnBannerDownload');
+            const bDownZip = document.getElementById('btnBannerDownloadZip');
+            if (bDown) bDown.style.display = 'inline-flex';
+            if (bDownZip) bDownZip.style.display = 'inline-flex';
+            if (bAction) {
+              bAction.style.display = 'inline-block';
+              bAction.textContent = 'Setup Instructions';
+              bAction.onclick = () => openBackendModal();
+            }
+          }
+        }
+
         const modalStatus = document.getElementById('modalBackendStatusText');
         const modalDetail = document.getElementById('modalBackendDetailText');
         if (modalStatus && modalDetail) {
@@ -2062,6 +2176,15 @@ const TextAnalyzer = (function () {
           }
         }
       });
+
+      const btnBannerCheckNow = document.getElementById('btnBannerCheckNow');
+      if (btnBannerCheckNow) {
+        btnBannerCheckNow.addEventListener('click', async () => {
+          btnBannerCheckNow.textContent = '🔄 Checking...';
+          await NotificationManager.checkCompanionStatus();
+          setTimeout(() => { btnBannerCheckNow.textContent = '🔄 Check Connection'; }, 800);
+        });
+      }
 
       // Backend Settings Modal Controls
       const backendSettingsModal = document.getElementById('backendSettingsModal');
